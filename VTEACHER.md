@@ -6,7 +6,7 @@ https://github.com/rgbkids/server-components-demo/blob/feature/vteacher/VTEACHER
 
 ![prof4.png](https://vteacher.online/v/tmp/prof/02c.png)"I was doing Vue"
 
-![prof3.png](https://vteacher.online/v/tmp/prof/0a2.png)「SSR ( PHP / Ruby on Rails ) ...」
+![prof3.png](https://vteacher.online/v/tmp/prof/0a2.png)"SSR ( PHP / Ruby on Rails ) ..."
 
 I think it's good news for such people.
 
