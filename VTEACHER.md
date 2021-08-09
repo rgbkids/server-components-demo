@@ -2,11 +2,11 @@ https://github.com/rgbkids/server-components-demo/blob/feature/vteacher/VTEACHER
 
 # Introduction
 
-![prof2.png](https://vteacher.online/v/tmp/prof/15.png)"I was late for React"
+![prof2.png](https://vteacher.online/v/tmp/prof/015.png)"I was late for React"
 
-![prof4.png](https://vteacher.online/v/tmp/prof/2c.png)"I was doing Vue"
+![prof4.png](https://vteacher.online/v/tmp/prof/02c.png)"I was doing Vue"
 
-![prof3.png](https://vteacher.online/v/tmp/prof/a2.png)「SSR ( PHP / Ruby on Rails ) ...」
+![prof3.png](https://vteacher.online/v/tmp/prof/0a2.png)「SSR ( PHP / Ruby on Rails ) ...」
 
 I think it's good news for such people.
 
@@ -216,7 +216,7 @@ export default function Hoge() {
 }
 ```
 
-![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"experiment"**
+![prof1.png](https://vteacher.online/v/tmp/prof/063.png)**"experiment"**
 
 Let's copy Hoge.server.js and create Hoge.client.js.
 Let's import App.server.js to Hoge.client. It will be
@@ -345,7 +345,7 @@ You should see something like the following.
 ```
 
 
-![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"Supplement"**
+![prof1.png](https://vteacher.online/v/tmp/prof/063.png)**"Supplement"**
 By the way, if you put ServerComponent which is a child of ClientComponent, no error will occur, but you cannot access db from that ServerComponent (fetch is possible).
 
 ```
@@ -363,7 +363,7 @@ React Server Components benefit from "improved rendering performance (target bun
 (React Server Components do not make the display lighter, but component design needs to be done properly, such as the WarterFall problem in SPA).
 
 
-![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"Experiment"**
+![prof1.png](https://vteacher.online/v/tmp/prof/063.png)**"Experiment"**
 **Let's intentionally create a delay.**
 
 The React Server Components demo provides sleep for fetching.
@@ -392,7 +392,7 @@ Let's check it with a web browser.
 **I think it will be displayed after 3 seconds.**
 http://localhost:4000/
 
-![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"Verification"**
+![prof1.png](https://vteacher.online/v/tmp/prof/063.png)**"Verification"**
 Using Chrome as a web browser, open Chrome's development tools (right-click to verify), select the Network tab, `react?location=...` and look at the Preview to see the data returned from the server side to the client side. increase.
 
 
@@ -825,3 +825,4 @@ What did you think?
 I was able to create an original component and register / update / delete data.
 I also experienced the experimental features that are said to be for React Server Components, as described in TIPS.
 Next time, I will explain Relay + GraphQL in the server component.
+
