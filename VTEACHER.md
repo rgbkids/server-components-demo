@@ -1,10 +1,12 @@
+https://github.com/rgbkids/server-components-demo/blob/feature/vteacher/VTEACHER.md
+
 # Introduction
 
-![prof2.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/62638/6fade923-11c7-9d6c-caef-83f2858a9e15.png)"I was late for React"
+![prof2.png](https://vteacher.online/v/tmp/prof/15.png)"I was late for React"
 
-![prof4.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/62638/01846611-9b4b-57fe-4b54-bd32db407b2c.png)"I was doing Vue"
+![prof4.png](https://vteacher.online/v/tmp/prof/2c.png)"I was doing Vue"
 
-![prof3.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/62638/d91e7f32-31c0-51df-6cfc-8b5854886da2.png)「SSR ( PHP / Ruby on Rails ) ...」
+![prof3.png](https://vteacher.online/v/tmp/prof/a2.png)「SSR ( PHP / Ruby on Rails ) ...」
 
 I think it's good news for such people.
 
@@ -32,7 +34,7 @@ DB uses PostgreSQL, but the goal is `React Server Components + Relay ＋ GraphQL
 
 # Demonstration installation
 
-See the README for how to install the demo. 
+See the README for how to install the demo.
 https://github.com/reactjs/server-components-demo
 
 If you can confirm it on localhost, let's move on.
@@ -48,7 +50,7 @@ It is okay to delete the rest of the files, leaving the following below src.
 - App.server.js
 - Root.client.js
 - Cache.client.js
-- db.server.js              
+- db.server.js
 - LocationContext.client.js
 - index.client.js
 
@@ -77,17 +79,17 @@ By defining this with the file name Hoge, `<Hoge />` you can tag it as follows. 
 React Sever Components is a popular name. Three types of files are used for use.
 
 - **Server component**
-  - File name naming convention is .server.js
-  - Render on the server side
-  - Access to other resources (react-fetch to REST API, react-pg to DB reference, Relay + GraphQL, etc.)
+    - File name naming convention is .server.js
+    - Render on the server side
+    - Access to other resources (react-fetch to REST API, react-pg to DB reference, Relay + GraphQL, etc.)
 - **Client component**
-  - File name naming convention is .client.js
-  - Render on the client side
-  - Access to other resources (from react-fetch to REST API, etc.)
-  - You can use state just like a regular React component.
+    - File name naming convention is .client.js
+    - Render on the client side
+    - Access to other resources (from react-fetch to REST API, etc.)
+    - You can use state just like a regular React component.
 - **Common components**
-  - File name naming convention is .js
-  - A component that can be used on both the server and client sides. overhead processing.
+    - File name naming convention is .js
+    - A component that can be used on both the server and client sides. overhead processing.
 
 
 ### Naming (naming convention)
@@ -123,7 +125,7 @@ React Server Components starts here. Describe the server component in this file.
 
 For now, let's do this for now.
 
-```src/App.server.js
+```react
 export default function App({selectedId, isEditing, searchText}) {
   return (
     <div>
@@ -146,7 +148,7 @@ First, let's prepare the server component. As I mentioned earlier, let's start w
 
 - src/Hoge.server.js (create new)
 
-```src/Hoge.server.js
+```react
 export default function Hoge() {
     return (
         <div>
@@ -160,7 +162,7 @@ Write this Hoge (Hoge.server.js) in App.server.js.
 
 - src/App.server.js (Since it already exists, change it and save it)
 
-```src/App.server.js
+```react
 import Hoge from './Hoge.server';
 
 export default function App({selectedId, isEditing, searchText}) {
@@ -185,7 +187,7 @@ If you check it with a web browser, the value obtained by db / fetch will be dis
 
 - src / Hoge.server.js (let's change it)
 
-```src/Hoge.server.js
+```react
 import {db} from './db.server'; // db（react-pg）
 import {fetch} from 'react-fetch'; // fetch（react-fetch）
 
@@ -214,7 +216,7 @@ export default function Hoge() {
 }
 ```
 
-![prof1.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/62638/6c0b4ace-ba61-d2f2-0576-882b3a9b0063.png)**"experiment"**
+![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"experiment"**
 
 Let's copy Hoge.server.js and create Hoge.client.js.
 Let's import App.server.js to Hoge.client. It will be
@@ -237,7 +239,7 @@ Let's design the following components.
 
 - src / App.server.js (let's change it)
 
-```src/App.server.js
+```react
 import Hello from './Hello.server';
 import World from './World.server';
 
@@ -252,9 +254,9 @@ export default function App({selectedId, isEditing, searchText}) {
 ```
 
 - src / Hello.server.js (Create new)  
-Server component. Get the value from db and pass it on to the child client component (Left).
+  Server component. Get the value from db and pass it on to the child client component (Left).
 
-```src/Hello.server.js
+```react
 import {db} from './db.server';
 import Left from './Left.client';
 
@@ -275,9 +277,9 @@ export default function Hello() {
 ```
 
 - src / World.server.js (Create new)
-Server component. The value is fetched by fetch and inherited by the child client component (Right).
+  Server component. The value is fetched by fetch and inherited by the child client component (Right).
 
-```src/World.server.js
+```react
 import {fetch} from 'react-fetch';
 import Right from './Right.client';
 
@@ -293,9 +295,9 @@ export default function World() {
 ```
 
 - src / Left.client.js (Create new)  
-Client component. Display the passed value on the left (set with css).
+  Client component. Display the passed value on the left (set with css).
 
-```src/Left.client.js
+```react
 export default function Left({text}) {
     return (
         <div className="left">
@@ -306,9 +308,9 @@ export default function Left({text}) {
 ```
 
 - src / Right.client.js (Create new)  
-Client component. Display the passed value on the right side (set with css).
+  Client component. Display the passed value on the right side (set with css).
 
-```src/Right.client.js
+```react
 export default function Right({text}) {
     return (
         <div className="right">
@@ -343,7 +345,7 @@ You should see something like the following.
 ```
 
 
-![prof1.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/62638/6c0b4ace-ba61-d2f2-0576-882b3a9b0063.png)**"Supplement"**
+![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"Supplement"**
 By the way, if you put ServerComponent which is a child of ClientComponent, no error will occur, but you cannot access db from that ServerComponent (fetch is possible).
 
 ```
@@ -361,7 +363,7 @@ React Server Components benefit from "improved rendering performance (target bun
 (React Server Components do not make the display lighter, but component design needs to be done properly, such as the WarterFall problem in SPA).
 
 
-![prof1.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/62638/6c0b4ace-ba61-d2f2-0576-882b3a9b0063.png)**"Experiment"**
+![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"Experiment"**
 **Let's intentionally create a delay.**
 
 The React Server Components demo provides sleep for fetching.
@@ -369,7 +371,7 @@ Doing this intentionally creates a delay.
 
 - src/World.server.js (let's change)
 
-```src/World.server.js
+```react
 import {fetch} from 'react-fetch';
 import Right from './Right.client';
 
@@ -390,7 +392,7 @@ Let's check it with a web browser.
 **I think it will be displayed after 3 seconds.**
 http://localhost:4000/
 
-![prof1.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/62638/6c0b4ace-ba61-d2f2-0576-882b3a9b0063.png)**"Verification"**
+![prof1.png](https://vteacher.online/v/tmp/prof/63.png)**"Verification"**
 Using Chrome as a web browser, open Chrome's development tools (right-click to verify), select the Network tab, `react?location=...` and look at the Preview to see the data returned from the server side to the client side. increase.
 
 
@@ -408,12 +410,12 @@ https://ja.reactjs.org/docs/concurrent-mode-suspense.html
 Follow the demo `<Suspense />` and use.
 
 - reference
-https://github.com/reactwg/react-18/discussions/37
+  https://github.com/reactwg/react-18/discussions/37
 
 
 - src / App.server.js (let's change it)
 
-```src/App.server.js
+```react
 import {Suspense} from 'react';
 
 import Hello from './Hello.server';
@@ -443,14 +445,14 @@ When the screen is displayed suddenly, such as when you press a button, you may 
 You can skip these "what you don't want to see" and allow them to wait for new content to load before transitioning to a new screen.
 
 - reference  
-https://ja.reactjs.org/docs/concurrent-mode-patterns.html
+  https://ja.reactjs.org/docs/concurrent-mode-patterns.html
 
 It is obvious when you actually try it.
 Let's add the redrawing process. Prepare a pattern that uses transitions and a pattern that does not, and compare them.
 
 - src / Left.client.js (let's change it)
 
-```src/Left.client.js
+```react
 import {useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 
@@ -502,7 +504,7 @@ This is a method of inheriting the value on the server side.
 In the Facebook demo, the app takes three arguments ( `{selectedId, isEditing, searchText}` ).
 This is related to the client component code for the transition above (the setLocation function in LocationContext.client).
 
-```src/Left.client.js
+```react
         setLocation((loc) => ({
             selectedId: idNext,
             isEditing: false,
@@ -516,7 +518,7 @@ The server component `<Hello />` and `<World />` , let's take over the selectedI
 
 - src / App.server.js (change)
 
-```src/App.server.js
+```react
 import {Suspense} from 'react';
 
 import Hello from './Hello.server';
@@ -540,7 +542,7 @@ export default function App({selectedId, isEditing, searchText}) {
 
 - src / Hello.server.js (change)
 
-```src/Hello.server.js
+```react
 import {db} from './db.server';
 import Left from './Left.client';
 
@@ -563,7 +565,7 @@ export default function Hello({selectedId}) {
 
 - src / World.server.js (change)
 
-```src/World.server.js
+```react
 import {fetch} from 'react-fetch';
 import Right from './Right.client';
 
@@ -593,7 +595,7 @@ http://localhost:4000/
 **Note: If you leave it as it is, if you specify an id that does not exist, a syntax error will occur and it will drop, so please correct the API of the demo (provisional support).**
 
 - server / api.server.js (and change)  
-177 line, `res.json(rows[0]);` change `res.json(rows[0] || "null");` .
+  177 line, `res.json(rows[0]);` change `res.json(rows[0] || "null");` .
 
 ```server/api.server.js
 app.get(
@@ -604,13 +606,13 @@ app.get(
 );
 ```
 
-- `"null"` Please see here for the reason for choosing.  
+- `"null"` Please see here for the reason for choosing.
 
 https://www.rfc-editor.org/rfc/rfc8259
 
 https://stackoverflow.com/questions/9158665/json-parse-fails-in-google-chrome
 
-- Pull Request to `reactjs/server-components-demo`  
+- Pull Request to `reactjs/server-components-demo`
 
 https://github.com/reactjs/server-components-demo/pull/50
 
@@ -629,7 +631,7 @@ It's okay to put a transition in onClick.
 
 - src / Former.server.js (create new)
 
-```src/Former.server.js
+```react
 import {fetch} from 'react-fetch';
 import FormerClient from './Former.client';
 
@@ -653,7 +655,7 @@ export default function Former({selectedId}) {
 
 - src / Former.client.js (create new)
 
-```src/Former.client.js
+```react
 import {useState, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';
@@ -787,12 +789,12 @@ export default function Former({id, initialTitle, initialBody}) {
 
 
 - src / App.server.js (change)  
-Describe the created Former (server component).
+  Describe the created Former (server component).
 
 `<Former />` Give a key to the parent element of. The key is needed for React to identify which elements have been changed / added / deleted.
 In the following `<section></section>` we used it, `<div></div>` but okay.
 
-```src/App.server.js
+```react
 import {Suspense} from 'react';
 
 import Hello from './Hello.server';
