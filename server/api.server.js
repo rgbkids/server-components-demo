@@ -39,7 +39,7 @@ app.use(express.json());
 
 app
   .listen(PORT, () => {
-    console.log(`React Notes listening at ${PORT}...`);
+    console.log(`React VTeachers listening at ${PORT}...`);
   })
   .on('error', function(error) {
     if (error.syscall !== 'listen') {
@@ -113,19 +113,19 @@ app.get('/react', function(req, res) {
   sendResponse(req, res, null);
 });
 
-const NOTES_PATH = path.resolve(__dirname, '../notes');
+const VTEACHERS_PATH = path.resolve(__dirname, '../vteachers');
 
 app.post(
-  '/notes',
+  '/vteachers',
   handleErrors(async function(req, res) {
     const now = new Date();
     const result = await pool.query(
-      'insert into notes (title, body, created_at, updated_at) values ($1, $2, $3, $3) returning id',
+      'insert into vteachers (title, body, created_at, updated_at) values ($1, $2, $3, $3) returning id',
       [req.body.title, req.body.body, now]
     );
     const insertedId = result.rows[0].id;
     await writeFile(
-      path.resolve(NOTES_PATH, `${insertedId}.md`),
+      path.resolve(VTEACHERS_PATH, `${insertedId}.md`),
       req.body.body,
       'utf8'
     );
@@ -134,16 +134,16 @@ app.post(
 );
 
 app.put(
-  '/notes/:id',
+  '/vteachers/:id',
   handleErrors(async function(req, res) {
     const now = new Date();
     const updatedId = Number(req.params.id);
     await pool.query(
-      'update notes set title = $1, body = $2, updated_at = $3 where id = $4',
+      'update vteachers set title = $1, body = $2, updated_at = $3 where id = $4',
       [req.body.title, req.body.body, now, updatedId]
     );
     await writeFile(
-      path.resolve(NOTES_PATH, `${updatedId}.md`),
+      path.resolve(VTEACHERS_PATH, `${updatedId}.md`),
       req.body.body,
       'utf8'
     );
@@ -152,26 +152,26 @@ app.put(
 );
 
 app.delete(
-  '/notes/:id',
+  '/vteachers/:id',
   handleErrors(async function(req, res) {
-    await pool.query('delete from notes where id = $1', [req.params.id]);
-    await unlink(path.resolve(NOTES_PATH, `${req.params.id}.md`));
+    await pool.query('delete from vteachers where id = $1', [req.params.id]);
+    await unlink(path.resolve(VTEACHERS_PATH, `${req.params.id}.md`));
     sendResponse(req, res, null);
   })
 );
 
 app.get(
-  '/notes',
+  '/vteachers',
   handleErrors(async function(_req, res) {
-    const {rows} = await pool.query('select * from notes order by id desc');
+    const {rows} = await pool.query('select * from vteachers order by id desc');
     res.json(rows);
   })
 );
 
 app.get(
-  '/notes/:id',
+  '/vteachers/:id',
   handleErrors(async function(req, res) {
-    const {rows} = await pool.query('select * from notes where id = $1', [
+    const {rows} = await pool.query('select * from vteachers where id = $1', [
       req.params.id,
     ]);
     res.json(rows[0] || "null");

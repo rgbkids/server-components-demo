@@ -1,6 +1,6 @@
 FROM node:14.15.3
 
-WORKDIR /opt/notes-app
+WORKDIR /opt/vteachers-app
 
 COPY package.json package-lock.json ./
 

@@ -3,16 +3,16 @@ services:
   postgres:
     image: postgres:13
     environment:
-      POSTGRES_USER: notesadmin
+      POSTGRES_USER: vteachersadmin
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: notesapi
+      POSTGRES_DB: vteachersapi
     ports:
       - '5432:5432'
     volumes:
       - ./scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
       - db:/var/lib/postgresql/data
 
-  notes-app:
+  vteachers-app:
     build:
       context: .
     depends_on:
@@ -23,12 +23,12 @@ services:
       DB_HOST: postgres
       PORT: 4000
     volumes:
-      - ./notes:/opt/notes-app/notes
-      - ./public:/opt/notes-app/public
-      - ./scripts:/opt/notes-app/scripts
-      - ./server:/opt/notes-app/server
-      - ./src:/opt/notes-app/src
-      - ./credentials.js:/opt/notes-app/credentials.js
+      - ./vteachers:/opt/vteachers-app/vteachers
+      - ./public:/opt/vteachers-app/public
+      - ./scripts:/opt/vteachers-app/scripts
+      - ./server:/opt/vteachers-app/server
+      - ./src:/opt/vteachers-app/src
+      - ./credentials.js:/opt/vteachers-app/credentials.js
 
 volumes:
   db:

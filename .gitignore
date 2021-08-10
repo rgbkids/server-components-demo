@@ -12,8 +12,8 @@
 /build
 /dist
 
-# notes
-notes/*.md
+# vteachers
+vteachers/*.md
 
 # misc
 .DS_Store
@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vscode
 .vscode
+
+# idea
+.idea

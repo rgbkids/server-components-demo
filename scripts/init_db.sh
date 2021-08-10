@@ -2,8 +2,8 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-  DROP TABLE IF EXISTS notes;
-  CREATE TABLE notes (
+  DROP TABLE IF EXISTS vteachers;
+  CREATE TABLE vteachers (
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
