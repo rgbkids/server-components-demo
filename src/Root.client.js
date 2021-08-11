@@ -24,9 +24,7 @@ export default function Root({initialCache}) {
 
 function Content() {
   const [location, setLocation] = useState({
-    selectedId: null,
-    isEditing: false,
-    searchText: '',
+    selectedId: null
   });
   const response = useServerResponse(location);
   return (

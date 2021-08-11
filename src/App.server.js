@@ -5,7 +5,7 @@ import World from './World.server';
 import Right from "./Right.client";
 import Former from "./Former.server";
 
-export default function App({selectedId, isEditing, searchText}) {
+export default function App({selectedId}) {
     return (
         <div className="main">
             <Hello selectedId={selectedId} />
@@ -14,7 +14,7 @@ export default function App({selectedId, isEditing, searchText}) {
             </Suspense>
 
             <section key={selectedId}>
-                <Former selectedId={selectedId} isEditing={isEditing} />
+                <Former selectedId={selectedId} />
             </section>
         </div>
     );

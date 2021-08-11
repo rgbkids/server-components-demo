@@ -25,9 +25,7 @@ export default function Former({id, initialTitle, initialBody}) {
     async function handleCreate() {
         const payload = {title, body};
         const requestedLocation = {
-            selectedId: "",
-            isEditing: false,
-            searchText: location.searchText,
+            selectedId: ""
         };
         const endpoint = `http://localhost:4000/vteachers/`;
         const method = `POST`;
@@ -49,9 +47,7 @@ export default function Former({id, initialTitle, initialBody}) {
     async function handleUpdate() {
         const payload = {title, body};
         const requestedLocation = {
-            selectedId: location.selectedId,
-            isEditing: false,
-            searchText: location.searchText,
+            selectedId: location.selectedId
         };
         const endpoint = `http://localhost:4000/vteachers/${location.selectedId}`;
         const method = `PUT`;
@@ -73,9 +69,7 @@ export default function Former({id, initialTitle, initialBody}) {
     async function handleDelete() {
         const payload = {title, body};
         const requestedLocation = {
-            selectedId: location.selectedId,
-            isEditing: false,
-            searchText: location.searchText,
+            selectedId: location.selectedId
         };
         const endpoint = `http://localhost:4000/vteachers/${location.selectedId}`;
         const method = `DELETE`;

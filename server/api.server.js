@@ -103,9 +103,7 @@ function sendResponse(req, res, redirectToId) {
   }
   res.set('X-Location', JSON.stringify(location));
   renderReactTree(res, {
-    selectedId: location.selectedId,
-    isEditing: location.isEditing,
-    searchText: location.searchText,
+    selectedId: location.selectedId
   });
 }
 

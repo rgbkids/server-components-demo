@@ -13,9 +13,7 @@ export default function Left({text}) {
             <button
                 onClick={() => {
                     setLocation((loc) => ({
-                        selectedId: idNext,
-                        isEditing: false,
-                        searchText: loc.searchText,
+                        selectedId: idNext
                     }));
                 }}>
                 Next id={idNext}
@@ -24,9 +22,7 @@ export default function Left({text}) {
                 onClick={() => {
                     startTransition(() => {
                         setLocation((loc) => ({
-                            selectedId: idNext,
-                            isEditing: false,
-                            searchText: loc.searchText,
+                            selectedId: idNext
                         }));
                     });
                 }}>
