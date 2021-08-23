@@ -37,7 +37,8 @@ https://www.docker.com/
   ```
 
 You're done!
-Then open http://localhost:4000.
+
+Then open http://localhost:{your-port}.
 
 ## License
 This demo is MIT licensed.
