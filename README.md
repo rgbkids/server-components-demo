@@ -1,14 +1,19 @@
 # React Server Components Templates For Serverless
 
-## Download
+## 1. Download
 
 http://vteacher.mszk.biz/
 
 - docker-compose.yml
 - credentials.js
 
+## 2. Docker
 
-## Setup
+You can also start dev build of the app by using docker-compose.
+
+https://www.docker.com/
+
+## 3. Setup
 
 You will need to have nodejs >=14.9.0 in order to run this demo. [Node 14 LTS](https://nodejs.org/en/about/releases/) is a good choice!
 
@@ -16,21 +21,19 @@ You will need to have nodejs >=14.9.0 in order to run this demo. [Node 14 LTS](h
   npm install
   ```
 
+  ```
+  docker-compose up
+  ```
+
 (Or `npm run start:prod` for a production build.)
 
-## DB Setup with Docker
-
-You can also start dev build of the app by using docker-compose.
-
-https://www.docker.com/
-
-### 1. Run containers in the detached mode
+## 4. Run containers in the detached mode
 
   ```
   docker-compose up -d
   ```
 
-### 2. Run seed script
+## 5. Run seed script
 
   ```
   docker-compose exec vteachers-app npm run seed
