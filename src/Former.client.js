@@ -3,6 +3,8 @@ import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';
 import {useRefresh} from './Cache.client';
 
+const PORT = location.port;
+
 export default function Former({id, initialTitle, initialBody}) {
     const [title, setTitle] = useState(initialTitle);
     const [body, setBody] = useState(initialBody);
@@ -27,7 +29,7 @@ export default function Former({id, initialTitle, initialBody}) {
         const requestedLocation = {
             selectedId: ""
         };
-        const endpoint = `http://localhost:4000/vteachers/`;
+        const endpoint = `http://localhost:${PORT}/vteachers/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -49,7 +51,7 @@ export default function Former({id, initialTitle, initialBody}) {
         const requestedLocation = {
             selectedId: location.selectedId
         };
-        const endpoint = `http://localhost:4000/vteachers/${location.selectedId}`;
+        const endpoint = `http://localhost:${PORT}/vteachers/${location.selectedId}`;
         const method = `PUT`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -71,7 +73,7 @@ export default function Former({id, initialTitle, initialBody}) {
         const requestedLocation = {
             selectedId: location.selectedId
         };
-        const endpoint = `http://localhost:4000/vteachers/${location.selectedId}`;
+        const endpoint = `http://localhost:${PORT}/vteachers/${location.selectedId}`;
         const method = `DELETE`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
