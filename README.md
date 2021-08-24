@@ -21,22 +21,16 @@ You will need to have nodejs >=14.9.0 in order to run this demo. [Node 14 LTS](h
   npm install
   ```
 
-  ```
-  docker-compose up
-  ```
-
-(Or `npm run start:prod` for a production build.)
-
 ## 4. Run containers in the detached mode
 
   ```
   docker-compose up -d
   ```
 
-## 5. Run seed script
+## Option: Run seed script
 
   ```
-  docker-compose exec vteachers-app npm run seed
+  docker-compose exec vteachers-app-{your-port} npm run seed
   ```
 
 You're done!
