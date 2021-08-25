@@ -1,17 +1,15 @@
-import {db} from './db.server';
 import Left from './Left.client';
+import {fetch} from 'react-fetch';
 
 export default function Hello({selectedId}) {
-    const vteachers = db.query(
-        `select id from vteachers where id=$1`, [selectedId]
-    ).rows;
 
     let text = selectedId;
-    vteachers.map((vteacher) => {
-        text = vteacher.id;
-    });
+
+    const vteacher = fetch(`http://localhost:4000/exec`).json();
+
+    console.log(vteacher.result);
 
     return (
-        <Left text={text} />
+        <Left text={vteacher.toString()} />
     );
 }

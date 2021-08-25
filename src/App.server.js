@@ -9,13 +9,6 @@ export default function App({selectedId}) {
     return (
         <div className="main">
             <Hello selectedId={selectedId} />
-            <Suspense fallback={<Right text={"This is suspense."} />}>
-                <World selectedId={selectedId} />
-            </Suspense>
-
-            <section key={selectedId}>
-                <Former selectedId={selectedId} />
-            </section>
         </div>
     );
 }

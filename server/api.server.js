@@ -198,3 +198,22 @@ async function waitForWebpack() {
     }
   }
 }
+
+app.get(
+    '/exec',
+    handleErrors(async function(req, res) {
+        const execSync = require('child_process').execSync;
+
+        let result = "";
+
+        result =  execSync('docker-compose up -d');
+        console.log(result.toString());
+
+        result =  execSync('docker ps');
+        console.log(result.toString());
+
+        res.json({
+            result: result.toString()
+        });
+    })
+);
