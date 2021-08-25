@@ -22,6 +22,7 @@ services:
     environment:
       DB_HOST: postgres-5433
       PORT: 4000
+      HOST: localhost
     volumes:
       - ./vteachers:/opt/vteachers-app/vteachers
       - ./public:/opt/vteachers-app/public
