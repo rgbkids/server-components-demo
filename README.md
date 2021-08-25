@@ -1,3 +1,33 @@
+
+DB
+
+```
+docker-compose up -d
+```
+
+App
+
+```
+npm i
+```
+
+```
+npm run seed
+```
+
+```
+npm start
+```
+
+
+
+
+http://localhost:4000/
+
+
+
+----
+
 # React Server Components Templates For Serverless
 
 ## 1. Download

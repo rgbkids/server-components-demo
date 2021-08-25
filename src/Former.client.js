@@ -3,7 +3,7 @@ import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';
 import {useRefresh} from './Cache.client';
 
-const PORT = location.port;
+const PORT = 4000;//location.port;
 
 export default function Former({id, initialTitle, initialBody}) {
     const [title, setTitle] = useState(initialTitle);

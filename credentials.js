@@ -3,5 +3,5 @@ module.exports = {
   database: 'vteachersapi',
   user: 'vteachersadmin',
   password: 'password',
-  port: '5432',
+  port: '9999',
 };

@@ -1,7 +1,7 @@
 import {fetch} from 'react-fetch';
 import Right from './Right.client';
 
-const PORT = process.env.PORT;
+const PORT = 4000;//process.env.PORT;
 
 export default function World({selectedId}) {
     let _ = fetch(`http://localhost:${PORT}/sleep/3000`);
