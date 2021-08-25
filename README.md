@@ -5,6 +5,51 @@ DB
 docker-compose up -d
 ```
 
+# DB
+
+install
+
+
+```
+#1回だけ
+yum install postgresql-server postgresql-devel postgresql-contrib -y
+```
+
+```
+psql -d vteachersapi -U vteachersadmin -h localhost -p 9999
+```
+
+```
+\l;
+```
+
+```
+CREATE DATABASE vteachersapi;
+CREATE ROLE vteachersadmin WITH LOGIN PASSWORD 'password';
+ALTER ROLE vteachersadmin WITH SUPERUSER;
+ALTER DATABASE vteachersapi OWNER TO vteachersadmin;
+```
+```
+DROP TABLE IF EXISTS vteachers;
+CREATE TABLE vteachers (
+  id SERIAL PRIMARY KEY,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  title TEXT,
+  body TEXT
+);
+```
+```
+\dt;
+```
+
+relation “table” does not existの場合、下記をしてから再実行
+# スキーマを削除
+drop schema public cascade;
+# スキーマを作成
+create schema public;
+
+
 App
 
 ```
@@ -18,6 +63,13 @@ npm run seed
 ```
 npm start
 ```
+
+常駐
+```
+npm start &
+```
+Control + C
+
 
 
 
@@ -75,6 +127,7 @@ http://ec2-18-183-237-27.ap-northeast-1.compute.amazonaws.com/
 
 FQDN指定しないとfetchで失敗するため
 http://vteacher.cmsvr.live/
+
 
 
 
