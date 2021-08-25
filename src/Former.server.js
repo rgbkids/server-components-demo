@@ -6,7 +6,7 @@ const PORT = 4000;//process.env.PORT;
 export default function Former({selectedId}) {
     const vteacher =
         selectedId != null
-            ? fetch(`http://localhost:${PORT}/vteachers/${selectedId}`).json()
+            ? fetch(`http://vteacher.cmsvr.live:${PORT}/vteachers/${selectedId}`).json()
             : null;
 
     if (!vteacher) {

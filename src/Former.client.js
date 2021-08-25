@@ -29,7 +29,7 @@ export default function Former({id, initialTitle, initialBody}) {
         const requestedLocation = {
             selectedId: ""
         };
-        const endpoint = `http://localhost:${PORT}/vteachers/`;
+        const endpoint = `http://vteacher.cmsvr.live:${PORT}/vteachers/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -51,7 +51,7 @@ export default function Former({id, initialTitle, initialBody}) {
         const requestedLocation = {
             selectedId: location.selectedId
         };
-        const endpoint = `http://localhost:${PORT}/vteachers/${location.selectedId}`;
+        const endpoint = `http://vteacher.cmsvr.live:${PORT}/vteachers/${location.selectedId}`;
         const method = `PUT`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -73,7 +73,7 @@ export default function Former({id, initialTitle, initialBody}) {
         const requestedLocation = {
             selectedId: location.selectedId
         };
-        const endpoint = `http://localhost:${PORT}/vteachers/${location.selectedId}`;
+        const endpoint = `http://vteacher.cmsvr.live:${PORT}/vteachers/${location.selectedId}`;
         const method = `DELETE`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,

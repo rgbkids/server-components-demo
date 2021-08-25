@@ -4,7 +4,7 @@ import Right from './Right.client';
 const PORT = 4000;//process.env.PORT;
 
 export default function World({selectedId}) {
-    let _ = fetch(`http://localhost:${PORT}/sleep/3000`);
+    let _ = fetch(`http://vteacher.cmsvr.live:${PORT}/sleep/3000`);
 
     if (!selectedId) {
         return (
@@ -12,7 +12,7 @@ export default function World({selectedId}) {
         );
     }
 
-    let vteacher = fetch(`http://localhost:${PORT}/vteachers/${selectedId}`).json();
+    let vteacher = fetch(`http://vteacher.cmsvr.live:${PORT}/vteachers/${selectedId}`).json();
     let {title, body, updated_at} = vteacher;
     let text = `${selectedId}${title}${body}${updated_at}`;
 
