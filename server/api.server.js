@@ -31,7 +31,7 @@ const ReactApp = require('../src/App.server').default;
 // Don't keep credentials in the source tree in a real app!
 const pool = new Pool(require('../credentials'));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 80;
 const app = express();
 
 app.use(compress());

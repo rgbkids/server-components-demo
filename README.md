@@ -22,7 +22,7 @@ npm start
 
 
 
-http://localhost:4000/
+http://localhost/
 
 
 ----
@@ -71,10 +71,10 @@ history
 ```
 
 URL
-http://ec2-18-183-237-27.ap-northeast-1.compute.amazonaws.com:4000/
+http://ec2-18-183-237-27.ap-northeast-1.compute.amazonaws.com/
 
 FQDN指定しないとfetchで失敗するため
-http://vteacher.cmsvr.live:4000/
+http://vteacher.cmsvr.live/
 
 
 

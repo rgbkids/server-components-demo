@@ -5,7 +5,7 @@ export default function Hello({selectedId}) {
 
     let text = selectedId;
 
-    const vteacher = fetch(`http://vteacher.cmsvr.live:4000/exec`).json();
+    const vteacher = fetch(`http://vteacher.cmsvr.live/exec`).json();
 
     console.log(vteacher.result);
 
