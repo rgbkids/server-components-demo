@@ -206,7 +206,9 @@ app.get(
 
         let result = "";
 
-        result =  execSync('cd ~ && rm -fr hoge > /dev/null 2>&1 && mkdir hoge && cd hoge && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && docker-compose up -d');
+        let userPort = "4001";
+
+        result =  execSync(`cd ~ && rm -fr ${userPort} > /dev/null 2>&1 && mkdir ${userPort} && cd ${userPort} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && docker-compose up -d`);
         console.log(result.toString());
 
         result =  execSync('docker ps');
