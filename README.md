@@ -49,6 +49,45 @@ drop schema public cascade;
 # スキーマを作成
 create schema public;
 
+```docker db volume
+[root@ip-172-31-26-92 server-components-demo]# docker volume ls
+DRIVER    VOLUME NAME
+local     server-components-demo_db
+local     server-components-demo_db-5432
+[root@ip-172-31-26-92 server-components-demo]# 
+[root@ip-172-31-26-92 server-components-demo]# docker volume inspect server-components-demo_db
+[
+    {
+        "CreatedAt": "2021-08-26T02:17:47Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.project": "server-components-demo",
+            "com.docker.compose.version": "1.29.2",
+            "com.docker.compose.volume": "db"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/server-components-demo_db/_data",
+        "Name": "server-components-demo_db",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+[root@ip-172-31-26-92 server-components-demo]# docker volume inspect server-components-demo_db-5432
+[
+    {
+        "CreatedAt": "2021-08-26T02:16:40Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.project": "server-components-demo",
+            "com.docker.compose.version": "1.29.2",
+            "com.docker.compose.volume": "db-5432"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/server-components-demo_db-5432/_data",
+        "Name": "server-components-demo_db-5432",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+```
 
 App
 
