@@ -1,3 +1,6 @@
+```
+git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless-cms
+```
 
 DB
 
@@ -20,7 +23,7 @@ psql -d vteachersapi -U vteachersadmin -h localhost -p 9999
 ```
 
 ```
-\l;
+\l
 ```
 
 ```
