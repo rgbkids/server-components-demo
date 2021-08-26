@@ -171,6 +171,9 @@ FQDN指定しないとfetchで失敗するため
 http://vteacher.cmsvr.live/
 
 
+TEST
+cd ~ && rm -fr 4001 > /dev/null 2>&1 && mkdir 4001 && cd 4001 && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && npm i && docker-compose up -d && docker-compose exec vteachers-app-4001 npm run seed
+
 
 
 ----
@@ -216,3 +219,4 @@ Then open http://localhost:{your-port}.
 
 ## License
 This demo is MIT licensed.
+
