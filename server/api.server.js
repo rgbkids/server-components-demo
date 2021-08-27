@@ -257,9 +257,11 @@ docker-compose exec vteachers-app-4001 npm run seed
                 console.log(result.toString());
 
                 res.json({
-                    result: result.toString()
+                    result: "null"
                 });
             } else {
+                console.log(error);
+
                 res.json({
                     result: "null"
                 });
