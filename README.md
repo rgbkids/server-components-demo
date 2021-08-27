@@ -43,6 +43,7 @@ docker-compose exec vteachers-app-4001 npm run seed
 
 psql -d vteachersapi -U vteachersadmin -h localhost -p 5433
 psql -d vteachersapi -U vteachersadmin -h vteacher.cmsvr.live -p 5433
+psql -d vteachersapi -U vteachersadmin -h vteacher.cmsvr.live -p 5432
 
 cd server-components-demo
 docker-compose up -d
