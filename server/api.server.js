@@ -208,10 +208,47 @@ app.get(
 
         let userPort = "4001";
 
-        const cmd = `cd ~ && rm -fr ${userPort} > /dev/null 2>&1 && mkdir ${userPort} && cd ${userPort} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && npm i && docker-compose up -d && docker-compose exec vteachers-app-${userPort} npm run seed`
+        let cmd = "";
+/*
+rm -fr ~/4001/ > /dev/null 2>&1
+mkdir ~/4001/
+git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/
+sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml
+cd ~/4001/ && npm i
+cd ~/4001/ && docker-compose up -d
+cd ~/4001/ && docker-compose exec vteachers-app-4001 npm run seed
+*/
 
+        cmd = `rm -fr ~/4001/ > /dev/null 2>&1`;
         result =  execSync(cmd);
         console.log(result.toString());
+
+        cmd = `mkdir ~/4001/`;
+        result =  execSync(cmd);
+        console.log(result.toString());
+
+        cmd = `git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/`;
+        result =  execSync(cmd);
+        console.log(result.toString());
+
+        cmd = `sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml`;
+        result =  execSync(cmd);
+        console.log(result.toString());
+
+        cmd = `cd ~/4001/ && npm i`;
+        result =  execSync(cmd);
+        console.log(result.toString());
+
+        cmd = `cd ~/4001/ && docker-compose up -d`;
+        result =  execSync(cmd);
+        console.log(result.toString());
+
+        cmd = `cd ~/4001/ && docker-compose exec vteachers-app-4001 npm run seed`;
+        result =  execSync(cmd);
+        console.log(result.toString());
+
+
+
 
         result =  execSync('docker ps');
         console.log(result.toString());
