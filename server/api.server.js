@@ -214,9 +214,9 @@ rm -fr ~/4001/ > /dev/null 2>&1
 mkdir ~/4001/
 git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/
 sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml
-cd ~/4001/ && npm i
-cd ~/4001/ && docker-compose up -d
-cd ~/4001/ && docker-compose exec vteachers-app-4001 npm run seed
+npm --prefix ~/4001/ install ~/4001/
+docker-compose -f ~/4001/docker-compose.yml up -d
+docker-compose exec vteachers-app-4001 npm run seed
 */
 
         cmd = `rm -fr ~/4001/ > /dev/null 2>&1`;
@@ -235,26 +235,40 @@ cd ~/4001/ && docker-compose exec vteachers-app-4001 npm run seed
         result =  execSync(cmd);
         console.log(result.toString());
 
-        cmd = `cd ~/4001/ && npm i`;
+        cmd = `npm --prefix ~/4001/ install ~/4001/`;
         result =  execSync(cmd);
         console.log(result.toString());
 
-        cmd = `cd ~/4001/ && docker-compose up -d`;
+        cmd = `docker-compose -f ~/4001/docker-compose.yml up -d`;
         result =  execSync(cmd);
         console.log(result.toString());
 
-        cmd = `cd ~/4001/ && docker-compose exec vteachers-app-4001 npm run seed`;
+        cmd = `cd ~/4001/`;
         result =  execSync(cmd);
         console.log(result.toString());
 
+        cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
+        let exec = require('child_process').exec;
+        exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
+            if (error != null) {
+                console.log(error);
 
+                result =  execSync('docker ps');
+                console.log(result.toString());
 
-
-        result =  execSync('docker ps');
-        console.log(result.toString());
-
-        res.json({
-            result: result.toString()
+                res.json({
+                    result: result.toString()
+                });
+            } else {
+                res.json({
+                    result: "null"
+                });
+            }
         });
+
+
+        // res.json({
+        //     result: "null"
+        // });
     })
 );
