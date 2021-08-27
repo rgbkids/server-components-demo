@@ -202,7 +202,15 @@ async function waitForWebpack() {
 app.get(
     '/exec',
     handleErrors(async function(req, res) {
-        const execSync = require('child_process').execSync;
+        let execSync = require('child_process').execSync;
+        let exec = require('child_process').exec;
+
+        // let execExec= require('child_process').exec;
+        // let path = require('path')
+        // let parentDir = path.resolve(process.cwd(), '..');
+        // execExec('doSomethingThere', {cwd: parentDir}, function (error, stdout, stderr) {
+        //     process.chdir(parentDir);
+        // });
 
         let result = "";
 
@@ -235,38 +243,56 @@ docker-compose exec vteachers-app-4001 npm run seed
         result =  execSync(cmd);
         console.log(result.toString());
 
-        cmd = `npm --prefix ~/4001/ install ~/4001/`;
-        result =  execSync(cmd);
-        console.log(result.toString());
 
-        cmd = `docker-compose -f ~/4001/docker-compose.yml up -d`;
-        result =  execSync(cmd);
-        console.log(result.toString());
-
-        cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
-        let exec = require('child_process').exec;
+        cmd = `npm install`;
         exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
             if (error != null) {
-                console.log(error);
 
-                result =  execSync('docker ps');
+                cmd = `docker-compose up -d`;
+                result =  execSync(cmd);
                 console.log(result.toString());
 
-                res.json({
-                    result: "null"
-                });
+                cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
+                result =  execSync(cmd);
+                console.log(result.toString());
+
             } else {
                 console.log(error);
-
-                res.json({
-                    result: "null"
-                });
             }
         });
 
 
-        // res.json({
-        //     result: "null"
+        // cmd = `npm --prefix ~/4001/ install ~/4001/`;
+        // result =  execSync(cmd);
+        // console.log(result.toString());
+
+
+        // cmd = `docker-compose -f ~/4001/docker-compose.yml up -d`;
+        // result =  execSync(cmd);
+        // console.log(result.toString());
+
+
+        // cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
+        // exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
+        //     if (error != null) {
+        //         result =  execSync('docker ps');
+        //         console.log(result.toString());
+        //
+        //         res.json({
+        //             result: "null"
+        //         });
+        //     } else {
+        //         console.log(error);
+        //
+        //         res.json({
+        //             result: "null"
+        //         });
+        //     }
         // });
+
+
+        res.json({
+            result: "null"
+        });
     })
 );
