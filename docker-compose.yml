@@ -10,7 +10,7 @@ services:
       - '5433:5432'
     volumes:
       - ./scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
-      - db:/var/lib/postgresql/data
+      - db-5433:/var/lib/postgresql/data
 
   vteachers-app-4001:
     build:
@@ -32,4 +32,4 @@ services:
       - ./credentials.js:/opt/vteachers-app/credentials.js
 
 volumes:
-  db:
+  db-5433:
