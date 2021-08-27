@@ -243,10 +243,6 @@ docker-compose exec vteachers-app-4001 npm run seed
         result =  execSync(cmd);
         console.log(result.toString());
 
-        cmd = `cd ~/4001/`;
-        result =  execSync(cmd);
-        console.log(result.toString());
-
         cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
         let exec = require('child_process').exec;
         exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
