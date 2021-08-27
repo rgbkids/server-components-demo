@@ -1,3 +1,6 @@
+localでやる場合は /etc/hosts に 127.0.0.1 vteacher.cmsvr.live を追加
+
+
 ```
 git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless-cms
 ```
