@@ -227,25 +227,43 @@ app.get(
     docker-compose exec vteachers-app-4001 npm run seed
     */
 
-    cmd = `rm -fr ~/4001/ > /dev/null 2>&1`;
-    result =  execSync(cmd);
-    console.log(result.toString());
+        let first = true;
 
-    cmd = `mkdir ~/4001/`;
-    result =  execSync(cmd);
-    console.log(result.toString());
+        const fs = require('fs');
+        const path = '~/4001/';
+        if (fs.existsSync(path)) {
+            console.log('ファイル・ディレクトリは存在します。');
+            first = false;
+        } else {
+            console.log('ファイル・ディレクトリは存在しません。');
+            first = true;
+        }
 
-    cmd = `git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/`;
-    result =  execSync(cmd);
-    console.log(result.toString());
+        if(first) {
+            // cmd = `rm -fr ~/4001/ > /dev/null 2>&1`;
+            // result = execSync(cmd);
+            // console.log(result.toString());
 
-    cmd = `sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml`;
-    result =  execSync(cmd);
-    console.log(result.toString());
+            cmd = `mkdir ~/4001/`;
+            result = execSync(cmd);
+            console.log(result.toString());
 
-        cmd = `npm install`;
+            cmd = `git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/`;
+            result = execSync(cmd);
+            console.log(result.toString());
+        }
+
+        cmd = `git pull`;
         exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
             if (error != null) {
+
+                cmd = `sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml`;
+                result =  execSync(cmd);
+                console.log(result.toString());
+
+                cmd = `npm install`;
+                result =  execSync(cmd);
+                console.log(result.toString());
 
                 cmd = `docker-compose -f ~/4001/docker-compose.yml up -d`;
                 result =  execSync(cmd);
