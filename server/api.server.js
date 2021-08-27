@@ -202,59 +202,65 @@ async function waitForWebpack() {
 app.get(
     '/exec',
     handleErrors(async function(req, res) {
-        let execSync = require('child_process').execSync;
-        let exec = require('child_process').exec;
+    let execSync = require('child_process').execSync;
+    let exec = require('child_process').exec;
 
-        // let execExec= require('child_process').exec;
-        // let path = require('path')
-        // let parentDir = path.resolve(process.cwd(), '..');
-        // execExec('doSomethingThere', {cwd: parentDir}, function (error, stdout, stderr) {
-        //     process.chdir(parentDir);
-        // });
+    // let execExec= require('child_process').exec;
+    // let path = require('path')
+    // let parentDir = path.resolve(process.cwd(), '..');
+    // execExec('doSomethingThere', {cwd: parentDir}, function (error, stdout, stderr) {
+    //     process.chdir(parentDir);
+    // });
 
-        let result = "";
+    let result = "";
 
-        let userPort = "4001";
+    let userPort = "4001";
 
-        let cmd = "";
-/*
-rm -fr ~/4001/ > /dev/null 2>&1
-mkdir ~/4001/
-git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/
-sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml
-npm --prefix ~/4001/ install ~/4001/
-docker-compose -f ~/4001/docker-compose.yml up -d
-docker-compose exec vteachers-app-4001 npm run seed
-*/
+    let cmd = "";
+    /*
+    rm -fr ~/4001/ > /dev/null 2>&1
+    mkdir ~/4001/
+    git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/
+    sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml
+    npm --prefix ~/4001/ install ~/4001/
+    docker-compose -f ~/4001/docker-compose.yml up -d
+    docker-compose exec vteachers-app-4001 npm run seed
+    */
 
-        cmd = `rm -fr ~/4001/ > /dev/null 2>&1`;
-        result =  execSync(cmd);
-        console.log(result.toString());
+    cmd = `rm -fr ~/4001/ > /dev/null 2>&1`;
+    result =  execSync(cmd);
+    console.log(result.toString());
 
-        cmd = `mkdir ~/4001/`;
-        result =  execSync(cmd);
-        console.log(result.toString());
+    cmd = `mkdir ~/4001/`;
+    result =  execSync(cmd);
+    console.log(result.toString());
 
-        cmd = `git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/`;
-        result =  execSync(cmd);
-        console.log(result.toString());
+    cmd = `git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/`;
+    result =  execSync(cmd);
+    console.log(result.toString());
 
-        cmd = `sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml`;
-        result =  execSync(cmd);
-        console.log(result.toString());
-
+    cmd = `sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml`;
+    result =  execSync(cmd);
+    console.log(result.toString());
 
         cmd = `npm install`;
         exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
             if (error != null) {
 
-                cmd = `docker-compose up -d`;
+                cmd = `docker-compose -f ~/4001/docker-compose.yml up -d`;
                 result =  execSync(cmd);
                 console.log(result.toString());
 
+
+
+
                 cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
-                result =  execSync(cmd);
-                console.log(result.toString());
+                exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
+
+                });
+
+
+
 
             } else {
                 console.log(error);
@@ -296,3 +302,4 @@ docker-compose exec vteachers-app-4001 npm run seed
         });
     })
 );
+                             
