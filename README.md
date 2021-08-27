@@ -1,4 +1,5 @@
 localでやる場合は /etc/hosts に 127.0.0.1 vteacher.cmsvr.live を追加
+sudo vi /etc/hosts
 
 
 ```
