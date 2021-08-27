@@ -256,7 +256,11 @@ app.get(
 
                 cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
                 exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
+                    console.log(error);
 
+                    res.json({
+                        result: "null"
+                    });
                 });
 
 
@@ -264,6 +268,10 @@ app.get(
 
             } else {
                 console.log(error);
+
+                res.json({
+                    result: "null"
+                });
             }
         });
 
@@ -297,9 +305,8 @@ app.get(
         // });
 
 
-        res.json({
-            result: "null"
-        });
+        // res.json({
+        //     result: "null"
+        // });
     })
 );
-                             
