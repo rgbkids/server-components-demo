@@ -208,7 +208,9 @@ app.get(
 
         let userPort = "4001";
 
-        result =  execSync(`cd ~ && rm -fr ${userPort} > /dev/null 2>&1 && mkdir ${userPort} && cd ${userPort} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && npm i && docker-compose up -d && docker-compose exec vteachers-app-${userPort} npm run seed`);
+        const cmd = `cd ~ && rm -fr ${userPort} > /dev/null 2>&1 && mkdir ${userPort} && cd ${userPort} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && sed -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml > /dev/null 2>&1 && npm i && docker-compose up -d && docker-compose exec vteachers-app-${userPort} npm run seed`
+
+        result =  execSync(cmd);
         console.log(result.toString());
 
         result =  execSync('docker ps');
