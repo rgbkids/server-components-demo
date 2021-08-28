@@ -240,7 +240,7 @@ app.get(
             console.log('ファイル・ディレクトリは存在します。');
             first = false;
 
-            cmd = `echo "cd ${_path}/server-components-demo && git pull && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && npm i && docker-compose up -d && docker-compose exec vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
+            cmd = `echo "cd ${_path}/server-components-demo && git pull > /dev/null 2>&1 && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && npm i && docker-compose up -d && docker-compose exec vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
             console.log(cmd);
             result = execSync(cmd);
             console.log(result.toString());

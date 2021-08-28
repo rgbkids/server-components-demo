@@ -122,6 +122,8 @@ npm start &
 ```
 Control + C
 
+全削除
+docker-compose down --rmi all --volumes --remove-orphans
 
 
 

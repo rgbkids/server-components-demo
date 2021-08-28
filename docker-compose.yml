@@ -10,7 +10,7 @@ services:
       - '9999:5432'
     volumes:
       - ./scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
-      - db:/var/lib/postgresql/data
+      - db-cms:/var/lib/postgresql/data
 
 volumes:
-  db:
+  db-cms:
