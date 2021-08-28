@@ -234,3 +234,5 @@ Then open http://localhost:{your-port}.
 ## License
 This demo is MIT licensed.
 
+# TEST
+psql -d vteachersapi -U vteachersadmin -h localhost -p 5433
