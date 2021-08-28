@@ -96,6 +96,12 @@ local     server-components-demo_db-5432
 ]
 ```
 
+DB
+
+```
+docker-compose up -d
+```
+
 App
 
 ```
