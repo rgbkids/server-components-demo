@@ -45,6 +45,9 @@ export default function Former({id, initialTitle, initialBody}) {
     return (
         <form onSubmit={(e) => e.preventDefault()}>
             <p>(1) React Server Components の雛形をあなたのリポジトリにコピー（fork）します。</p>
+            <p>雛形</p>
+            <p>https://github.com/rgbkids/server-components-demo.git</p>
+            <p></p>
             <p>(2) あなたの情報です。</p>
             <p>あなたに割り当てられたポート番号：4001</p>
             <p>あなたのビルド用のdocker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに保存してください。</p>
@@ -84,6 +87,7 @@ services:
 volumes:
   db:
             </textarea>
+            <p></p>
             <p>(3) あなたのリポジトリのURLを入力してください。</p>
             <p>Git repository url:</p>
             <p>(ex) https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless</p>
@@ -103,6 +107,7 @@ volumes:
                     setBody(e.target.value);
                 }}
             />
+            <p></p>
             <p>
                 <button
                     onClick={() => {
