@@ -233,3 +233,45 @@ app.get(
         });
     })
 );
+
+app.post(
+    '/exec',
+    handleErrors(async function(req, res) {
+        
+        const title = req.body.title
+        const body = req.body.body
+
+        if (!title || !body) {
+            sendResponse(req, res, 0);
+            return;
+        }
+
+        let userPort = body;
+        let repositoryUrl = title;
+
+        let execSync = require('child_process').execSync;
+        const fs = require('fs');
+
+        let path = require('path');
+        let workPath = path.resolve(`../${userPort}`);
+
+        let result = "";
+        let cmd = "";
+
+        if (fs.existsSync(workPath)) {
+            cmd = `echo "cd ${workPath}/server-components-demo && git pull > /dev/null 2>&1 && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-${userPort} npm run seed" > ${workPath}/deploy.sh`;
+            result = execSync(cmd);
+            console.log(result.toString());
+        } else {
+            cmd = `mkdir ${workPath} && echo "cd ${workPath} && git clone ${repositoryUrl} && cd server-components-demo && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-${userPort} npm run seed" > ${workPath}/deploy.sh`;
+            result = execSync(cmd);
+            console.log(result.toString());
+        }
+
+        cmd = `sh ${workPath}/deploy.sh`;
+        result = execSync(cmd);
+        console.log(result.toString());
+
+        sendResponse(req, res, 0);
+    })
+);
