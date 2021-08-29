@@ -202,180 +202,34 @@ async function waitForWebpack() {
 app.get(
     '/exec',
     handleErrors(async function(req, res) {
-    let execSync = require('child_process').execSync;
-    let exec = require('child_process').exec;
+        let userPort = req.params.port;
 
-    // let execExec= require('child_process').exec;
-    // let path = require('path')
-    // let parentDir = path.resolve(process.cwd(), '..');
-    // execExec('doSomethingThere', {cwd: parentDir}, function (error, stdout, stderr) {
-    //     process.chdir(parentDir);
-    // });
-
-    let result = "";
-
-    let userPort = "4001";
-
-    let cmd = "";
-    /*
-    rm -fr ~/4001/ > /dev/null 2>&1
-    mkdir ~/4001/
-    git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ~/4001/
-    sed -i -e 's/localhost/vteacher.cmsvr.live/' ~/4001/docker-compose.yml
-    npm --prefix ~/4001/ install ~/4001/
-    docker-compose -f ~/4001/docker-compose.yml up -d
-    docker-compose exec vteachers-app-4001 npm run seed
-    */
-
-        let first = true;
-
+        let execSync = require('child_process').execSync;
         const fs = require('fs');
 
         let path = require('path');
-        let _path = path.resolve("../4001");
-        // const path = '~/4001';
-        console.log(_path);
+        let workPath = path.resolve(`../${userPort}`);
 
-        if (fs.existsSync(_path)) {
-            console.log('ファイル・ディレクトリは存在します。');
-            first = false;
+        let result = "";
+        let cmd = "";
 
-            // cmd = `echo "cd ${_path}/server-components-demo && git pull > /dev/null 2>&1 && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && sed -i -e 's/PORT: 4000/PORT: 4001/' docker-compose.yml && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
-            cmd = `echo "cd ${_path}/server-components-demo && git pull > /dev/null 2>&1 && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
-            console.log(cmd);
+        if (fs.existsSync(workPath)) {
+            cmd = `echo "cd ${workPath}/server-components-demo && git pull > /dev/null 2>&1 && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-${userPort} npm run seed" > ${workPath}/deploy.sh`;
             result = execSync(cmd);
             console.log(result.toString());
-
         } else {
-            console.log('ファイル・ディレクトリは存在しません。');
-            first = true;
-
-            // cmd = `mkdir ${_path} && echo "cd ${_path} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && sed -i -e 's/PORT: 4000/PORT: 4001/' docker-compose.yml && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
-            cmd = `mkdir ${_path} && echo "cd ${_path} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
-            console.log(cmd);
+            cmd = `mkdir ${workPath} && echo "cd ${workPath} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-${userPort} npm run seed" > ${workPath}/deploy.sh`;
             result = execSync(cmd);
             console.log(result.toString());
         }
 
-        cmd = `sh ${_path}/hoge.sh`;
-        console.log(cmd);
+        cmd = `sh ${workPath}/deploy.sh`;
         result = execSync(cmd);
         console.log(result.toString());
 
-        if (false) {
-
-
-            // try {
-            //     fs.statSync(path);
-            //     first = false;
-            //     console.log('ファイル・ディレクトリは存在します。');
-            // } catch(err) {
-            //     first = true;
-            //     console.log('ファイル・ディレクトリは存在しません。');
-            // }
-
-
-            // try {
-            //     fs.statSync(path);
-            //     first = true;
-            //     console.log('ファイル・ディレクトリは存在します。');
-            //
-            // } catch(err) {
-            //     first = false;
-            //     console.log('ファイル・ディレクトリは存在しません。');
-            // }
-
-
-            if (first) {
-                // cmd = `rm -fr ~/4001/ > /dev/null 2>&1`;
-                // result = execSync(cmd);
-                // console.log(result.toString());
-
-                cmd = `mkdir ${_path}`;
-                console.log(cmd);
-                result = execSync(cmd);
-                console.log(result.toString());
-
-                cmd = `git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless ${_path}`;
-                console.log(cmd);
-                result = execSync(cmd);
-                console.log(result.toString());
-            }
-
-            cmd = `git pull`;
-            console.log(`${_path}`);
-            console.log(cmd);
-            exec(cmd, {cwd: `../4001`}, function (error, stdout, stderr) {
-                if (error != null) {
-
-                    cmd = `sed -i -e 's/localhost/vteacher.cmsvr.live/' ${_path}/docker-compose.yml`;
-                    console.log(cmd);
-                    result = execSync(cmd);
-                    console.log(result.toString());
-
-                    cmd = `npm install`;
-                    console.log(cmd);
-                    result = execSync(cmd);
-                    console.log(result.toString());
-
-                    cmd = `docker-compose -f ${_path}/docker-compose.yml up -d`;
-                    console.log(cmd);
-                    result = execSync(cmd);
-                    console.log(result.toString());
-
-
-                    cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
-                    console.log(cmd);
-                    exec(cmd, {cwd: ''}, function (error, stdout, stderr) {
-                        console.log(error);
-
-                        res.json({
-                            result: `e=${errorc}`
-                        });
-                    });
-
-
-                } else {
-                    console.log(error);
-
-                    res.json({
-                        result: `e2=${error} ${_path}`
-                    });
-                }
-            });
-
-
-            // cmd = `npm --prefix ~/4001/ install ~/4001/`;
-            // result =  execSync(cmd);
-            // console.log(result.toString());
-
-
-            // cmd = `docker-compose -f ~/4001/docker-compose.yml up -d`;
-            // result =  execSync(cmd);
-            // console.log(result.toString());
-
-
-            // cmd = `docker-compose exec vteachers-app-4001 npm run seed`;
-            // exec(cmd, {cwd: '~/4001/'}, function(error, stdout, stderr) {
-            //     if (error != null) {
-            //         result =  execSync('docker ps');
-            //         console.log(result.toString());
-            //
-            //         res.json({
-            //             result: "null"
-            //         });
-            //     } else {
-            //         console.log(error);
-            //
-            //         res.json({
-            //             result: "null"
-            //         });
-            //     }
-            // });
-        }
-
         res.json({
-            result: "null"
+            result: "true",
+            port: `${userPort}`
         });
     })
 );
