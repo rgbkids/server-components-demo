@@ -8,6 +8,8 @@ import Former from "./Former.server";
 export default function App({selectedId}) {
     return (
         <div className="main">
+            <span>v.0.8.1</span>
+
             <Hello selectedId={selectedId} />
             <Suspense fallback={<Right text={"This is suspense."} />}>
                 <World selectedId={selectedId} />
