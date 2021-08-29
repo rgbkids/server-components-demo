@@ -44,6 +44,10 @@ https://zenn.dev/rgbkids/articles/8025b3297e07d4
 git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless-cms
 ```
 
+```
+cd server-components-demo
+```
+
 - DBを起動
 
 ```

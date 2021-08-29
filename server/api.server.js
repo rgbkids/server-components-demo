@@ -202,7 +202,7 @@ async function waitForWebpack() {
 app.get(
     '/exec',
     handleErrors(async function(req, res) {
-        let userPort = req.params.port;
+        let userPort = req.query.port;
 
         let execSync = require('child_process').execSync;
         const fs = require('fs');
