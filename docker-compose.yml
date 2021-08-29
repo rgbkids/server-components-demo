@@ -1,26 +1,26 @@
 version: "3.8"
 services:
-  postgres-5433:
+  postgres-5434:
     image: postgres:13
     environment:
       POSTGRES_USER: vteachersadmin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: vteachersapi
     ports:
-      - '5433:5432'
+      - '5434:5432'
     volumes:
       - ./scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
-      - db-5433:/var/lib/postgresql/data
+      - db-5434:/var/lib/postgresql/data
 
-  vteachers-app-4001:
+  vteachers-app-4002:
     build:
       context: .
     depends_on:
-      - postgres-5433
+      - postgres-5434
     ports:
-      - '4001:4000'
+      - '4002:4000'
     environment:
-      DB_HOST: postgres-5433
+      DB_HOST: postgres-5434
       PORT: 4000
       HOST: localhost
     volumes:
@@ -32,4 +32,4 @@ services:
       - ./credentials.js:/opt/vteachers-app/credentials.js
 
 volumes:
-  db-5433:
+  db-5434:
