@@ -240,7 +240,8 @@ app.get(
             console.log('ファイル・ディレクトリは存在します。');
             first = false;
 
-            cmd = `echo "cd ${_path}/server-components-demo && git pull > /dev/null 2>&1 && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && sed -i -e 's/PORT: 4000/PORT: 4001/' docker-compose.yml && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
+            // cmd = `echo "cd ${_path}/server-components-demo && git pull > /dev/null 2>&1 && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && sed -i -e 's/PORT: 4000/PORT: 4001/' docker-compose.yml && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
+            cmd = `echo "cd ${_path}/server-components-demo && git pull > /dev/null 2>&1 && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
             console.log(cmd);
             result = execSync(cmd);
             console.log(result.toString());
@@ -249,7 +250,8 @@ app.get(
             console.log('ファイル・ディレクトリは存在しません。');
             first = true;
 
-            cmd = `mkdir ${_path} && echo "cd ${_path} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && sed -i -e 's/PORT: 4000/PORT: 4001/' docker-compose.yml && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
+            // cmd = `mkdir ${_path} && echo "cd ${_path} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && sed -i -e 's/localhost/vteacher.cmsvr.live/' docker-compose.yml && sed -i -e 's/PORT: 4000/PORT: 4001/' docker-compose.yml && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
+            cmd = `mkdir ${_path} && echo "cd ${_path} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-4001 npm run seed" > ${_path}/hoge.sh`;
             console.log(cmd);
             result = execSync(cmd);
             console.log(result.toString());
