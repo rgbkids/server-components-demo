@@ -102,41 +102,8 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
 
             <p>※POST後に決定します。</p>
             <p>あなたのビルド用のdocker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに保存してください。</p>
-            <textarea>
-                version: "3.8"
-services:
-  postgres-5433:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: vteachersadmin
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: vteachersapi
-    ports:
-      - '5433:5432'
-    volumes:
-      - ./scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
-      - db:/var/lib/postgresql/data
-
-  vteachers-app-4001:
-    build:
-      context: .
-    depends_on:
-      - postgres-5433
-    ports:
-      - '4001:4000'
-    environment:
-      DB_HOST: postgres-5433
-      PORT: 4000
-    volumes:
-      - ./vteachers:/opt/vteachers-app/vteachers
-      - ./public:/opt/vteachers-app/public
-      - ./scripts:/opt/vteachers-app/scripts
-      - ./server:/opt/vteachers-app/server
-      - ./src:/opt/vteachers-app/src
-      - ./credentials.js:/opt/vteachers-app/credentials.js
-
-volumes:
-  db:
+            <textarea readOnly={true}>
+                {build}
             </textarea>
 
             <p>
