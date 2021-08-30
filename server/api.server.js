@@ -300,6 +300,6 @@ app.post(
             port: `${port}`
         });
 
-        sendResponse(req, res, 0);
+        // sendResponse(req, res, 0);
     })
 );

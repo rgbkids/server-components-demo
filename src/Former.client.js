@@ -65,8 +65,8 @@ export default function Former({id, initialTitle, initialBody}) {
         let responseJson = JSON.parse(response);
         console.log(responseJson.port);
 
-        // let results = response.json();
-        // console.log(results);
+        let results = response.json();
+        console.log(results);
 
         let port = responseJson.port;
         alert(port);
