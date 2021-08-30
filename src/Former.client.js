@@ -52,10 +52,10 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
                 return data;
             });
 
-        console.log(result.port);
-        setBody(result.port);
+        // console.log(result.port);
+        setBody(result.web_port);
 
-        setBuild(result.port);
+        setBuild(result.db_port);
     }
 
     return (

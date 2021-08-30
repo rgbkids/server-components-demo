@@ -320,12 +320,17 @@ app.get(
 
         let crypto = require('crypto');
         const hash = crypto.createHash('md5');
-        hash.update("0a39bcc9c0647cf569c6d7108726ec596007ed80");
+        hash.update("456");
         let port = hash.digest('hex');
+
+        const hash2 = crypto.createHash('md5');
+        hash2.update("123");
+        let port2 = hash2.digest('hex');
 
         res.json({
             result: "true",
-            port: `${port}`
+            web_port: `${port}`,
+            db_port: `${port2}`
         });
 
         // res.json(rows[0] || "null");
