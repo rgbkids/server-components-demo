@@ -3,9 +3,10 @@ import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';
 import {useRefresh} from './Cache.client';
 
-export default function Former({id, initialTitle, initialBody}) {
+export default function Former({id, initialTitle, initialBody, initialBuild}) {
     const [title, setTitle] = useState(initialTitle);
     const [body, setBody] = useState(initialBody);
+    const [build, setBuild] = useState(initialBuild);
 
     const [location, setLocation] = useLocation();
     const [, startNavigating] = useTransition();
@@ -53,6 +54,8 @@ export default function Former({id, initialTitle, initialBody}) {
 
         console.log(result.port);
         setBody(result.port);
+
+        setBuild(result.port);
     }
 
     return (
