@@ -46,6 +46,8 @@ export default function Former({id, initialTitle, initialBody}) {
     async function handlePost() {
         const note = await fetch(`http://vteacher.cmsvr.live/post?title=${title}&body=${body}`);
         console.log(note);
+        console.log(note.status);
+        console.log(note.url);
         console.log(note.port);
         // let {result, port} = note;
         // alert(port);
