@@ -25,7 +25,7 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
 
     async function handleCreate() {
         setUrl(`http://vteacher.cmsvr.live:${body}/`);
-        
+
         const payload = {title, body};
         const requestedLocation = {
             selectedId: ""
@@ -108,9 +108,8 @@ volumes:
 
             <p>(1) React Server Components の雛形をあなたのリポジトリにコピー（fork）します。</p>
             <a href={`https://github.com/rgbkids/server-components-demo.git`}>GitHub</a>
-            <p></p>
+            <p>↓</p>
 
-            <p></p>
             <p>(2) あなたのリポジトリのURLを入力してください。</p>
             <input
                 type="text"
@@ -119,7 +118,6 @@ volumes:
                     setTitle(e.target.value);
                 }}
             />
-
             <p>
                 <button
                     onClick={() => {
@@ -128,6 +126,7 @@ volumes:
                     Post
                 </button>
             </p>
+            <p>↓</p>
 
             <p>※POST後に決定します。</p>
             <input
@@ -147,7 +146,8 @@ volumes:
                     Deploy
                 </button>
             </p>
-
+            <p>↓</p>
+            
             <p>URL: ※Deploy後に決定します。</p>
             <input
                 type="text"
