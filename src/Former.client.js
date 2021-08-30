@@ -24,6 +24,8 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
     }
 
     async function handleCreate() {
+        setUrl(`http://vteacher.cmsvr.live:${body}/`);
+        
         const payload = {title, body};
         const requestedLocation = {
             selectedId: ""
@@ -40,8 +42,6 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
                 },
             }
         );
-
-        setUrl(`http://vteacher.cmsvr.live:${body}/`);
 
         console.log(response);
         navigate(response);
