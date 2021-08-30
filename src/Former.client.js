@@ -61,7 +61,8 @@ export default function Former({id, initialTitle, initialBody}) {
         );
         console.log(response);
 
-        // let port = response.json().port;
+        let port = response.json().port;
+        alert(port);
 
         navigate(response);
     }
