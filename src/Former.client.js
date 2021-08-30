@@ -42,7 +42,15 @@ export default function Former({id, initialTitle, initialBody}) {
         navigate(response);
     }
 
+
     async function handlePost() {
+        const note = fetch(`http://vteacher.cmsvr.live/post?title=${title}&body=${body}`).json();
+        let {result, port} = note;
+        alert(port);
+    }
+
+
+    async function handlePost2() {
         const payload = {title, body};
         const requestedLocation = {
             selectedId: ""
