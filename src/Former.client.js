@@ -62,6 +62,21 @@ export default function Former({id, initialTitle, initialBody}) {
                 console.log(data.result);
                 console.log(data.port);
             });
+
+
+
+        const note = await fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                return data;
+            });
+        console.log("------");
+        console.log(note);
+        console.log(note.status);
+        console.log(note.url);
+        console.log(note.port);
+        // let {result, port} = note;
+        // alert(port);
     }
 
 
