@@ -275,3 +275,31 @@ app.post(
         sendResponse(req, res, 0);
     })
 );
+
+app.post(
+    '/post',
+    handleErrors(async function(req, res) {
+
+        const title = req.body.title
+
+        if (!title) {
+            sendResponse(req, res, 0);
+            return;
+        }
+
+        let userPort = "";
+        let repositoryUrl = title;
+
+        let crypto = require('crypto');
+        const hash = crypto.createHash('md5');
+        hash.update("0a39bcc9c0647cf569c6d7108726ec596007ed80");
+        let port = hash.digest('hex');
+
+        res.json({
+            result: "true",
+            port: `${port}`
+        });
+
+        sendResponse(req, res, 0);
+    })
+);
