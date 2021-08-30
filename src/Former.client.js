@@ -59,6 +59,8 @@ export default function Former({id, initialTitle, initialBody}) {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                console.log(data.result);
+                console.log(data.port);
             });
     }
 
