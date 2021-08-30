@@ -2,6 +2,7 @@ import {useState, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';
 import {useRefresh} from './Cache.client';
+import {fetch} from 'react-fetch';
 
 export default function Former({id, initialTitle, initialBody}) {
     const [title, setTitle] = useState(initialTitle);
