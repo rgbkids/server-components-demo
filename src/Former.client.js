@@ -134,7 +134,7 @@ volumes:
                 type="hidden"
                 value={body}
             />
-            <p>docker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに保存してください。</p>
+            <p>docker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに上書きしてください。</p>
             <textarea
                 value={build}
             />

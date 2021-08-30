@@ -327,10 +327,13 @@ app.get(
         hash2.update("123");
         let port2 = hash2.digest('hex');
 
+        let portWeb = 4001;
+        let portDB = 5443;
+
         res.json({
             result: "true",
-            web_port: `${port}`,
-            db_port: `${port2}`
+            web_port: `${portWeb}`,
+            db_port: `${portDB}`
         });
 
         // res.json(rows[0] || "null");
