@@ -58,7 +58,7 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
         const portWeb = result.web_port;
         const portDB = result.db_port;
 
-        const heredoc = `
+        const buildText = `
 version: "3.8"
 services:
   postgres-${portDB}:
@@ -94,25 +94,20 @@ services:
 
 volumes:
   db-${portDB}:
-
 `;
 
-        setBuild(heredoc);
+        setBuild(buildText);
     }
 
     return (
         <form onSubmit={(e) => e.preventDefault()}>
 
             <p>(1) React Server Components の雛形をあなたのリポジトリにコピー（fork）します。</p>
-            <p>雛形</p>
-            <p>https://github.com/rgbkids/server-components-demo.git</p>
+            <a href={`https://github.com/rgbkids/server-components-demo.git`}>GitHub</a>
             <p></p>
-
 
             <p></p>
             <p>(2) あなたのリポジトリのURLを入力してください。</p>
-            <p>Git repository url:</p>
-            <p>(ex) https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless</p>
             <input
                 type="text"
                 value={title}
@@ -130,26 +125,17 @@ volumes:
                 </button>
             </p>
 
-
             <p>※POST後に決定します。</p>
-            <p>Your port:</p>
+            URL
             <input
                 type="text"
                 value={body}
-                onChange={(e) => {
-                    setBody(e.target.value);
-                }}
             />
             <p></p>
 
-            <p>※POST後に決定します。</p>
-            <p>あなたのビルド用のdocker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに保存してください。</p>
-
+            <p>docker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに保存してください。</p>
             <textarea
                 value={build}
-                onChange={(e) => {
-                    setBuild(e.target.value);
-                }}
             />
 
             <p>
