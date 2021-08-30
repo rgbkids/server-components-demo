@@ -58,7 +58,7 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
         const portWeb = result.web_port;
         const portDB = result.db_port;
 
-        const heredoc = (function () {/*
+        const heredoc = `
 version: "3.8"
 services:
   postgres-${portDB}:
@@ -95,7 +95,7 @@ services:
 volumes:
   db-${portDB}:
 
-*/}).toString().match(/(?:\/\*(?:[\s\S]*?)\*\/)/).pop().replace(/^\/\*/, "").replace(/\*\/$/, "");
+`;
 
         setBuild(heredoc);
     }
