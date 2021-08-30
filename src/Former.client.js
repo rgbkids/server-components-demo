@@ -55,6 +55,14 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
         // console.log(result.port);
         setBody(result.web_port);
 
+        const heredoc = (function () {/*
+<div class="title">
+    <h1>
+        <a href="${url}">${title}</a>
+    </h1>
+</div>
+*/}).toString().match(/(?:\/\*(?:[\s\S]*?)\*\/)/).pop().replace(/^\/\*/, "").replace(/\*\/$/, "");
+
         setBuild(result.db_port);
     }
 
