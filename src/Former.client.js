@@ -55,15 +55,49 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
         // console.log(result.port);
         setBody(result.web_port);
 
+        const portWeb = result.web_port;
+        const portDB = result.db_port;
+
         const heredoc = (function () {/*
-<div class="title">
-    <h1>
-        <a href="${url}">${title}</a>
-    </h1>
-</div>
+version: "3.8"
+services:
+  postgres-${portDB}:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: vteachersadmin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: vteachersapi
+    ports:
+      - '${portDB}:5432'
+    volumes:
+      - ./scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+      - db-${portDB}:/var/lib/postgresql/data
+
+  vteachers-app-${portWeb}:
+    build:
+      context: .
+    depends_on:
+      - postgres-${portDB}
+    ports:
+      - '${portWeb}:4000'
+    environment:
+      DB_HOST: postgres-${portDB}
+      PORT: 4000
+      HOST: localhost
+    volumes:
+      - ./vteachers:/opt/vteachers-app/vteachers
+      - ./public:/opt/vteachers-app/public
+      - ./scripts:/opt/vteachers-app/scripts
+      - ./server:/opt/vteachers-app/server
+      - ./src:/opt/vteachers-app/src
+      - ./credentials.js:/opt/vteachers-app/credentials.js
+
+volumes:
+  db-${portDB}:
+
 */}).toString().match(/(?:\/\*(?:[\s\S]*?)\*\/)/).pop().replace(/^\/\*/, "").replace(/\*\/$/, "");
 
-        setBuild(result.db_port);
+        setBuild(heredoc);
     }
 
     return (
