@@ -308,34 +308,50 @@ app.get(
     '/post',
     handleErrors(async function(req, res) {
         let title = req.query.title;
-
+        let body  = req.query.body;
 
         if (!title) {
             res.json("null");
             return;
         }
 
-        let userPort = "";
-        let repositoryUrl = title;
+        let id = -1;
+        {
+            {
+                const {rows} = await pool.query('select * from vteachers where title = $1', [
+                    title,
+                ]);
+                if (rows && rows.length > 0) {
+                    id = rows[0].id;
+                }
+            }
 
-        let crypto = require('crypto');
-        const hash = crypto.createHash('md5');
-        hash.update("456");
-        let port = hash.digest('hex');
+            if (id < 0) {
+                const now = new Date();
+                const result = await pool.query(
+                    'insert into vteachers (title, body, created_at, updated_at) values ($1, $2, $3, $3) returning id',
+                    [title, body, now]
+                );
+                id = result.rows[0].id;
+            }
+        }
 
-        const hash2 = crypto.createHash('md5');
-        hash2.update("123");
-        let port2 = hash2.digest('hex');
+        if (id < 0) {
+            res.json({
+                result: "false",
+                web_port: `-1`,
+                db_port: `-1`
+            });
+            return;
+        }
 
-        let portWeb = 4001;
-        let portDB = 5443;
+        let portWeb = 4000 + id;
+        let portDB  = 5442 + id;
 
         res.json({
             result: "true",
             web_port: `${portWeb}`,
             db_port: `${portDB}`
         });
-
-        // res.json(rows[0] || "null");
     })
 );
