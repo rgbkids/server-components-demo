@@ -42,74 +42,17 @@ export default function Former({id, initialTitle, initialBody}) {
         navigate(response);
     }
 
-
     async function handlePost() {
-        // const note = await fetch(`http://vteacher.cmsvr.live/post?title=${title}&body=${body}`);
-        // console.log(note);
-        // console.log(note.status);
-        // console.log(note.url);
-        // console.log(note.port);
-        // // let {result, port} = note;
-        // // alert(port);
+        const url = `http://vteacher.cmsvr.live/post?title=${title}&body=${body}`;
 
-
-        let url = `http://vteacher.cmsvr.live/post?title=${title}&body=${body}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                console.log(data.result);
-                console.log(data.port);
-            });
-
-
-
-        const note = await fetch(url)
+        const result = await fetch(url)
             .then(response => response.json())
             .then(data => {
                 return data;
             });
-        console.log("------");
-        console.log(note);
-        console.log(note.status);
-        console.log(note.url);
-        console.log(note.port);
-        // let {result, port} = note;
-        // alert(port);
-    }
 
-
-    async function handlePost2() {
-        const payload = {title, body};
-        const requestedLocation = {
-            selectedId: ""
-        };
-        const endpoint = `http://vteacher.cmsvr.live/post`;
-        const method = `POST`;
-        const response = await fetch(
-            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-            {
-                method,
-                body: JSON.stringify(payload),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-        // console.log(response);
-        //
-        console.log(response);
-        let responseJson = JSON.parse(response);
-        console.log(responseJson.port);
-
-        let results = response.json();
-        console.log(results);
-
-        let port = responseJson.port;
-        alert(port);
-
-        navigate(response);
+        console.log(result.port);
+        setBody(result.port);
     }
 
     return (
