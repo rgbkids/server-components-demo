@@ -307,10 +307,11 @@ app.post(
 app.get(
     '/post',
     handleErrors(async function(req, res) {
-        const title = req.body.title
+        let title = req.query.title;
+
 
         if (!title) {
-            sendResponse(req, res, 0);
+            res.json("null");
             return;
         }
 
