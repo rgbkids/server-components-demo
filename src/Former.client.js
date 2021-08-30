@@ -2,7 +2,6 @@ import {useState, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';
 import {useRefresh} from './Cache.client';
-import {reactFetch} from 'react-fetch';
 
 export default function Former({id, initialTitle, initialBody}) {
     const [title, setTitle] = useState(initialTitle);
@@ -45,10 +44,10 @@ export default function Former({id, initialTitle, initialBody}) {
 
 
     async function handlePost() {
-        const note = reactFetch(`http://vteacher.cmsvr.live/post?title=${title}&body=${body}`).json();
+        const note = fetch(`http://vteacher.cmsvr.live/post?title=${title}&body=${body}`);
         console.log(note);
-        let {result, port} = note;
-        alert(port);
+        // let {result, port} = note;
+        // alert(port);
     }
 
 
