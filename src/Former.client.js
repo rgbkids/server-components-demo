@@ -102,9 +102,8 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
 
             <p>※POST後に決定します。</p>
             <p>あなたのビルド用のdocker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに保存してください。</p>
-            <textarea readOnly={true}>
-                {build}
-            </textarea>
+
+            <textarea value={build} />
 
             <p>
                 <button
