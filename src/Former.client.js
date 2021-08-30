@@ -3,10 +3,11 @@ import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';
 import {useRefresh} from './Cache.client';
 
-export default function Former({id, initialTitle, initialBody, initialBuild}) {
+export default function Former({id, initialTitle, initialBody, initialBuild, initialUrl}) {
     const [title, setTitle] = useState(initialTitle);
     const [body, setBody] = useState(initialBody);
     const [build, setBuild] = useState(initialBuild);
+    const [url, setUrl] = useState(initialBuild);
 
     const [location, setLocation] = useLocation();
     const [, startNavigating] = useTransition();
@@ -39,6 +40,9 @@ export default function Former({id, initialTitle, initialBody, initialBuild}) {
                 },
             }
         );
+
+        setUrl(`http://vteacher.cmsvr.live:${body}/`);
+
         console.log(response);
         navigate(response);
     }
@@ -126,13 +130,10 @@ volumes:
             </p>
 
             <p>※POST後に決定します。</p>
-            URL
             <input
-                type="text"
+                type="hidden"
                 value={body}
             />
-            <p></p>
-
             <p>docker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに保存してください。</p>
             <textarea
                 value={build}
@@ -146,6 +147,12 @@ volumes:
                     Deploy
                 </button>
             </p>
+
+            <p>URL: ※Deploy後に決定します。</p>
+            <input
+                type="text"
+                value={url}
+            />
         </form>
     );
 }
