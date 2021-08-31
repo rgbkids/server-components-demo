@@ -113,11 +113,11 @@ volumes:
     return (
         <form onSubmit={(e) => e.preventDefault()}>
 
-            <p>(1) React Server Components の雛形をあなたのリポジトリにコピー（fork）します。</p>
-            <a href={`https://github.com/rgbkids/server-components-demo.git`} target={"_blank"}>GitHub</a>
+            <p>(1) React Server Components Demo をForkします。</p>
+            <a href={`https://github.com/reactjs/server-components-demo`} target={"_blank"}>https://github.com/reactjs/server-components-demo</a>
             <p>↓</p>
 
-            <p>(2) あなたのリポジトリのURLを入力してください。</p>
+            <p>(2) ForkしたリポジトリのURL（.git）を入力してください。</p>
             <input
                 type="text"
                 value={title}
@@ -140,7 +140,7 @@ volumes:
                 type="hidden"
                 value={body}
             />
-            <p>docker-compose.yml ※コピーしてあなたのリポジトリのdocker-compose.ymlに上書きしてください。</p>
+            <p>docker-compose.yml ※コピーしてForkしたリポジトリのdocker-compose.ymlに上書きしてください。</p>
             <textarea
                 value={build}
             />

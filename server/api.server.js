@@ -345,8 +345,11 @@ app.get(
             return;
         }
 
-        let portWeb = 4000 + id;
-        let portDB  = 5442 + id;
+        const portDynamicMin = 49152;
+        const portDynamicMax = 65535;
+        const portNum = Math.trunc((portDynamicMax - portDynamicMin) / 2)
+        let portWeb = portDynamicMin + id;
+        let portDB  = portDynamicMin + portNum + id;
 
         res.json({
             result: "true",
