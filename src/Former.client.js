@@ -113,7 +113,7 @@ volumes:
         <form onSubmit={(e) => e.preventDefault()}>
 
             <p>(1) React Server Components の雛形をあなたのリポジトリにコピー（fork）します。</p>
-            <a href={`https://github.com/rgbkids/server-components-demo.git`}>GitHub</a>
+            <a href={`https://github.com/rgbkids/server-components-demo.git`} target={"_blank"}>GitHub</a>
             <p>↓</p>
 
             <p>(2) あなたのリポジトリのURLを入力してください。</p>
