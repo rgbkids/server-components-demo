@@ -140,7 +140,7 @@ volumes:
                 type="hidden"
                 value={body}
             />
-            <p>docker-compose.yml ※コピーしてForkしたリポジトリのdocker-compose.ymlに上書きしてください。</p>
+            <p>docker-compose.yml ※Forkしたリポジトリのdocker-compose.ymlに上書きしてください。</p>
             <textarea
                 value={build}
             />
