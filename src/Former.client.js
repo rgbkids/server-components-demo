@@ -49,7 +49,8 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
 
     async function handlePost() {
 
-        const regex = new RegExp("^https://github.com(\/.+?\/)server-components-demo$");
+        //https://github.com/suzukisoftlabo-msuzuki83/server-components-demo.git
+        const regex = new RegExp("^https://github.com(\/.+?\/)server-components-demo.git$");
         if (!regex.test(title.toString())) {
             alert("Error");
             return;
