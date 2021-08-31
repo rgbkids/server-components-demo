@@ -75,9 +75,9 @@ services:
   postgres-${portDB}:
     image: postgres:13
     environment:
-      POSTGRES_USER: vteachersadmin
+      POSTGRES_USER: notesadmin
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: vteachersapi
+      POSTGRES_DB: notesapi
     ports:
       - '${portDB}:5432'
     volumes:
