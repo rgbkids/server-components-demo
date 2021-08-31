@@ -48,6 +48,13 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
     }
 
     async function handlePost() {
+
+        const regex = new RegExp("^https://github.com(\/.+?\/)server-components-demo$");
+        if (!regex.test(title.toString())) {
+            alert("Error");
+            return;
+        }
+
         const url = `http://vteacher.cmsvr.live/post?title=${title}&body=${body}`;
 
         const result = await fetch(url)
@@ -56,7 +63,6 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
                 return data;
             });
 
-        // console.log(result.port);
         setBody(result.web_port);
 
         const portWeb = result.web_port;
