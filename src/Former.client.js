@@ -121,7 +121,7 @@ volumes:
         <>
             <div className={"application"}>
                 <p>VTEACHER</p>
-                <strong>SERVERLESS FOR REACT SERVER COMPONENTS</strong>
+                <strong>Serverless for React Server Components</strong>
             </div>
 
             <form className={"note-editor-form"} onSubmit={(e) => e.preventDefault()}>
