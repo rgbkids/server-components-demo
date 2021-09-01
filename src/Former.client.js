@@ -120,7 +120,8 @@ volumes:
     return (
         <>
             <div className={"application"}>
-                <strong>Serverless For React Server Components</strong>
+                <p>VTEACHER</p>
+                <strong>SERVERLESS FOR REACT SERVER COMPONENTS</strong>
             </div>
 
             <form className={"note-editor-form"} onSubmit={(e) => e.preventDefault()}>
