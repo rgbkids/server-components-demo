@@ -126,16 +126,18 @@ volumes:
             <form className={"note-editor-form"} onSubmit={(e) => e.preventDefault()}>
 
                 <p className={"sidebar-note-header"}>
-                    STEP 1. Fork demo to your repository.
+                    STEP 1. Fork this repository.
                 </p>
-                <a href={`https://github.com/reactjs/server-components-demo`} target={"_blank"}>https://github.com/reactjs/server-components-demo</a>
+                <a href={`https://github.com/reactjs/server-components-demo`} target={"_blank"}>
+                    https://github.com/reactjs/server-components-demo
+                </a>
 
                 <p className={"arrow"}>👇</p>
 
-                <p>STEP 2. Register your git clone url.</p>
+                <p>STEP 2. Register your `Git Clone URL`.</p>
                 <input
                     type="text"
-                    placeholder={"https://github.com/your-id/server-components-demo.git"}
+                    placeholder={"ex) https://github.com/YOUR-ID/server-components-demo.git"}
                     value={title}
                     onChange={(e) => {
                         setTitle(e.target.value);
@@ -150,14 +152,14 @@ volumes:
                 </button>
 
                 <div hidden={body ? false : true}>
-
                     <p className={"arrow"}>👇</p>
 
                     <input
                         type="hidden"
                         value={body}
                     />
-                    <p>STEP 3. Overwride this docker-compose.yml to your git project.</p>
+
+                    <p>STEP 3. Overwrite this docker-compose.yml to your project.</p>
                     <small>docker-compose.yml</small>
                     <textarea
                         id={"#build"}
@@ -178,7 +180,6 @@ volumes:
                 </div>
 
                 <div hidden={url ? false : true}>
-
                     <p className={"arrow"}>👇</p>
 
                     <div hidden={deploy ? true : false}>

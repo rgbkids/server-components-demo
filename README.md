@@ -114,6 +114,7 @@ psql -d vteachersapi -U vteachersadmin -h localhost -p 5433
 ```
 # docker volume ls
 # docker volume inspect ${VOLUME NAME}
+# docker volume rm ${VOLUME NAME}
 ```
 
 # License
