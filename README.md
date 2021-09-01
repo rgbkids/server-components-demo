@@ -102,11 +102,18 @@ yum install postgresql-server postgresql-devel postgresql-contrib -y
 psql -d vteachersapi -U vteachersadmin -h localhost -p 5433
 ```
 
+- Docker: Imageの削除
+  
+```
+# docker ps -a
+# docker rm ${CONTAINER ID}
+```
+
 - Docker: Volumeの場所
 
 ```
 # docker volume ls
-# docker volume inspect server-components-demo_db
+# docker volume inspect ${VOLUME NAME}
 ```
 
 # License

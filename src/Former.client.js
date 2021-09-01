@@ -7,7 +7,8 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
     const [title, setTitle] = useState(initialTitle);
     const [body, setBody] = useState(initialBody);
     const [build, setBuild] = useState(initialBuild);
-    const [url, setUrl] = useState(initialBuild);
+    const [url, setUrl] = useState(initialUrl);
+    const [deploy, setDeploy] = useState(false);
 
     const [location, setLocation] = useLocation();
     const [, startNavigating] = useTransition();
@@ -44,12 +45,11 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
         );
 
         console.log(response);
-        navigate(response);
+        setDeploy(true);
     }
 
     async function handlePost() {
 
-        //https://github.com/suzukisoftlabo-msuzuki83/server-components-demo.git
         const regex = new RegExp("^https://github.com(\/.+?\/)server-components-demo.git$");
         if (!regex.test(title.toString())) {
             alert("Error");
@@ -113,11 +113,12 @@ volumes:
     return (
         <form onSubmit={(e) => e.preventDefault()}>
 
-            <p>(1) React Server Components Demo をForkします。</p>
+            <p>STEP 1. Fork React Server Components Demo to your repository.</p>
             <a href={`https://github.com/reactjs/server-components-demo`} target={"_blank"}>https://github.com/reactjs/server-components-demo</a>
             <p>↓</p>
 
-            <p>(2) ForkしたリポジトリのURL（.git）を入力してください。</p>
+            <p>STEP 2. Save your repository url.</p>
+            <p>(ex) https://github.com/your-id/server-components-demo.git</p>
             <input
                 type="text"
                 value={title}
@@ -130,36 +131,47 @@ volumes:
                     onClick={() => {
                         handlePost();
                     }}>
-                    Post
+                    Save
                 </button>
             </p>
-            <p>↓</p>
 
-            <p>※POST後に決定します。</p>
-            <input
-                type="hidden"
-                value={body}
-            />
-            <p>docker-compose.yml ※Forkしたリポジトリのdocker-compose.ymlに上書きしてください。</p>
-            <textarea
-                value={build}
-            />
+            <div hidden={body ? false : true}>
+                <p>↓</p>
 
-            <p>
-                <button
-                    onClick={() => {
-                        handleCreate();
-                    }}>
-                    Deploy
-                </button>
-            </p>
-            <p>↓</p>
+                <input
+                    type="hidden"
+                    value={body}
+                />
+                <p>STEP 3. Overwride this docker-compose.yml to your project.</p>
+                <p>docker-compose.yml</p>
+                <textarea
+                    value={build}
+                    readOnly={true}
+                />
 
-            <p>URL: ※Deploy後に決定します。</p>
-            <input
-                type="text"
-                value={url}
-            />
+                <p>
+                    <button
+                        onClick={() => {
+                            handleCreate();
+                        }}>
+                        Deploy
+                    </button>
+                </p>
+            </div>
+
+            <div hidden={url ? false : true}>
+                <p>↓</p>
+
+                <div hidden={deploy ? true : false}>
+                    Deploying ...
+                </div>
+
+                <div hidden={deploy ? false : true}>
+                    <p>URL</p>
+                    <a href={url} target={"_blank"}>{url}</a>
+                </div>
+            </div>
+
         </form>
     );
 }

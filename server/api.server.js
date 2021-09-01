@@ -299,8 +299,6 @@ app.post(
             result: "true",
             port: `${port}`
         });
-
-        // sendResponse(req, res, 0);
     })
 );
 
