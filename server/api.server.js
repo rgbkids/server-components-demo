@@ -199,43 +199,8 @@ async function waitForWebpack() {
   }
 }
 
-app.get(
-    '/exec',
-    handleErrors(async function(req, res) {
-        let userPort = req.query.port;
-
-        let execSync = require('child_process').execSync;
-        const fs = require('fs');
-
-        let path = require('path');
-        let workPath = path.resolve(`../${userPort}`);
-
-        let result = "";
-        let cmd = "";
-
-        if (fs.existsSync(workPath)) {
-            cmd = `echo "cd ${workPath}/server-components-demo && git pull > /dev/null 2>&1 && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-${userPort} npm run seed" > ${workPath}/deploy.sh`;
-            result = execSync(cmd);
-            console.log(result.toString());
-        } else {
-            cmd = `mkdir ${workPath} && echo "cd ${workPath} && git clone https://github.com/rgbkids/server-components-demo.git -b feature/vteacher-rsc-serverless && cd server-components-demo && npm i && docker-compose build && docker-compose up -d && docker-compose exec -T vteachers-app-${userPort} npm run seed" > ${workPath}/deploy.sh`;
-            result = execSync(cmd);
-            console.log(result.toString());
-        }
-
-        cmd = `sh ${workPath}/deploy.sh`;
-        result = execSync(cmd);
-        console.log(result.toString());
-
-        res.json({
-            result: "true",
-            port: `${userPort}`
-        });
-    })
-);
-
 app.post(
-    '/exec',
+    '/deploy',
     handleErrors(async function(req, res) {
         
         const title = req.body.title
@@ -276,34 +241,8 @@ app.post(
     })
 );
 
-app.post(
-    '/post',
-    handleErrors(async function(req, res) {
-
-        const title = req.body.title
-
-        if (!title) {
-            sendResponse(req, res, 0);
-            return;
-        }
-
-        let userPort = "";
-        let repositoryUrl = title;
-
-        let crypto = require('crypto');
-        const hash = crypto.createHash('md5');
-        hash.update("0a39bcc9c0647cf569c6d7108726ec596007ed80");
-        let port = hash.digest('hex');
-
-        res.json({
-            result: "true",
-            port: `${port}`
-        });
-    })
-);
-
 app.get(
-    '/post',
+    '/register',
     handleErrors(async function(req, res) {
         let title = req.query.title;
         let body  = req.query.body;

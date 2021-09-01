@@ -24,31 +24,7 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
         });
     }
 
-    async function handleCreate() {
-        setUrl(`http://vteacher.cmsvr.live:${body}/`);
-
-        const payload = {title, body};
-        const requestedLocation = {
-            selectedId: ""
-        };
-        const endpoint = `http://vteacher.cmsvr.live/exec`;
-        const method = `POST`;
-        const response = await fetch(
-            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-            {
-                method,
-                body: JSON.stringify(payload),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-
-        console.log(response);
-        setDeploy(true);
-    }
-
-    async function handlePost() {
+    async function handleRegister() {
 
         const regex = new RegExp("^https://github.com(\/.+?\/)server-components-demo.git$");
         if (!regex.test(title.toString())) {
@@ -56,7 +32,7 @@ export default function Former({id, initialTitle, initialBody, initialBuild, ini
             return;
         }
 
-        const url = `http://vteacher.cmsvr.live/post?title=${title}&body=${body}`;
+        const url = `http://vteacher.cmsvr.live/register?title=${title}&body=${body}`;
 
         const result = await fetch(url)
             .then(response => response.json())
@@ -110,68 +86,112 @@ volumes:
         setBuild(buildText);
     }
 
+    async function handleDeploy() {
+        setUrl(`http://vteacher.cmsvr.live:${body}/`);
+
+        const payload = {title, body};
+        const requestedLocation = {
+            selectedId: ""
+        };
+        const endpoint = `http://vteacher.cmsvr.live/deploy`;
+        const method = `POST`;
+        const response = await fetch(
+            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
+            {
+                method,
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        console.log(response);
+        setDeploy(true);
+    }
+
+    function handleBuild() {
+        const target = document.getElementById("#build");
+        target.select();
+        document.execCommand("copy");
+        alert("Copy completed.");
+    }
+
     return (
-        <form onSubmit={(e) => e.preventDefault()}>
+        <>
+            <div className={"application"}>
+                <strong>Serverless For React Server Components</strong>
+            </div>
 
-            <p>STEP 1. Fork React Server Components Demo to your repository.</p>
-            <a href={`https://github.com/reactjs/server-components-demo`} target={"_blank"}>https://github.com/reactjs/server-components-demo</a>
-            <p>↓</p>
+            <form className={"note-editor-form"} onSubmit={(e) => e.preventDefault()}>
 
-            <p>STEP 2. Save your repository url.</p>
-            <p>(ex) https://github.com/your-id/server-components-demo.git</p>
-            <input
-                type="text"
-                value={title}
-                onChange={(e) => {
-                    setTitle(e.target.value);
-                }}
-            />
-            <p>
-                <button
-                    onClick={() => {
-                        handlePost();
-                    }}>
-                    Save
-                </button>
-            </p>
+                <p className={"sidebar-note-header"}>
+                    STEP 1. Fork demo to your repository.
+                </p>
+                <a href={`https://github.com/reactjs/server-components-demo`} target={"_blank"}>https://github.com/reactjs/server-components-demo</a>
 
-            <div hidden={body ? false : true}>
-                <p>↓</p>
+                <p className={"arrow"}>👇</p>
 
+                <p>STEP 2. Register your git clone url.</p>
                 <input
-                    type="hidden"
-                    value={body}
+                    type="text"
+                    placeholder={"https://github.com/your-id/server-components-demo.git"}
+                    value={title}
+                    onChange={(e) => {
+                        setTitle(e.target.value);
+                    }}
                 />
-                <p>STEP 3. Overwride this docker-compose.yml to your project.</p>
-                <p>docker-compose.yml</p>
-                <textarea
-                    value={build}
-                    readOnly={true}
-                />
+                <button
+                    className={"edit-button edit-button--solid"}
+                    onClick={() => {
+                        handleRegister();
+                    }}>
+                    Register
+                </button>
 
-                <p>
-                    <button
+                <div hidden={body ? false : true}>
+
+                    <p className={"arrow"}>👇</p>
+
+                    <input
+                        type="hidden"
+                        value={body}
+                    />
+                    <p>STEP 3. Overwride this docker-compose.yml to your git project.</p>
+                    <small>docker-compose.yml</small>
+                    <textarea
+                        id={"#build"}
+                        value={build}
+                        readOnly={true}
                         onClick={() => {
-                            handleCreate();
+                            handleBuild();
+                        }}
+                    />
+
+                    <button
+                        className={"edit-button edit-button--solid"}
+                        onClick={() => {
+                            handleDeploy();
                         }}>
                         Deploy
                     </button>
-                </p>
-            </div>
-
-            <div hidden={url ? false : true}>
-                <p>↓</p>
-
-                <div hidden={deploy ? true : false}>
-                    Deploying ...
                 </div>
 
-                <div hidden={deploy ? false : true}>
-                    <p>URL</p>
-                    <a href={url} target={"_blank"}>{url}</a>
-                </div>
-            </div>
+                <div hidden={url ? false : true}>
 
-        </form>
+                    <p className={"arrow"}>👇</p>
+
+                    <div hidden={deploy ? true : false}>
+                        Deploying ...
+                    </div>
+
+                    <div hidden={deploy ? false : true}>
+                        <p>URL</p>
+                        <a href={url} target={"_blank"}>{url}</a>
+                    </div>
+                </div>
+
+            </form>
+        </>
     );
 }
