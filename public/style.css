@@ -410,8 +410,9 @@ ul.notes-list {
 
 .note-viewer {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /*align-items: center;*/
+  /*justify-content: center;*/
+  overflow-y: scroll;
 }
 .note {
   background: var(--white);
@@ -693,7 +694,7 @@ ul.notes-list {
 
 .sidebar-note-thumbnail {
   width: 80px;
-  height: 45px;
+  height: 60px;
 }
 
 .left {
