@@ -15,11 +15,13 @@ import SidebarNote2 from './SidebarNote2';
 export default function NoteList({searchText}) {
   // const notes = fetch('http://localhost:4000/notes').json();
 
+  console.log(`searchText=${searchText}`);
+
   // WARNING: This is for demo purposes only.
   // We don't encourage this in real apps. There are far safer ways to access
   // data in a real application!
   const notes = db.query(
-    `select * from notes where title ilike $1 order by id desc`,
+    `select * from notes where title ilike $1 OR body ilike $1 order by updated_at desc`,
     ['%' + searchText + '%']
   ).rows;
 
