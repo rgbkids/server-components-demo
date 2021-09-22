@@ -16,8 +16,10 @@
     "date-fns": "^2.16.1",
     "excerpts": "^0.0.3",
     "express": "^4.17.1",
+    "firebase": "^8.2.0",
     "html-webpack-plugin": "4.5.0",
     "marked": "^1.2.5",
+    "node-cron": "^3.0.0",
     "nodemon": "^2.0.6",
     "pg": "^8.5.1",
     "react": "0.0.0-experimental-7ec4c5597",
@@ -27,6 +29,7 @@
     "react-fs": "0.0.0-experimental-7ec4c5597",
     "react-pg": "0.0.0-experimental-7ec4c5597",
     "react-server-dom-webpack": "0.0.0-experimental-7ec4c5597",
+    "request": "^2.88.2",
     "resolve": "1.12.0",
     "rimraf": "^3.0.2",
     "sanitize-html": "^2.2.0",
@@ -38,7 +41,7 @@
     "prettier": "1.19.1"
   },
   "scripts": {
-    "start": "concurrently \"npm run server:dev\" \"npm run bundler:dev\"",
+    "start": "concurrently \"npm run server:prod\" \"npm run bundler:prod\"",
     "start:prod": "concurrently \"npm run server:prod\" \"npm run bundler:prod\"",
     "server:dev": "cross-env NODE_ENV=development nodemon -- --conditions=react-server server",
     "server:prod": "cross-env NODE_ENV=production nodemon -- --conditions=react-server server",
