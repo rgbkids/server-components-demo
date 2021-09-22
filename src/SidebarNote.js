@@ -1,34 +1,39 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-import {format, isToday} from 'date-fns';
 import excerpts from 'excerpts';
 import marked from 'marked';
 
 import ClientSidebarNote from './SidebarNote.client';
 
-export default function SidebarNote({note}) {
-  const updatedAt = new Date(note.updated_at);
-  const lastUpdatedAt = isToday(updatedAt)
-    ? format(updatedAt, 'h:mm bb')
-    : format(updatedAt, 'M/d/yy');
-  const summary = excerpts(marked(note.body), {words: 20});
-  return (
-    <ClientSidebarNote
-      id={note.id}
-      title={note.title}
-      expandedChildren={
-        <p className="sidebar-note-excerpt">{summary || <i>(No content)</i>}</p>
-      }>
-      <header className="sidebar-note-header">
-        <strong>{note.title}</strong>
-        <small>{lastUpdatedAt}</small>
-      </header>
-    </ClientSidebarNote>
-  );
+export default function SidebarNote({selectedId, searchText, note, bookmarkId, isBookmark, userId, token, lang}) {
+    const id = note.id;
+    const title = note.title
+    const body = note.body;
+    const thumbnail = note.thumbnail;
+
+    const titleSub = title.substring(0, (title.length > 30) ? 30 : title.length) + "...";
+    const bodySub = body.substring(0, (body.length > 60) ? 60 : body.length) + "...";
+
+    const titleSummary = excerpts(marked(titleSub), {words: 6});
+    const bodySummary = excerpts(marked(bodySub), {words: 10});
+
+    return (
+        <ClientSidebarNote
+            id={id}
+            selectedId={selectedId}
+            title={title}
+            body={body}
+            isBookmark={isBookmark}
+            bookmarkId={bookmarkId}
+            userId={userId}
+            token={token}
+            lang={lang}
+            searchText={searchText}
+            expandedChildren={
+                <p className="sidebar-note-excerpt">{bodySummary || <i>(No content)</i>}</p>
+            }>
+            <header className="sidebar-note-header">
+                <img src={thumbnail} className="sidebar-note-thumbnail left"/>
+                <small className="right">{titleSummary}</small>
+            </header>
+        </ClientSidebarNote>
+    );
 }

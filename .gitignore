@@ -30,3 +30,15 @@ yarn-error.log*
 
 # vscode
 .vscode
+
+# https
+server/*.pem
+
+# intellij idea
+.idea/*
+
+# settings
+credentials.js
+fullchain.pem
+privkey.pem
+settings.js

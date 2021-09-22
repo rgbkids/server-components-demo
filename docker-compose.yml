@@ -18,10 +18,11 @@ services:
     depends_on:
       - postgres
     ports:
-      - '4000:4000'
+      - '443:443'
     environment:
       DB_HOST: postgres
-      PORT: 4000
+      PROTOCOL: 'https:'
+      SEARCH: 'studywithme,study-with-me,study%20with%20me'
     volumes:
       - ./notes:/opt/notes-app/notes
       - ./public:/opt/notes-app/public
@@ -29,6 +30,9 @@ services:
       - ./server:/opt/notes-app/server
       - ./src:/opt/notes-app/src
       - ./credentials.js:/opt/notes-app/credentials.js
+      - ./privkey.pem:/opt/notes-app/server/privkey.pem
+      - ./fullchain.pem:/opt/notes-app/server/fullchain.pem
+      - ./settings.js:/opt/notes-app/settings.js
 
 volumes:
   db:

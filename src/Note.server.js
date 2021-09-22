@@ -1,67 +1,81 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
+import {db} from "./db.server";
+import NoteClient from "./Note.client";
+import NoteHome from "./NoteHome.client";
+import Auth from "./Auth.client";
+import Language from "./Language.client";
+import {t} from './language';
 
-import {fetch} from 'react-fetch';
-import {readFile} from 'react-fs';
-import {format} from 'date-fns';
-import path from 'path';
+export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token, lang}) {
+    if (!isEditing) {
+        const notes = db.query(
+            `select *
+             from bookmarks as b,
+                  notes as n
+             where b.video_id = n.id
+               and b.user_id = $1
+             order by b.updated_at desc`,
+            [userId]
+        ).rows;
 
-import NotePreview from './NotePreview';
-import EditButton from './EditButton.client';
-import NoteEditor from './NoteEditor.client';
+        // TODO: もっと上のレベルで引き継げるかも（NoteList.serverにもある）
+        const bookmarks = db.query(
+            `select bookmark_id, video_id
+             from bookmarks
+             where user_id = $1`,
+            [userId]
+        ).rows;
 
-export default function Note({selectedId, isEditing}) {
-  const note =
-    selectedId != null
-      ? fetch(`http://localhost:4000/notes/${selectedId}`).json()
-      : null;
+        if (notes) {
+            return (
+                <>
+                    <div className="contents">
+                        <header><strong>DASHBOARD</strong></header>
 
-  if (note === null) {
-    if (isEditing) {
-      return (
-        <NoteEditor noteId={null} initialTitle="Untitled" initialBody="" />
-      );
-    } else {
-      return (
-        <div className="note--empty-state">
-          <span className="note-text--empty-state">
-            Click a note on the left to view something! 🥺
-          </span>
-        </div>
-      );
+                        <Auth lang={lang} signInText={t("SIGN_IN_TEXT", lang)} signOutText={t("SIGN_OUT_TEXT", lang)}/>
+
+                        <Language searchText={searchText} selectedId={selectedId} isEditing={isEditing}
+                                  selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId}
+                                  token={token} lang={lang}/>
+
+                        <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks}
+                                  userId={userId} token={token} lang={lang}/>
+
+                        <p>{t("HOW_TO_ADD", lang)}</p>
+                        <img src="undraw_Collaborators_re_hont.png"/>
+
+                        <p>{t("HOW_TO_WATCH", lang)}</p>
+                        <img src="undraw_Online_video_re_fou2.png"/>
+
+                        <p>{t("START_TOGETHER", lang)}</p>
+                        <img src="undraw_Co-working_re_w93t.png"/>
+
+                        <p>{t("HOW_TO_LIVE", lang)}</p>
+                        <p className="annotation">{t("ABOUT_HASHTAG", lang)}</p>
+                        <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank">
+                            {t("DOWNLOAD_APP", lang)}
+                        </a>
+                        <img src="undraw_Social_bio_re_0t9u.png"/>
+
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <>
+                </>
+            );
+        }
     }
-  }
 
-  let {id, title, body, updated_at} = note;
-  const updatedAt = new Date(updated_at);
+    const videoId = selectedId;
+    const titleDecode = decodeURI(selectedTitle);
+    const bodyDecode = decodeURI(selectedBody);
 
-  // We could also read from a file instead.
-  // body = readFile(path.resolve(`./notes/${note.id}.md`), 'utf8');
+    const src = `https://www.youtube.com/embed/${videoId}`;
+    const uri = `https://www.youtube.com/watch?v=${videoId}`;
 
-  // Now let's see how the Suspense boundary above lets us not block on this.
-  // fetch('http://localhost:4000/sleep/3000');
-
-  if (isEditing) {
-    return <NoteEditor noteId={id} initialTitle={title} initialBody={body} />;
-  } else {
     return (
-      <div className="note">
-        <div className="note-header">
-          <h1 className="note-title">{title}</h1>
-          <div className="note-menu" role="menubar">
-            <small className="note-updated-at" role="status">
-              Last updated on {format(updatedAt, "d MMM yyyy 'at' h:mm bb")}
-            </small>
-            <EditButton noteId={id}>Edit</EditButton>
-          </div>
-        </div>
-        <NotePreview body={body} />
-      </div>
+        <NoteClient searchText={searchText} title={titleDecode} body={bodyDecode} src={src} uri={uri}
+                    videoId={videoId} lang={lang}/>
     );
-  }
 }

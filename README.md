@@ -21,6 +21,22 @@ This is a demo app built with Server Components, an experimental React feature. 
 
 Server Components are an experimental feature and **are not ready for adoption**. For now, we recommend experimenting with Server Components via this demo app. **Use this in your projects at your own risk.**
 
+## Settings
+
+  ```
+  credentials.js
+  fullchain.pem
+  privkey.pem
+  settings.js
+  ```
+
+Option:
+
+  ```
+  fullchain.pem
+  privkey.pem
+  ```
+
 ## Setup
 
 You will need to have nodejs >=14.9.0 in order to run this demo. [Node 14 LTS](https://nodejs.org/en/about/releases/) is a good choice!
@@ -32,7 +48,7 @@ You will need to have nodejs >=14.9.0 in order to run this demo. [Node 14 LTS](h
 
 (Or `npm run start:prod` for a production build.)
 
-Then open http://localhost:4000.
+Then open https://localhost .
 
 The app won't work until you set up the database, as described below.
 
@@ -42,6 +58,8 @@ The app won't work until you set up the database, as described below.
   <p>⚠️ This is <b>completely optional,</b> and is only for people who <i>prefer</i> Docker to global installs!</p>
   <p>If you prefer Docker, make sure you have docker and docker-compose installed then run:</p>
   <pre><code>docker-compose up</code></pre>
+  <p>(Clean: <code>docker system prune --volumes</code>)</p>
+  <p>(Build: <code>docker-compose up --build</code>)</p>
   <h4>Running seed script</h4>
   <p>1. Run containers in the detached mode</p>
   <pre><code>docker-compose up -d</code></pre>
@@ -76,18 +94,9 @@ ALTER DATABASE notesapi OWNER TO notesadmin;
 psql -d postgres -U notesadmin;
 
 \c notesapi
-
-DROP TABLE IF EXISTS notes;
-CREATE TABLE notes (
-  id SERIAL PRIMARY KEY,
-  created_at TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP NOT NULL,
-  title TEXT,
-  body TEXT
-);
-
-\q
 ```
+
+(Read `scripts/seed.js` .)
 
 ### Step 3. Run the seed script
 
@@ -106,21 +115,6 @@ The demo is a note-taking app called **React Notes**. It consists of a few major
 - A React app containing Server and Client components used to build React Notes
 
 This demo is built on top of our Webpack plugin, but this is not how we envision using Server Components when they are stable. They are intended to be used in a framework that supports server rendering — for example, in Next.js. This is an early demo -- the real integration will be developed in the coming months. Learn more in the [announcement post](https://reactjs.org/server-components).
-
-### Interesting things to try
-
-- Expand note(s) by hovering over the note in the sidebar, and clicking the expand/collapse toggle. Next, create or delete a note. What happens to the expanded notes?
-- Change a note's title while editing, and notice how editing an existing item animates in the sidebar. What happens if you edit a note in the middle of the list?
-- Search for any title. With the search text still in the search input, create a new note with a title matching the search text. What happens?
-- Search while on Slow 3G, observe the inline loading indicator.
-- Switch between two notes back and forth. Observe we don't send new responses next time we switch them again.
-- Uncomment the `fetch('http://localhost:4000/sleep/....')` call in `Note.server.js` or `NoteList.server.js` to introduce an artificial delay and trigger Suspense.
-  - If you only uncomment it in `Note.server.js`, you'll see the fallback every time you open a note.
-  - If you only uncomment it in `NoteList.server.js`, you'll see the list fallback on first page load.
-  - If you uncomment it in both, it won't be very interesting because we have nothing new to show until they both respond.
-- Add a new Server Component and place it above the search bar in `App.server.js`. Import `db` from `db.server` and use `db.query()` from it to get the number of notes. Oberserve what happens when you add or delete a note.
-
-You can watch a [recorded walkthrough of all these demo points here](https://youtu.be/La4agIEgoNg?t=600) (with timestamps).
 
 ## Built by (A-Z)
 
