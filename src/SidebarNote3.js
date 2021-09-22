@@ -27,7 +27,7 @@ export default function SidebarNote({note}) {
     const src = `https://www.youtube.com/embed/${videoId}`;
 
     return (
-        <header className="sidebar-note-header">
+        <>
             <iframe width="504"
                     height="283"
                     src={src}
@@ -35,6 +35,6 @@ export default function SidebarNote({note}) {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen>
             </iframe>
-        </header>
+        </>
     );
 }

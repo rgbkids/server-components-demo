@@ -24,7 +24,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
   const videos = fetch(endPointYouTube).json();
   const items = videos.items;
 
-  if (items.length > 0) {
+  if (items && items.length > 0) {
     items.map((item) => {
       const videoId = item.id.videoId;
       const title = item.snippet.title;
