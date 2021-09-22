@@ -49,7 +49,7 @@ export default function NoteList({searchText}) {
 //My Project 65263
 //AIzaSyBAHQhkFqTTqWrEw23890VCOGEjQAD7bpc //OKOK
 
-  // const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyA05_WDaaFa615Nequ8IA3fcXPPb7L_TH8&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
+  // const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyBAHQhkFqTTqWrEw23890VCOGEjQAD7bpc&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
   // const videos = fetch(endPointYouTube).json();
   // const items = videos.items;
   //

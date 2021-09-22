@@ -17,28 +17,7 @@ import NoteListSkeleton from './NoteListSkeleton';
 import {fetch} from "react-fetch";
 
 export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody}) {
-
-//youtubeliveproject
-//AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc
-
-//MyYouTubeLive
-//AIzaSyDynnfe5PbvejqTdMZgvpKQv2iv0sc_DvU
-
-//API Project
-//AIzaSyAX5z9hRoHkw9esqwIhdM1n39ciG7Pv6Ck //NG:PERMISSION_DENIED
-//AIzaSyA05_WDaaFa615Nequ8IA3fcXPPb7L_TH8 //OK
-
-//内定物語
-//AIzaSyDC5NU_PwIBuZl30OBusLdGwrlWBRdm_sw //NG:PERMISSION_DENIED
-//AIzaSyAohHwpRfDK-CuqjZIWZot4av7is0vMT14 //OK
-
-//My Project 10496
-//AIzaSyCcrPUTAuzkKnK3w_Vr5AIOeOHKGhqf8aU //OKOK
-
-//My Project 65263
-//AIzaSyBAHQhkFqTTqWrEw23890VCOGEjQAD7bpc //OKOK
-
-  const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyDynnfe5PbvejqTdMZgvpKQv2iv0sc_DvU&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
+  const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyBAHQhkFqTTqWrEw23890VCOGEjQAD7bpc&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
   const videos = fetch(endPointYouTube).json();
   const items = videos.items;
 
@@ -55,6 +34,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
 
       const endPointPost = `http://localhost:4000/youtube/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
       const _ = fetch(endPointPost);
+      // console.log(_);
     });
   }
 
