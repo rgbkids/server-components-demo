@@ -27,6 +27,8 @@ export default function EditButton({noteId, children}) {
             selectedId: noteId,
             isEditing: true,
             searchText: loc.searchText,
+            selectedTitle: loc.selectedTitle,
+            selectedBody: loc.selectedBody,
           }));
         });
       }}

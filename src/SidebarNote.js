@@ -17,11 +17,17 @@ export default function SidebarNote({note}) {
   const lastUpdatedAt = isToday(updatedAt)
     ? format(updatedAt, 'h:mm bb')
     : format(updatedAt, 'M/d/yy');
-  const summary = excerpts(marked(note.body), {words: 20});
+
+  console.log(note);
+
+    // const summary = excerpts(marked(note.body), {words: 20});
+  const summary = note.body;
+
   return (
     <ClientSidebarNote
       id={note.id}
       title={note.title}
+      body={note.body}
       expandedChildren={
         <p className="sidebar-note-excerpt">{summary || <i>(No content)</i>}</p>
       }>

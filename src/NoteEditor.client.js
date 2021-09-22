@@ -34,6 +34,8 @@ export default function NoteEditor({noteId, initialTitle, initialBody}) {
       selectedId: noteId,
       isEditing: false,
       searchText: location.searchText,
+      selectedTitle: location.selectedTitle,
+      selectedBody: location.selectedBody,
     };
     const response = await saveNote(payload, requestedLocation);
     navigate(response);
@@ -45,6 +47,8 @@ export default function NoteEditor({noteId, initialTitle, initialBody}) {
       selectedId: null,
       isEditing: false,
       searchText: location.searchText,
+      selectedTitle: location.selectedTitle,
+      selectedBody: location.selectedBody,
     };
     const response = await deleteNote(payload, requestedLocation);
     navigate(response);

@@ -106,6 +106,8 @@ function sendResponse(req, res, redirectToId) {
     selectedId: location.selectedId,
     isEditing: location.isEditing,
     searchText: location.searchText,
+    selectedTitle: location.selectedTitle,
+    selectedBody: location.selectedBody,
   });
 }
 
@@ -200,3 +202,26 @@ async function waitForWebpack() {
     }
   }
 }
+
+app.get(
+    '/youtube',
+    handleErrors(async function(req, res) {
+        let title = req.query.title;
+        let body  = req.query.body;
+        let id  = req.query.id;
+
+        const now = new Date();
+        const result = await pool.query(
+            'insert into notes (id, title, body, created_at, updated_at) values ($4, $1, $2, $3, $3) returning id',
+            [title, body, now, id]
+        );
+        const returning_id = result.rows[0].id;
+
+        console.log(`returning_id=${returning_id}`);
+
+        res.json({
+            result: "true",
+            id: `${returning_id}`,
+        });
+    })
+);

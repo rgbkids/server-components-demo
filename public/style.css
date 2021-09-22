@@ -134,19 +134,19 @@ h5 {
 }
 
 h1 {
-  font-size: 3.052rem;
+  /*font-size: 3.052rem;*/
 }
 h2 {
-  font-size: 2.441rem;
+  /*font-size: 2.441rem;*/
 }
 h3 {
-  font-size: 1.953rem;
+  /*font-size: 1.953rem;*/
 }
 h4 {
-  font-size: 1.563rem;
+  /*font-size: 1.563rem;*/
 }
 h5 {
-  font-size: 1.25rem;
+  /*font-size: 1.25rem;*/
 }
 small,
 .text_small {
@@ -689,4 +689,20 @@ ul.notes-list {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.sidebar-note-thumbnail {
+  width: 80px;
+  height: 45px;
+}
+
+.left {
+  float: left;
+  text-align: center;
+}
+
+.right {
+  float: right;
+  width: 50%;
+  text-align: left;
 }

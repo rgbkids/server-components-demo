@@ -27,6 +27,8 @@ function Content() {
     selectedId: null,
     isEditing: false,
     searchText: '',
+    selectedTitle: '',
+    selectedBody: '',
   });
   const response = useServerResponse(location);
   return (

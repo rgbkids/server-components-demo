@@ -18,11 +18,11 @@ export default function SearchField() {
   return (
     <form className="search" role="search" onSubmit={(e) => e.preventDefault()}>
       <label className="offscreen" htmlFor="sidebar-search-input">
-        Search for a note by title
+        Filter for a note by title
       </label>
       <input
         id="sidebar-search-input"
-        placeholder="Search"
+        placeholder="Filter"
         value={text}
         onChange={(e) => {
           const newText = e.target.value;

@@ -10,7 +10,7 @@ import {useState, useRef, useEffect, useTransition} from 'react';
 
 import {useLocation} from './LocationContext.client';
 
-export default function SidebarNote({id, title, children, expandedChildren}) {
+export default function SidebarNote({id, title, body, children, expandedChildren}) {
   const [location, setLocation] = useLocation();
   const [isPending, startTransition] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -25,6 +25,9 @@ export default function SidebarNote({id, title, children, expandedChildren}) {
       itemRef.current.classList.add('flash');
     }
   }, [title]);
+
+  const titleEncode = encodeURI(title);
+  const bodyEncode = encodeURI(body);
 
   return (
     <div
@@ -55,6 +58,8 @@ export default function SidebarNote({id, title, children, expandedChildren}) {
               selectedId: id,
               isEditing: false,
               searchText: loc.searchText,
+              selectedTitle: titleEncode,
+              selectedBody: bodyEncode,
             }));
           });
         }}>

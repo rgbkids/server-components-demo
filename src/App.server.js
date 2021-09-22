@@ -15,7 +15,7 @@ import SearchField from './SearchField.client';
 import NoteSkeleton from './NoteSkeleton';
 import NoteListSkeleton from './NoteListSkeleton';
 
-export default function App({selectedId, isEditing, searchText}) {
+export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody}) {
   return (
     <div className="main">
       <section className="col sidebar">
@@ -28,11 +28,10 @@ export default function App({selectedId, isEditing, searchText}) {
             alt=""
             role="presentation"
           />
-          <strong>React Notes</strong>
+          <strong>Study with me</strong>
         </section>
         <section className="sidebar-menu" role="menubar">
           <SearchField />
-          <EditButton noteId={null}>New</EditButton>
         </section>
         <nav>
           <Suspense fallback={<NoteListSkeleton />}>
@@ -42,7 +41,7 @@ export default function App({selectedId, isEditing, searchText}) {
       </section>
       <section key={selectedId} className="col note-viewer">
         <Suspense fallback={<NoteSkeleton isEditing={isEditing} />}>
-          <Note selectedId={selectedId} isEditing={isEditing} />
+          <Note selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} />
         </Suspense>
       </section>
     </div>
