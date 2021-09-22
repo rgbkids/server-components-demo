@@ -33,18 +33,13 @@ const createTableStatement = `CREATE TABLE notes (
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
   title TEXT,
-  body TEXT
+  body TEXT,
+  thumbnail TEXT
 );`;
-const insertNoteStatement = `INSERT INTO notes(title, body, created_at, updated_at, id)
-  VALUES ($1, $2, $3, $3, $4)
+const insertNoteStatement = `INSERT INTO notes(title, body, created_at, updated_at, id, thumbnail)
+  VALUES ($1, $2, $3, $3, $4, $5)
   RETURNING *`;
 const seedData = [
-  [
-    'Meeting Notes',
-    'This is an example note. It contains **Markdown**!',
-    randomDateBetween(startOfThisYear, now),
-    'dummy',
-  ],
 ];
 
 async function seed() {

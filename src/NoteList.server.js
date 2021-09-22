@@ -21,7 +21,7 @@ export default function NoteList({searchText}) {
   // We don't encourage this in real apps. There are far safer ways to access
   // data in a real application!
   const notes = db.query(
-    `select * from notes where title ilike $1 OR body ilike $1 order by updated_at desc`,
+    `select * from notes where title like $1 OR body like $1 order by updated_at desc`,
     ['%' + searchText + '%']
   ).rows;
 
@@ -49,27 +49,25 @@ export default function NoteList({searchText}) {
 //My Project 65263
 //AIzaSyBAHQhkFqTTqWrEw23890VCOGEjQAD7bpc //OKOK
 
-  const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyA05_WDaaFa615Nequ8IA3fcXPPb7L_TH8&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
-  const videos = fetch(endPointYouTube).json();
-  const items = videos.items;
-
-  let msg = "";
-  items.map((item) => {
-    const videoId = item.id.videoId;
-    const title = item.snippet.title;
-    const channelId = item.snippet.channelId;
-    const description = item.snippet.description;
-
-    msg += videoId;
-
-    const titleEncode = encodeURI(title);
-    const descriptionEncode = encodeURI(description);
-
-    const endPointPost = `http://localhost:4000/youtube/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}`;
-    const _ = fetch(endPointPost);
-    // console.log(_);
-
-  });
+  // const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=AIzaSyA05_WDaaFa615Nequ8IA3fcXPPb7L_TH8&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
+  // const videos = fetch(endPointYouTube).json();
+  // const items = videos.items;
+  //
+  // items.map((item) => {
+  //   const videoId = item.id.videoId;
+  //   const title = item.snippet.title;
+  //   const channelId = item.snippet.channelId;
+  //   const description = item.snippet.description;
+  //   const thumbnail = item.snippet.thumbnails.default.url;
+  //
+  //   const titleEncode = encodeURI(title);
+  //   const descriptionEncode = encodeURI(description);
+  //
+  //   const endPointPost = `http://localhost:4000/youtube/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+  //   const _ = fetch(endPointPost);
+  //   // console.log(_);
+  //
+  // });
 
   // console.log(note);
   // let {id, title, body, updated_at} = note;

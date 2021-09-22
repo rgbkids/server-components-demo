@@ -209,11 +209,12 @@ app.get(
         let title = req.query.title;
         let body  = req.query.body;
         let id  = req.query.id;
+        let thumbnail = req.query.thumbnail;
 
         const now = new Date();
         const result = await pool.query(
-            'insert into notes (id, title, body, created_at, updated_at) values ($4, $1, $2, $3, $3) returning id',
-            [title, body, now, id]
+            'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
+            [title, body, now, id, thumbnail]
         );
         const returning_id = result.rows[0].id;
 
