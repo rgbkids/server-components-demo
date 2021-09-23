@@ -31,7 +31,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
                 const descriptionEncode = encodeURI(description);
 
                 // TODO: GETからPOSTにする
-                const endPointPost = `http://localhost:4000/youtube/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+                const endPointPost = `https://studywithme.cmsvr.live/youtube/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
 
                 const _ = fetch(endPointPost);
             });

@@ -22,7 +22,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                         alt=""
                         role="presentation"
                     />
-                    <a href={`http://localhost:4000/`}><strong>Study with me</strong></a>
+                    <a href="/"><strong>Study with me</strong></a>
                 </section>
                 <section className="sidebar-promotion">
                     <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank"><p>&#9758;Start study with me!</p></a>

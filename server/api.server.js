@@ -41,8 +41,8 @@ app.use(express.json());
 let https = require('https');
 let fs = require('fs');
 let options = {
-    key: fs.readFileSync(__dirname + '/privkey.pem'),
-    cert: fs.readFileSync(__dirname + '/fullchain.pem'),
+    key: fs.readFileSync(__dirname + '/privkey.pem'), // TODO: ファイルをコミットしない
+    cert: fs.readFileSync(__dirname + '/fullchain.pem'), // TODO: ファイルをコミットしない
 }
 let server = https.createServer(options, app);
 server
