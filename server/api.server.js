@@ -31,13 +31,21 @@ const ReactApp = require('../src/App.server').default;
 // Don't keep credentials in the source tree in a real app!
 const pool = new Pool(require('../credentials'));
 
-const PORT = process.env.PORT || 4000;
+const PORT = 443; //process.env.PORT || 4000;
 const app = express();
 
 app.use(compress());
 app.use(express.json());
 
-app
+// tls
+let https = require('https');
+let fs = require('fs');
+let options = {
+    key: fs.readFileSync(__dirname + '/privkey.pem'),
+    cert: fs.readFileSync(__dirname + '/fullchain.pem'),
+}
+let server = https.createServer(options, app);
+server
   .listen(PORT, () => {
     console.log(`React Notes listening at ${PORT}...`);
   })
