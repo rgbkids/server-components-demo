@@ -15,14 +15,16 @@ import SidebarNote2 from './SidebarNote2';
 export default function NoteList({searchText}) {
   // const notes = fetch('http://localhost:4000/notes').json();
 
-  console.log(`searchText=${searchText}`);
+  const searchTextDecode = decodeURI(searchText);
+
+  console.log(`searchText=[${searchTextDecode}]`);
 
   // WARNING: This is for demo purposes only.
   // We don't encourage this in real apps. There are far safer ways to access
   // data in a real application!
   const notes = db.query(
     `select * from notes where title like $1 OR body like $1 order by updated_at desc limit 20`,
-    ['%' + searchText + '%']
+    ['%' + searchTextDecode + '%']
   ).rows;
 
   // Now let's see how the Suspense boundary above lets us not block on this.
