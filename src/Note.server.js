@@ -9,7 +9,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
              from notes
              where title like $1
                 OR body like $1
-             order by updated_at desc limit 10`,
+             order by updated_at desc limit 6`,
             ['%' + "" + '%']
         ).rows;
 
@@ -19,23 +19,24 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
         if (notes) {
             return (
                 <>
-                    <ul className="notes-list left">
-                        {leftNotes.map((note) => (
-                            <li key={note.id}>
-                                <SidebarNote3 note={note}/>
-                            </li>
-                        ))}
-                    </ul>
-                    <ul className="notes-list right">
-                        {rightNotes.map((note) => (
-                            <li key={note.id}>
-                                <SidebarNote3 note={note}/>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="">
+                        <ul className="notes-list left">
+                            {leftNotes.map((note) => (
+                                <li key={note.id}>
+                                    <SidebarNote3 note={note}/>
+                                </li>
+                            ))}
+                        </ul>
+                        <ul className="notes-list right">
+                            {rightNotes.map((note) => (
+                                <li key={note.id}>
+                                    <SidebarNote3 note={note}/>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </>
-            )
-                ;
+            );
         }
     }
 
