@@ -1,8 +1,43 @@
 import {db} from "./db.server";
-import SidebarNote from "./SidebarNote";
 import SidebarNote3 from "./SidebarNote3";
+import {getKey} from "./keys";
+import {fetch} from "react-fetch";
 
 export default function Note({selectedId, isEditing, selectedTitle, selectedBody}) {
+
+    const now = new Date();
+    const notes = db.query(
+        `select updated_at from notes where updated_at + interval '00:01' > $1`,
+        [now]
+    ).rows;
+
+    if (notes && notes.length == 0) {
+        const key = getKey();
+
+        const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
+
+        const videos = fetch(endPointYouTube).json();
+        const items = videos.items;
+
+        if (items && items.length > 0) {
+            items.map((item) => {
+                const videoId = item.id.videoId;
+                const title = item.snippet.title;
+                const channelId = item.snippet.channelId;
+                const description = item.snippet.description;
+                const thumbnail = item.snippet.thumbnails.default.url;
+
+                const titleEncode = encodeURI(title);
+                const descriptionEncode = encodeURI(description);
+
+                // TODO: GETからPOSTにする
+                const endPointPost = `http://localhost:4000/youtube/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+
+                const _ = fetch(endPointPost);
+            });
+        }
+    }
+
     if (!selectedId) {
         const notes = db.query(
             `select *
