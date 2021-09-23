@@ -53,8 +53,8 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
                 <div className="note-header">
                     <h1 className="note-title">{titleDecode}</h1>
                 </div>
-                <iframe width="560"
-                        height="315"
+                <iframe width="840"
+                        height="472"
                         src={src}
                         title="YouTube video player" frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
