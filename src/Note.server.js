@@ -9,7 +9,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
              from notes
              where title like $1
                 OR body like $1
-             order by updated_at desc limit 6`,
+             order by updated_at desc limit 20`,
             ['%' + "" + '%']
         ).rows;
 
@@ -45,6 +45,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
     const bodyDecode = decodeURI(selectedBody);
 
     const src = `https://www.youtube.com/embed/${videoId}`;
+    const uri = `https://www.youtube.com/watch?v=${videoId}`;
 
     if (isEditing) {
     } else {
@@ -60,7 +61,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen>
                 </iframe>
-                <p>{bodyDecode}</p>
+                <p>{bodyDecode} <a href={uri} target="_blank">more</a></p>
                 <p><a href={`https://www.youtube.com/live_chat?is_popout=1&v=${videoId}`} target="_blank">Open chat</a>
                 </p>
             </div>
