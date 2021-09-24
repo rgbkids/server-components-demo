@@ -9,7 +9,7 @@
 import {useState, useTransition, useEffect} from 'react';
 import {useLocation} from './LocationContext.client';
 import Spinner from './Spinner';
-import {signIn, getAuth} from './fire';
+import {useSignIn, useFirebase} from './fire';
 
 let me = null;
 
@@ -21,7 +21,7 @@ export default function SearchField() {
     const [email, setEmail] = useState("");
 
     useEffect(() => {
-        getAuth().onAuthStateChanged(user => {
+        useFirebase().auth().onAuthStateChanged(user => {
             if (user) {
                 me = user;
 
@@ -32,7 +32,7 @@ export default function SearchField() {
     });
 
     async function handleSignIn() {
-        signIn();
+        useSignIn();
     }
 
     return (

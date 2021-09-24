@@ -1,5 +1,14 @@
 import firebase from 'firebase';
 
+export const useSignIn = () => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
+};
+
+export const useFirebase = () => {
+    return firebase;
+}
+
 const firebaseConfig = {
     apiKey: "AIzaSyDS12gHH6QsdYV8ckt0SRA4tuu2feKU0Fc",
     projectId: "vteacher-online",
@@ -16,17 +25,13 @@ db.settings({
     timestampsInSnapshots: true
 });
 
-export function getDb() {
-    return db;
-}
+// export function getDb() {
+//     return db;
+// }
 
 const auth = firebase.auth();
 
-export function getAuth() {
-    return auth;
-}
+// export function getAuth() {
+//     return auth;
+// }
 
-export const signIn = () => {
-    let provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
-};
