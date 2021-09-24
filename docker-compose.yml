@@ -18,11 +18,11 @@ services:
     depends_on:
       - postgres
     ports:
-      - '80:80'
+      - '443:443'
     environment:
       DB_HOST: postgres
-      PORT: 80
-      HTTPS: 'false'
+      PORT: 443
+      HTTPS: 'true'
     volumes:
       - ./notes:/opt/notes-app/notes
       - ./public:/opt/notes-app/public
