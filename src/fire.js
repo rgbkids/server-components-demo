@@ -17,14 +17,12 @@ db.settings({
 });
 
 export function getDb() {
-    console.log("getDB-------");
     return db;
 }
 
 const auth = firebase.auth();
 
 export function getAuth() {
-    console.log("getAuth-------");
     return auth;
 }
 
