@@ -16,7 +16,7 @@
     "date-fns": "^2.16.1",
     "excerpts": "^0.0.3",
     "express": "^4.17.1",
-    "firebase": "^8.10.0",
+    "firebase": "^8.2.0",
     "html-webpack-plugin": "4.5.0",
     "marked": "^1.2.5",
     "nodemon": "^2.0.6",
