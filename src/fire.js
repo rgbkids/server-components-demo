@@ -25,13 +25,4 @@ db.settings({
     timestampsInSnapshots: true
 });
 
-// export function getDb() {
-//     return db;
-// }
-
 const auth = firebase.auth();
-
-// export function getAuth() {
-//     return auth;
-// }
-

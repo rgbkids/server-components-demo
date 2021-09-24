@@ -11,7 +11,7 @@ import {useLocation} from './LocationContext.client';
 import Spinner from './Spinner';
 import {useSignIn, useFirebase} from './fire';
 
-let me = null;
+let user = null;
 
 export default function SearchField() {
     const [text, setText] = useState('');
@@ -21,12 +21,12 @@ export default function SearchField() {
     const [email, setEmail] = useState("");
 
     useEffect(() => {
-        useFirebase().auth().onAuthStateChanged(user => {
-            if (user) {
-                me = user;
+        useFirebase().auth().onAuthStateChanged(_user => {
+            if (_user) {
+                user = _user;
 
                 setSigned(true);
-                setEmail(me.email);
+                setEmail(user.email);
             }
         });
     });
