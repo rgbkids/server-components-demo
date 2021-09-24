@@ -20,9 +20,9 @@ if (firebase.apps.length == 0) {
     firebase.initializeApp(firebaseConfig);
 }
 
-const db = firebase.firestore();
-db.settings({
-    timestampsInSnapshots: true
-});
-
-const auth = firebase.auth();
+// const db = firebase.firestore();
+// db.settings({
+//     timestampsInSnapshots: true
+// });
+//
+// const auth = firebase.auth();

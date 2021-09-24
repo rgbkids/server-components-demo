@@ -36,32 +36,36 @@ export default function SearchField() {
     }
 
     return (
-        <form className="search" role="search" onSubmit={(e) => e.preventDefault()}>
-            <label className="offscreen" htmlFor="sidebar-search-input">
-                Filter for a note by title
-            </label>
-            <input
-                id="sidebar-search-input"
-                placeholder="Filter"
-                value={text}
-                onChange={(e) => {
-                    const newText = e.target.value;
-                    const newTextEncode = encodeURI(newText);
+        <>
+            <form className="search" role="search" onSubmit={(e) => e.preventDefault()}>
+                <label className="offscreen" htmlFor="sidebar-search-input">
+                    Filter for a note by title
+                </label>
+                <input
+                    id="sidebar-search-input"
+                    placeholder="Filter"
+                    value={text}
+                    onChange={(e) => {
+                        const newText = e.target.value;
+                        const newTextEncode = encodeURI(newText);
 
-                    setText(newText);
-                    startSearching(() => {
-                        setLocation((loc) => ({
-                            ...loc,
-                            searchText: newTextEncode,
-                        }));
-                    });
-                }}
-            />
-            <Spinner active={isSearching}/>
-            {signed
-                ? <p>{email}</p>
-                : <button onClick={() => handleSignIn()}>Sign in</button>
-            }
-        </form>
+                        setText(newText);
+                        startSearching(() => {
+                            setLocation((loc) => ({
+                                ...loc,
+                                searchText: newTextEncode,
+                            }));
+                        });
+                    }}
+                />
+                <Spinner active={isSearching}/>
+            </form>
+            <div>
+                {signed
+                    ? <p>{email}</p>
+                    : <button onClick={() => handleSignIn()}>Sign in</button>
+                }
+            </div>
+        </>
     );
 }
