@@ -27,6 +27,13 @@ export default function SearchField() {
 
                 setSigned(true);
                 setEmail(user.email);
+
+                useFirebase().firestore().collection('tickets').get().then((snapshot) => {
+                    snapshot.forEach((document) => {
+                        const doc = document.data();
+                        console.log(doc);
+                    })
+                });
             }
         });
     });
