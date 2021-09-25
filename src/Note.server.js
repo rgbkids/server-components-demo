@@ -1,5 +1,6 @@
 import {db} from "./db.server";
 import SidebarNote3 from "./SidebarNote3";
+import NoteClient from "./Note.client";
 import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
@@ -85,21 +86,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
     if (isEditing) {
     } else {
         return (
-            <div className="note">
-                <div className="note-header">
-                    <h1 className="note-title">{titleDecode}</h1>
-                </div>
-                <iframe width="840"
-                        height="472"
-                        src={src}
-                        title="YouTube video player" frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen>
-                </iframe>
-                <p>{bodyDecode} <a href={uri} target="_blank">more</a></p>
-                <p><a href={`https://www.youtube.com/live_chat?is_popout=1&v=${videoId}`} target="_blank">Open chat</a>
-                </p>
-            </div>
+            <NoteClient title={titleDecode} body={bodyDecode} src={src} uri={uri} videoId={videoId} />
         );
     }
 }
