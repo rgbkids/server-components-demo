@@ -18,7 +18,6 @@ export default function Note({title, body, src, uri, videoId}) {
                 setDisplayName(user.displayName);
                 setUid(user.uid);
 
-                //-------------------------------------
                 useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
                     snapshot.forEach((document) => {
                         setDocumentId(document.id);
@@ -30,9 +29,7 @@ export default function Note({title, body, src, uri, videoId}) {
                         }
                     })
                 });
-                //-------------------------------------
 
-                // ------------------------
                 useFirebase().firestore().collection('study-with-me').onSnapshot(snapshot => {
                     snapshot.docChanges().forEach(change => {
                         if (change.type === 'added') {
@@ -41,7 +38,6 @@ export default function Note({title, body, src, uri, videoId}) {
                         }
                     });
                 });
-                // ------------------------
             } else {
                 setSigned(false);
                 setEmail("");
@@ -59,34 +55,17 @@ export default function Note({title, body, src, uri, videoId}) {
         useSignOut();
     }
 
-    async function handleAdd() {
-        let _videoIds = videoIds.concat([]);
-        // if (!_videoIds || _videoIds.length == 0) {
-        //     // setVideoIds([]);
-        // }
-        _videoIds.push(videoId);
-
-        setVideoIds(_videoIds);
-        setBookmark(true);
-
-        const data = {
-            email: email,
-            videoIds: _videoIds,
-            memo: new Date(),
-        }
-
-        if (documentId) {
-            useFirebase().firestore().collection('study-with-me').doc(documentId).update(data);
+    async function handleToggleBookmark() {
+        if (bookmark) {
+            deleteBookmark();
         } else {
-            useFirebase().firestore().collection('study-with-me').add(data);
+            addBookmark();
         }
     }
 
-    async function handleDelete() {
-        const _videoIds = videoIds.filter(v => v !== videoId);
-
-        setVideoIds(_videoIds);
-        setBookmark(false);
+    function addBookmark() {
+        let _videoIds = videoIds.concat();
+        _videoIds.push(videoId);
 
         const data = {
             email: email,
@@ -99,6 +78,28 @@ export default function Note({title, body, src, uri, videoId}) {
         } else {
             useFirebase().firestore().collection('study-with-me').add(data);
         }
+
+        setVideoIds(_videoIds);
+        setBookmark(true);
+    }
+
+    function deleteBookmark() {
+        const _videoIds = videoIds.filter(v => v !== videoId);
+
+        const data = {
+            email: email,
+            videoIds: _videoIds,
+            memo: new Date(),
+        }
+
+        if (documentId) {
+            useFirebase().firestore().collection('study-with-me').doc(documentId).update(data);
+        } else {
+            useFirebase().firestore().collection('study-with-me').add(data);
+        }
+
+        setVideoIds(_videoIds);
+        setBookmark(false);
     }
 
     return (
@@ -126,10 +127,10 @@ export default function Note({title, body, src, uri, videoId}) {
                             ?
                             <>
                                 <p>bookmarked</p>
-                                <button onClick={() => handleDelete()}>Delete</button>
+                                <button onClick={() => handleToggleBookmark()}>-</button>
                             </>
                             :
-                            <button onClick={() => handleAdd()}>Add</button>
+                            <button onClick={() => handleToggleBookmark()}>+</button>
                         }
                     </>
                     :
