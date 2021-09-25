@@ -1,6 +1,9 @@
 import {db} from "./db.server";
+
 import SidebarNote3 from "./SidebarNote3";
 import NoteClient from "./Note.client";
+import NoteHome from "./NoteHome.client";
+
 import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
@@ -49,29 +52,12 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
             ['%' + "" + '%']
         ).rows;
 
-        let leftNotes = notes.filter((e, i) => i % 2 === 0);
-        let rightNotes = notes.filter((e, i) => i % 2 === 1);
+        // let leftNotes = notes.filter((e, i) => i % 2 === 0);
+        // let rightNotes = notes.filter((e, i) => i % 2 === 1);
 
         if (notes) {
             return (
-                <>
-                    <div className="">
-                        <ul className="notes-list left">
-                            {leftNotes.map((note) => (
-                                <li key={note.id}>
-                                    <SidebarNote3 note={note}/>
-                                </li>
-                            ))}
-                        </ul>
-                        <ul className="notes-list right">
-                            {rightNotes.map((note) => (
-                                <li key={note.id}>
-                                    <SidebarNote3 note={note}/>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </>
+                <NoteHome notes={notes} />
             );
         }
     }

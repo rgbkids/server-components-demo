@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {useSignIn, useSignInPopup, useSignOut, useFirebase} from './fire';
 
 export default function Note({title, body, src, uri, videoId}) {
+
     const [signed, setSigned] = useState(false);
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
@@ -9,6 +10,7 @@ export default function Note({title, body, src, uri, videoId}) {
     const [documentId, setDocumentId] = useState("");
     const [videoIds, setVideoIds] = useState([]);
     const [bookmark, setBookmark] = useState(false);
+    const [videos, setVideos] = useState([]);
 
     useEffect(() => {
         useFirebase().auth().onAuthStateChanged(user => {
@@ -23,6 +25,7 @@ export default function Note({title, body, src, uri, videoId}) {
                         setDocumentId(document.id);
                         const doc = document.data();
                         setVideoIds(doc.videoIds);
+                        setVideos(doc.videos);
 
                         if (doc.videoIds.includes(videoId)) {
                             setBookmark(true);
@@ -64,13 +67,23 @@ export default function Note({title, body, src, uri, videoId}) {
     }
 
     function addBookmark() {
-        let _videoIds = videoIds.concat();
-        _videoIds.push(videoId);
+        if (!videoIds.includes(videoId)) {
+            videoIds.push(videoId);
+            videos.push({
+                title: title,
+                body: body,
+                created_at: new Date(),
+                updated_at: new Date(),
+                id: videoId,
+                thumbnail: src,
+            });
+        }
 
         const data = {
             email: email,
-            videoIds: _videoIds,
+            videoIds: videoIds,
             memo: new Date(),
+            videos: videos,
         }
 
         if (documentId) {
@@ -79,17 +92,24 @@ export default function Note({title, body, src, uri, videoId}) {
             useFirebase().firestore().collection('study-with-me').add(data);
         }
 
-        setVideoIds(_videoIds);
+        setVideoIds(videoIds);
+        setVideos(videos);
         setBookmark(true);
     }
 
     function deleteBookmark() {
         const _videoIds = videoIds.filter(v => v !== videoId);
+        const _videos = videos.filter(v => {
+            console.log(v);
+            console.log(v.id);
+            return (v.id !== videoId);
+        });
 
         const data = {
             email: email,
             videoIds: _videoIds,
             memo: new Date(),
+            videos: _videos,
         }
 
         if (documentId) {
@@ -99,6 +119,7 @@ export default function Note({title, body, src, uri, videoId}) {
         }
 
         setVideoIds(_videoIds);
+        setVideos(_videos);
         setBookmark(false);
     }
 
