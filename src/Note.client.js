@@ -8,6 +8,7 @@ export default function Note({title, body, src, uri, videoId}) {
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [uid, setUid] = useState("");
+    const [documentId, setDocumentId] = useState("");
 
     useEffect(() => {
         useFirebase().auth().onAuthStateChanged(_user => {
@@ -24,40 +25,32 @@ export default function Note({title, body, src, uri, videoId}) {
                 //-------------------------------------
                 useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
                     snapshot.forEach((document) => {
+                        setDocumentId(document.id);
+
                         const doc = document.data();
-                        // console.log(`---- collection('study-with-me').where('email', '==', user.email).get() ----`);
-                        // console.log(document);
-                        // console.log(document.id);
                         // console.log(doc);
-
-
-                        //-------------------------------------
-                        useFirebase().firestore().collection('study-with-me').doc(document.id).get().then((_snapshot) => {
-                            // _snapshot.forEach((_document) => {
-                                const _doc = _snapshot.data();
-                                console.log(`---- document.id.get() ----`);
-                                console.log(_snapshot);
-                                console.log(_doc);
-                            // })
-
-                            const data = {
-                                email: user.email,
-                                memo: new Date(),
-                            }
-                            useFirebase().firestore().collection('study-with-me').doc(document.id).update(data);
-
-                        }).catch((error) => {
-                            console.log(error);
-                        });
-                        //-------------------------------------
-
                     })
-                }).catch((error) => {
-                    console.log(error);
                 });
                 //-------------------------------------
 
+                // ------------------------
+                useFirebase().firestore().collection('study-with-me').onSnapshot(snapshot => {
+                    snapshot.docChanges().forEach(change => {
+                        if (change.type === 'added') {
+                            const d = change.doc.data();
+                            console.log("---------------------------");
+                            console.log(change);
+                            console.log(change.doc);
+                            console.log(change.doc.id);
+                            console.log(d);
 
+                            setDocumentId(change.doc.id);
+                        }
+                    });
+                }, error => {
+                    console.log(error);
+                });
+                // ------------------------
             }
         });
     });
@@ -67,23 +60,17 @@ export default function Note({title, body, src, uri, videoId}) {
     }
 
     async function handleAdd() {
-        if (user) {
-            useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
-                snapshot.forEach((document) => {
-                    const doc = document.data();
-                    console.log(`---- collection('study-with-me').where('email', '==', user.email).get() ----`);
-                    console.log(document);
-                    console.log(document.id);
-                    console.log(doc);
-                })
-            }).catch((error) => {
-                console.log(error);
-            });
+        const data = {
+            email: email,
+            memo: new Date(),
+        }
 
-            const data = {
-                email: user.email,
+        if (user) {
+            if (documentId) {
+                useFirebase().firestore().collection('study-with-me').doc(documentId).update(data);
+            } else {
+                useFirebase().firestore().collection('study-with-me').add(data);
             }
-            useFirebase().firestore().collection('study-with-me').add(data);
         }
     }
 
@@ -104,7 +91,7 @@ export default function Note({title, body, src, uri, videoId}) {
             </p>
             <div>
                 {signed
-                    ? <p>{displayName}<button onClick={() => handleAdd()}>Add</button></p>
+                    ? <p>{displayName}:{documentId}<button onClick={() => handleAdd()}>Add</button></p>
                     : <button onClick={() => handleSignIn()}>Sign in</button>
                 }
             </div>
