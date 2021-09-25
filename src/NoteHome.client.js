@@ -4,10 +4,17 @@ import {useFirebase} from './fire';
 
 export default function NoteHome({notes}) {
     // const [videoIds, setVideoIds] = useState([]);
-    const [leftNotes, setLeftNotes] = useState(notes.filter((e, i) => i % 2 === 0));
-    const [rightNotes, setRightNotes] = useState(notes.filter((e, i) => i % 2 === 1));
+
+    // const [leftNotes, setLeftNotes] = useState(notes.filter((e, i) => i % 2 === 0));
+    // const [rightNotes, setRightNotes] = useState(notes.filter((e, i) => i % 2 === 1));
+
+    const [leftNotes, setLeftNotes] = useState([]);
+    const [rightNotes, setRightNotes] = useState([]);
 
     useEffect(() => {
+        setLeftNotes(notes.filter((e, i) => i % 2 === 0));
+        setRightNotes(notes.filter((e, i) => i % 2 === 1));
+
         useFirebase().auth().onAuthStateChanged(user => {
             if (user) {
                 useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
