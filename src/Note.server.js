@@ -49,8 +49,8 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
             ['%' + "" + '%']
         ).rows;
 
-        let leftNotes = notes.filter((e, i) => i % 2 === 1);
-        let rightNotes = notes.filter((e, i) => i % 2 === 0);
+        let leftNotes = notes.filter((e, i) => i % 2 === 0);
+        let rightNotes = notes.filter((e, i) => i % 2 === 1);
 
         if (notes) {
             return (

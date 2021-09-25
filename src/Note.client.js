@@ -8,6 +8,7 @@ export default function Note({title, body, src, uri, videoId}) {
     const [uid, setUid] = useState("");
     const [documentId, setDocumentId] = useState("");
     const [videoIds, setVideoIds] = useState([]);
+    const [bookmark, setBookmark] = useState(false);
 
     useEffect(() => {
         useFirebase().auth().onAuthStateChanged(user => {
@@ -23,6 +24,10 @@ export default function Note({title, body, src, uri, videoId}) {
                         setDocumentId(document.id);
                         const doc = document.data();
                         setVideoIds(doc.videoIds);
+
+                        if (doc.videoIds.includes(videoId)) {
+                            setBookmark(true);
+                        }
                     })
                 });
                 //-------------------------------------
@@ -55,13 +60,40 @@ export default function Note({title, body, src, uri, videoId}) {
     }
 
     async function handleAdd() {
-        if (!videoIds.includes(videoId)) {
-            videoIds.push(videoId);
+        if (!videoIds || videoIds.length == 0) {
+            setVideoIds([]);
         }
+        videoIds.push(videoId);
+        setVideoIds(videoIds);
+        setBookmark(true);
 
         const data = {
             email: email,
             videoIds: videoIds,
+            memo: new Date(),
+        }
+
+        if (documentId) {
+            useFirebase().firestore().collection('study-with-me').doc(documentId).update(data);
+        } else {
+            useFirebase().firestore().collection('study-with-me').add(data);
+        }
+    }
+
+    async function handleDelete() {
+        const removals = [videoId];
+        const _videoIds = videoIds.filter((v) => {
+            return ! removals.includes(v);
+        });
+        setVideoIds(_videoIds);
+        setBookmark(false);
+
+        // const _videoIds = videoIds.filter(v => v !== videoId);
+        // setVideoIds(_videoIds);
+
+        const data = {
+            email: email,
+            videoIds: _videoIds,
             memo: new Date(),
         }
 
@@ -89,8 +121,22 @@ export default function Note({title, body, src, uri, videoId}) {
             </p>
             <div>
                 {signed
-                    ? <p>{displayName}:{documentId}<button onClick={() => handleAdd()}>Add</button><button onClick={() => handleSignOut()}>Sign out</button></p>
-                    : <button onClick={() => handleSignIn()}>Sign in</button>
+                    ?
+                    <>
+                        <button onClick={() => handleSignOut()}>Sign out</button>
+                        <p>{displayName}:{documentId}</p>
+                        {bookmark
+                            ?
+                            <>
+                                <p>bookmarked</p>
+                                <button onClick={() => handleDelete()}>Delete</button>
+                            </>
+                            :
+                            <button onClick={() => handleAdd()}>Add</button>
+                        }
+                    </>
+                    :
+                    <button onClick={() => handleSignIn()}>Sign in</button>
                 }
             </div>
         </div>
