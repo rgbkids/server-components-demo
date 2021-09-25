@@ -6,39 +6,14 @@
  *
  */
 
-import {useState, useTransition, useEffect} from 'react';
+import {useState, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 import Spinner from './Spinner';
-import {useSignIn, useFirebase} from './fire';
-
-let user = null;
 
 export default function SearchField() {
     const [isSearching, startSearching] = useTransition();
     const [, setLocation] = useLocation();
-
     const [text, setText] = useState('');
-    const [signed, setSigned] = useState(false);
-    const [email, setEmail] = useState("");
-    const [displayName, setDisplayName] = useState("");
-    const [uid, setUid] = useState("");
-
-    useEffect(() => {
-        useFirebase().auth().onAuthStateChanged(_user => {
-            if (_user) {
-                user = _user;
-
-                setSigned(true);
-                setEmail(user.email);
-                setDisplayName(user.displayName);
-                setUid(user.uid);
-            }
-        });
-    });
-
-    async function handleSignIn() {
-        useSignIn();
-    }
 
     return (
         <>
@@ -65,12 +40,6 @@ export default function SearchField() {
                 />
                 <Spinner active={isSearching}/>
             </form>
-            <div>
-                {signed
-                    ? <p className="user-name">{displayName}</p>
-                    : <button onClick={() => handleSignIn()}>Sign in</button>
-                }
-            </div>
         </>
     );
 }

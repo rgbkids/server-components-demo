@@ -2,7 +2,28 @@ import firebase from 'firebase';
 
 export const useSignIn = () => {
     let provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    // firebase.auth().signInWithRedirect(provider);
+    firebase.auth().signInWithRedirect(provider).then(result => {
+    });
+    // firebase.auth().signInWithPopup(provider).then(result => {
+    // });
+};
+
+// export const useSignOut = () => {
+//     // firebase.auth().signOut().then(result => {
+//     // });
+//     firebase.auth().signOut().then(result => {
+//     });
+// };
+
+export const useSignOut = (result) => {
+    // firebase.auth().signOut().then(result => {
+    // });
+    firebase.auth().signOut().then(result);
+};
+
+export const useCurrentUser = () => {
+    return firebase.auth().currentUser;
 };
 
 export const useFirebase = () => {

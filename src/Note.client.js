@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {useSignIn, useFirebase} from './fire';
+import {useSignIn, useSignOut, useFirebase} from './fire';
 
 let user = null;
 
@@ -11,7 +11,13 @@ export default function Note({title, body, src, uri, videoId}) {
     const [documentId, setDocumentId] = useState("");
 
     useEffect(() => {
+        console.log(`useEffect`);
+
         useFirebase().auth().onAuthStateChanged(_user => {
+            console.log(`useFirebase().auth().onAuthStateChanged >>>`);
+            console.log(_user);
+            console.log(`<<< useFirebase().auth().onAuthStateChanged`);
+
             if (_user) {
                 user = _user;
 
@@ -23,7 +29,12 @@ export default function Note({title, body, src, uri, videoId}) {
                 setUid(user.uid);
 
                 //-------------------------------------
+                console.log(`ppp`);
+
                 useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
+
+                    console.log(`1111`);
+
                     snapshot.forEach((document) => {
                         setDocumentId(document.id);
 
@@ -34,7 +45,12 @@ export default function Note({title, body, src, uri, videoId}) {
                 //-------------------------------------
 
                 // ------------------------
+                console.log(`dddd`);
+
                 useFirebase().firestore().collection('study-with-me').onSnapshot(snapshot => {
+
+                    console.log(`2222`);
+
                     snapshot.docChanges().forEach(change => {
                         if (change.type === 'added') {
                             const d = change.doc.data();
@@ -51,12 +67,25 @@ export default function Note({title, body, src, uri, videoId}) {
                     console.log(error);
                 });
                 // ------------------------
+            } else {
+                user = null;
+
+                // console.log(user);
+
+                setSigned(false);
+                setEmail("");
+                setDisplayName("");
+                setUid("");
             }
         });
     });
 
     async function handleSignIn() {
         useSignIn();
+    }
+
+    async function handleSignOut() {
+        useSignOut();
     }
 
     async function handleAdd() {
@@ -66,6 +95,8 @@ export default function Note({title, body, src, uri, videoId}) {
         }
 
         if (user) {
+            console.log(`1111`);
+
             if (documentId) {
                 useFirebase().firestore().collection('study-with-me').doc(documentId).update(data);
             } else {
@@ -91,7 +122,7 @@ export default function Note({title, body, src, uri, videoId}) {
             </p>
             <div>
                 {signed
-                    ? <p>{displayName}:{documentId}<button onClick={() => handleAdd()}>Add</button></p>
+                    ? <p>{displayName}:{documentId}<button onClick={() => handleAdd()}>Add</button><button onClick={() => handleSignOut()}>Sign out</button></p>
                     : <button onClick={() => handleSignIn()}>Sign in</button>
                 }
             </div>
