@@ -2,24 +2,16 @@ import firebase from 'firebase';
 
 export const useSignIn = () => {
     let provider = new firebase.auth.GoogleAuthProvider();
-    // firebase.auth().signInWithRedirect(provider);
-    firebase.auth().signInWithRedirect(provider).then(result => {
-    });
-    // firebase.auth().signInWithPopup(provider).then(result => {
-    // });
+    firebase.auth().signInWithRedirect(provider);
 };
 
-// export const useSignOut = () => {
-//     // firebase.auth().signOut().then(result => {
-//     // });
-//     firebase.auth().signOut().then(result => {
-//     });
-// };
+export const useSignInPopup = () => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider);
+};
 
-export const useSignOut = (result) => {
-    // firebase.auth().signOut().then(result => {
-    // });
-    firebase.auth().signOut().then(result);
+export const useSignOut = () => {
+    firebase.auth().signOut();
 };
 
 export const useCurrentUser = () => {
@@ -40,10 +32,3 @@ const firebaseConfig = {
 if (firebase.apps.length == 0) {
     firebase.initializeApp(firebaseConfig);
 }
-
-// const db = firebase.firestore();
-// db.settings({
-//     timestampsInSnapshots: true
-// });
-//
-// const auth = firebase.auth();
