@@ -60,16 +60,18 @@ export default function Note({title, body, src, uri, videoId}) {
     }
 
     async function handleAdd() {
-        if (!videoIds || videoIds.length == 0) {
-            setVideoIds([]);
-        }
-        videoIds.push(videoId);
-        setVideoIds(videoIds);
+        let _videoIds = videoIds.concat([]);
+        // if (!_videoIds || _videoIds.length == 0) {
+        //     // setVideoIds([]);
+        // }
+        _videoIds.push(videoId);
+
+        setVideoIds(_videoIds);
         setBookmark(true);
 
         const data = {
             email: email,
-            videoIds: videoIds,
+            videoIds: _videoIds,
             memo: new Date(),
         }
 
@@ -81,15 +83,10 @@ export default function Note({title, body, src, uri, videoId}) {
     }
 
     async function handleDelete() {
-        const removals = [videoId];
-        const _videoIds = videoIds.filter((v) => {
-            return ! removals.includes(v);
-        });
+        const _videoIds = videoIds.filter(v => v !== videoId);
+
         setVideoIds(_videoIds);
         setBookmark(false);
-
-        // const _videoIds = videoIds.filter(v => v !== videoId);
-        // setVideoIds(_videoIds);
 
         const data = {
             email: email,
