@@ -2,6 +2,8 @@ import {db} from './db.server';
 import SidebarNote from './SidebarNote';
 
 export default function NoteList({searchText}) {
+    console.log(`NoteList s`);
+
     const searchTextDecode = decodeURI(searchText);
 
     const notes = db.query(

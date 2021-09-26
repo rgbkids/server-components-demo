@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {useSignInPopup, useSignOut, useFirebase} from './fire';
 
 export default function Note({title, body, src, uri, videoId}) {
+    console.log(`Note c`);
 
     const [signed, setSigned] = useState(false);
     const [email, setEmail] = useState("");

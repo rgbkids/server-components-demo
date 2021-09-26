@@ -4,6 +4,8 @@ import marked from 'marked';
 import ClientSidebarNote from './SidebarNote.client';
 
 export default function SidebarNote({note}) {
+    console.log(`SidebarNote`);
+
     const id = note.id;
     const title = note.title;
     const body = note.body;

@@ -7,6 +7,8 @@ import NoteSkeleton from './NoteSkeleton';
 import NoteListSkeleton from './NoteListSkeleton';
 
 export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody}) {
+    console.log(`App`);
+
     return (
         <div className="main">
             <section className="col sidebar">

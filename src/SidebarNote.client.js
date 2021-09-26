@@ -11,7 +11,9 @@ import {useState, useRef, useEffect, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 
 export default function SidebarNote({id, title, body, children, expandedChildren}) {
-  const [location, setLocation] = useLocation();
+    console.log(`SidebarNote c`);
+
+    const [location, setLocation] = useLocation();
   const [isPending, startTransition] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
   const isActive = id === location.selectedId;

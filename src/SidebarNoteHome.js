@@ -1,4 +1,6 @@
 export default function SidebarNoteHome({note}) {
+    console.log(`SidebarNoteHome`);
+
     const videoId = note.id;
     const src = `https://www.youtube.com/embed/${videoId}`;
 

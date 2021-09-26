@@ -5,6 +5,8 @@ import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
 export default function Note({selectedId, isEditing, selectedTitle, selectedBody}) {
+    console.log(`Note s`);
+
     const host = process.env.HOST;
 
     const notes = db.query(
