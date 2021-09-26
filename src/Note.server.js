@@ -5,6 +5,7 @@ import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
 export default function Note({selectedId, isEditing, selectedTitle, selectedBody}) {
+    const host = process.env.HOST;
 
     const notes = db.query(
         `select updated_at
@@ -31,7 +32,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
                 const titleEncode = encodeURI(title);
                 const descriptionEncode = encodeURI(description);
 
-                const endPoint = `https://localhost/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+                const endPoint = `https://${host}/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
                 fetch(endPoint);
             });
         }
