@@ -19,6 +19,7 @@ services:
       - postgres
     ports:
       - '443:443'
+      - '80:80'
     environment:
       DB_HOST: postgres
       PORT: 443

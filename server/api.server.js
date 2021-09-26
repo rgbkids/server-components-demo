@@ -217,7 +217,7 @@ async function waitForWebpack() {
 }
 
 app.get(
-    '/youtube',
+    '/sync',
     handleErrors(async function(req, res) {
         let title = req.query.title;
         let body  = req.query.body;
@@ -230,8 +230,6 @@ app.get(
             [title, body, now, id, thumbnail]
         );
         const returning_id = result.rows[0].id;
-
-        console.log(`returning_id=${returning_id}`);
 
         res.json({
             result: "true",

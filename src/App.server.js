@@ -5,9 +5,6 @@ import NoteList from './NoteList.server';
 import SearchField from './SearchField.client';
 import NoteSkeleton from './NoteSkeleton';
 import NoteListSkeleton from './NoteListSkeleton';
-import {fetch} from "react-fetch";
-import {db} from "./db.server";
-import {getKey} from "./keys";
 
 export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody}) {
     return (
@@ -38,8 +35,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
             </section>
             <section key={selectedId} className="col note-viewer">
                 <Suspense fallback={<NoteSkeleton isEditing={isEditing}/>}>
-                    <Note selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle}
-                          selectedBody={selectedBody}/>
+                    <Note selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody}/>
                 </Suspense>
             </section>
         </div>

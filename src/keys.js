@@ -1,4 +1,4 @@
-export const getKey = function() {
+export const getKey = () => {
   const keys = [
     "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
     "AIzaSyDynnfe5PbvejqTdMZgvpKQv2iv0sc_DvU",

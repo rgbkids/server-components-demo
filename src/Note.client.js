@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
-import {useSignIn, useSignInPopup, useSignOut, useFirebase} from './fire';
+import {useSignInPopup, useSignOut, useFirebase} from './fire';
 
 export default function Note({title, body, src, uri, videoId}) {
 
     const [signed, setSigned] = useState(false);
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
-    const [uid, setUid] = useState("");
+    const [, setUid] = useState("");
     const [documentId, setDocumentId] = useState("");
     const [videoIds, setVideoIds] = useState([]);
     const [bookmark, setBookmark] = useState(false);
