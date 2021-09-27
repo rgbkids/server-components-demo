@@ -31,6 +31,9 @@ export default function NoteHome({notes}) {
                 }
             });
         }
+
+        return () => {
+        };
     });
 
     return (

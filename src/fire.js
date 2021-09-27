@@ -23,10 +23,10 @@ export const useFirebase = () => {
 }
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDS12gHH6QsdYV8ckt0SRA4tuu2feKU0Fc",
-    projectId: "vteacher-online",
-    authDomain: "vteacher-online.firebaseapp.com",
-    databaseURL: "https://vteacher-online.firebaseio.com",
+    apiKey: "AIzaSyCdxET3c7jcdHd8YrUy1iN0VZumrvhWEws",
+    projectId: "vteacher-studywithme",
+    authDomain: "vteacher-studywithme.firebaseapp.com",
+    databaseURL: "https://vteacher-studywithme.firebaseio.com",
 };
 
 if (firebase.apps.length == 0) {
