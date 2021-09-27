@@ -13,7 +13,7 @@ export default function NoteHome({notes}) {
     const [rightNotes, setRightNotes] = useState();
 
     const [signed, setSigned] = useState(false);
-    const [bookmark, setBookmark] = useState(false);
+    // const [bookmark, setBookmark] = useState(false);
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [, setUid] = useState("");
@@ -49,9 +49,9 @@ export default function NoteHome({notes}) {
                             setVideoIds(doc.videoIds);
                             setVideos(doc.videos);
 
-                            if (doc.videoIds.includes(videoId)) {
-                                setBookmark(true);
-                            }
+                            // if (doc.videoIds.includes(videoId)) {
+                            //     setBookmark(true);
+                            // }
                         })
                     });
 
@@ -127,7 +127,7 @@ export default function NoteHome({notes}) {
 
         setVideoIds(_videoIds);
         setVideos(_videos);
-        setBookmark(true);
+        // setBookmark(true);
     }
 
     async function handleDeleteBookmark(note) {
@@ -160,7 +160,7 @@ export default function NoteHome({notes}) {
 
         setVideoIds(_videoIds);
         setVideos(_videos);
-        setBookmark(false);
+        // setBookmark(false);
     }
 
     useEffect(() => {
