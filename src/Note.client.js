@@ -13,42 +13,56 @@ export default function Note({title, body, src, uri, videoId}) {
     const [bookmark, setBookmark] = useState(false);
     const [videos, setVideos] = useState([]);
 
+    const [authed, setAuthed] = useState(false);
+
     useEffect(() => {
-        useFirebase().auth().onAuthStateChanged(user => {
-            if (user) {
-                setSigned(true);
-                setEmail(user.email);
-                setDisplayName(user.displayName);
-                setUid(user.uid);
+        console.log(`Note c useEffect`);
+        if (!authed) {
+            console.log(`Note c useEffect !authed`);
 
-                useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
-                    snapshot.forEach((document) => {
-                        setDocumentId(document.id);
-                        const doc = document.data();
-                        setVideoIds(doc.videoIds);
-                        setVideos(doc.videos);
+            setAuthed(true);
 
-                        if (doc.videoIds.includes(videoId)) {
-                            setBookmark(true);
-                        }
-                    })
-                });
+            useFirebase().auth().onAuthStateChanged(user => {
 
-                useFirebase().firestore().collection('study-with-me').onSnapshot(snapshot => {
-                    snapshot.docChanges().forEach(change => {
-                        if (change.type === 'added') {
-                            const d = change.doc.data();
-                            setDocumentId(change.doc.id);
-                        }
+                console.log(`Note c useEffect !authed onAuthStateChanged`);
+
+                if (user) {
+                    console.log(`Note c useEffect !authed onAuthStateChanged !authed user`);
+
+                    setSigned(true);
+                    setEmail(user.email);
+                    setDisplayName(user.displayName);
+                    setUid(user.uid);
+
+                    useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
+                        snapshot.forEach((document) => {
+                            setDocumentId(document.id);
+                            const doc = document.data();
+                            setVideoIds(doc.videoIds);
+                            setVideos(doc.videos);
+
+                            if (doc.videoIds.includes(videoId)) {
+                                setBookmark(true);
+                            }
+                        })
                     });
-                });
-            } else {
-                setSigned(false);
-                setEmail("");
-                setDisplayName("");
-                setUid("");
-            }
-        });
+
+                    useFirebase().firestore().collection('study-with-me').onSnapshot(snapshot => {
+                        snapshot.docChanges().forEach(change => {
+                            if (change.type === 'added') {
+                                const d = change.doc.data();
+                                setDocumentId(change.doc.id);
+                            }
+                        });
+                    });
+                } else {
+                    setSigned(false);
+                    setEmail("");
+                    setDisplayName("");
+                    setUid("");
+                }
+            });
+        }
     });
 
     async function handleSignIn() {
