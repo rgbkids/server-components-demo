@@ -17,7 +17,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
          order by updated_at desc limit 1`
     ).rows;
 
-    if (false && notes && notes.length > 0) {
+    if (notes && notes.length > 0) {
         const key = getKey();
         const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
         const videos = fetch(endPointYouTube).json();

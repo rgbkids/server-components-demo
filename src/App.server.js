@@ -5,6 +5,7 @@ import NoteList from './NoteList.server';
 import SearchField from './SearchField.client';
 import NoteSkeleton from './NoteSkeleton';
 import NoteListSkeleton from './NoteListSkeleton';
+import Auth from './Auth.client';
 
 export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody}) {
     console.log(`App`);
@@ -40,6 +41,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                     <Note selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody}/>
                 </Suspense>
             </section>
+            <Auth />
         </div>
     );
 }
