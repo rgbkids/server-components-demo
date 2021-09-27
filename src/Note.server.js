@@ -17,14 +17,14 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
          order by updated_at desc limit 1`
     ).rows;
 
-    if (notes && notes.length > 0) {
+    if (false && notes && notes.length > 0) {
         const key = getKey();
         const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
         const videos = fetch(endPointYouTube).json();
         const items = videos.items;
 
         if (items && items.length > 0) {
-            console.log(items);
+            // console.log(items);
 
             if (items.map) {
                 items.map((item) => {
@@ -70,10 +70,11 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
     const src = `https://www.youtube.com/embed/${videoId}`;
     const uri = `https://www.youtube.com/watch?v=${videoId}`;
 
-    if (isEditing) {
+    if (false && isEditing) {
     } else {
         return (
             <NoteClient title={titleDecode} body={bodyDecode} src={src} uri={uri} videoId={videoId}/>
+            // <NoteHome notes={null}/>
         );
     }
 }

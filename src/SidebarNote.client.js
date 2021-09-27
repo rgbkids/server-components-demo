@@ -18,17 +18,23 @@ export default function SidebarNote({id, title, body, children, expandedChildren
   const [isExpanded, setIsExpanded] = useState(false);
   const isActive = id === location.selectedId;
 
-  // Animate after title is edited.
+    console.log(`SidebarNote c 1`);
+
+    // Animate after title is edited.
   const itemRef = useRef(null);
   const prevTitleRef = useRef(title);
   useEffect(() => {
-    if (title !== prevTitleRef.current) {
+      console.log(`SidebarNote c3`);
+
+      if (title !== prevTitleRef.current) {
       prevTitleRef.current = title;
       itemRef.current.classList.add('flash');
     }
   }, [title]);
 
-  const titleEncode = encodeURI(title);
+    console.log(`SidebarNote c2`);
+
+    const titleEncode = encodeURI(title);
   const bodyEncode = encodeURI(body);
 
   return (

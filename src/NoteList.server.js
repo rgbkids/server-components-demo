@@ -1,5 +1,6 @@
 import {db} from './db.server';
 import SidebarNote from './SidebarNote';
+import NoteListClient from './NoteList.client';
 
 export default function NoteList({searchText}) {
     console.log(`NoteList s`);
@@ -15,19 +16,7 @@ export default function NoteList({searchText}) {
         ['%' + searchTextDecode + '%']
     ).rows;
 
-    return notes.length > 0 ? (
-        <ul className="notes-list">
-            {notes.map((note) => (
-                <li key={note.id}>
-                    <SidebarNote note={note}/>
-                </li>
-            ))}
-        </ul>
-    ) : (
-        <div className="notes-empty">
-            {searchText
-                ? `Couldn't find any descriptions "${searchText}".`
-                : 'No notes created yet!'}{' '}
-        </div>
+    return (
+        <NoteListClient notes={notes} />
     );
 }

@@ -60,5 +60,5 @@ function NotePreviewSkeleton() {
 }
 
 export default function NoteSkeleton({isEditing}) {
-  return isEditing ? <NoteEditorSkeleton /> : <NotePreviewSkeleton />;
+  return <NotePreviewSkeleton />;
 }

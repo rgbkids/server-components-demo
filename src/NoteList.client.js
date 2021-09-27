@@ -1,13 +1,21 @@
-import {useState, useEffect, useTransition} from 'react';
-import SidebarNoteHome from "./SidebarNoteHome";
+import SidebarNote from './SidebarNote';
 import {useFirebase} from './fire';
-import {useLocation} from "./LocationContext.client";
+import {useEffect, useState, useTransition} from "react";
+import SidebarNoteHome from "./SidebarNoteHome";
+import {useLocation} from './LocationContext.client';
 
-export default function NoteHome({notes}) {
-    console.log(`NoteHome`);
+export default function NoteList({notes}) {
+    console.log(`NoteList c`);
+
+
 
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
+
+
+    const [count, setCount] = useState(0);
+
+    // console.log(`NoteHome`);
 
     // const [document, setDocument] = useState();
 
@@ -133,15 +141,6 @@ export default function NoteHome({notes}) {
         setVideos(_videos);
         // setBookmark(true);
 
-        startTransition(() => {
-            setLocation((loc) => ({
-                selectedId: note.id,
-                isEditing: true,
-                searchText: loc.searchText,
-                selectedTitle: note.title,
-                selectedBody: note.body,
-            }))
-        });
     }
 
     async function handleDeleteBookmark(note) {
@@ -176,15 +175,6 @@ export default function NoteHome({notes}) {
         setVideos(_videos);
         // setBookmark(false);
 
-        startTransition(() => {
-            setLocation((loc) => ({
-                selectedId: "",
-                isEditing: false,
-                searchText: loc.searchText,
-                selectedTitle: "",
-                selectedBody: "",
-            }))
-        });
     }
 
     useEffect(() => {
@@ -195,23 +185,23 @@ export default function NoteHome({notes}) {
             setAuthed(true);
 
             // if (!document) {
-                useFirebase().auth().onAuthStateChanged(user => {
-                    console.log(`NoteHome useEffect useFirebase`);
+            useFirebase().auth().onAuthStateChanged(user => {
+                console.log(`NoteHome useEffect useFirebase`);
 
-                    if (user) {
-                        useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
-                            snapshot.forEach((document) => {
-                                const doc = document.data();
+                if (user) {
+                    useFirebase().firestore().collection('study-with-me').where('email', '==', user.email).get().then((snapshot) => {
+                        snapshot.forEach((document) => {
+                            const doc = document.data();
 
-                                if (doc.videos.length > 0) {
-                                    setLeftNotes(doc.videos.filter((e, i) => i % 2 === 0));
-                                    setRightNotes(doc.videos.filter((e, i) => i % 2 === 1));
-                                }
-                                // setDocument(document);
-                            })
-                        });
-                    }
-                });
+                            if (doc.videos.length > 0) {
+                                setLeftNotes(doc.videos.filter((e, i) => i % 2 === 0));
+                                setRightNotes(doc.videos.filter((e, i) => i % 2 === 1));
+                            }
+                            // setDocument(document);
+                        })
+                    });
+                }
+            });
             // }
         }
 
@@ -219,76 +209,48 @@ export default function NoteHome({notes}) {
         };
     });
 
-    return (
-        <>
-            <div className="">
-                <ul className="notes-list left">
-                    {leftNotes
-                        ?
-                        <>
-                            {leftNotes.map((note) => (
-                                <li key={note.id}>
-                                    <SidebarNoteHome note={note}/>
-                                    <div>
-                                        {signed
-                                            ?
-                                            <>
-                                                {videoIds.includes(note.id)
-                                                    ?
-                                                    <>
-                                                        <p>bookmarked</p>
-                                                        <button onClick={() => handleDeleteBookmark(note)}>-</button>
-                                                    </>
-                                                    :
-                                                    <button onClick={() => handleAddBookmark(note)}>+</button>
-                                                }
-                                            </>
-                                            :
-                                            <p></p>
-                                        }
-                                    </div>
-                                </li>
-                            ))}
-                        </>
-                        :
-                        <>
-                        </>
-                    }
-                </ul>
-                <ul className="notes-list right">
-                    {rightNotes
-                        ?
-                        <>
-                            {rightNotes.map((note) => (
-                                <li key={note.id}>
-                                    <SidebarNoteHome note={note}/>
-                                    <div>
-                                        {signed
-                                            ?
-                                            <>
-                                                {videoIds.includes(note.id)
-                                                    ?
-                                                    <>
-                                                        <p>bookmarked</p>
-                                                        <button onClick={() => handleDeleteBookmark(note)}>-</button>
-                                                    </>
-                                                    :
-                                                    <button onClick={() => handleAddBookmark(note)}>+</button>
-                                                }
-                                            </>
-                                            :
-                                            <p></p>
-                                        }
-                                    </div>
-                                </li>
-                            ))}
-                        </>
-                        :
-                        <>
-                        </>
-                    }
-                </ul>
-            </div>
-        </>
+
+
+
+
+
+
+
+
+
+
+
+    return notes.length > 0 ? (
+        <ul className="notes-list">
+            {notes.map((note) => (
+                <li key={note.id}>
+                    <SidebarNote note={note}/>
+                    <div>
+                        {signed
+                            ?
+                            <>
+                                {videoIds.includes(note.id)
+                                    ?
+                                    <>
+                                        <p>bookmarked</p>
+                                        <button onClick={() => handleDeleteBookmark(note)}>-</button>
+                                    </>
+                                    :
+                                    <button onClick={() => handleAddBookmark(note)}>+</button>
+                                }
+                            </>
+                            :
+                            <p></p>
+                        }
+                    </div>
+                </li>
+            ))}
+        </ul>
+    ) : (
+        <div className="notes-empty">
+            {searchText
+                ? `Couldn't find any descriptions "${searchText}".`
+                : 'No notes created yet!'}{' '}
+        </div>
     );
 }
