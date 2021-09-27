@@ -5,12 +5,12 @@ export default function Note({title, body, src, uri, videoId}) {
     console.log(`Note c`);
 
     const [signed, setSigned] = useState(false);
+    const [bookmark, setBookmark] = useState(false);
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [, setUid] = useState("");
     const [documentId, setDocumentId] = useState("");
     const [videoIds, setVideoIds] = useState([]);
-    const [bookmark, setBookmark] = useState(false);
     const [videos, setVideos] = useState([]);
 
     const [authed, setAuthed] = useState(false);

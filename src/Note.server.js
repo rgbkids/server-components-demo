@@ -24,19 +24,23 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
         const items = videos.items;
 
         if (items && items.length > 0) {
-            items.map((item) => {
-                const videoId = item.id.videoId;
-                const title = item.snippet.title;
-                const channelId = item.snippet.channelId;
-                const description = item.snippet.description;
-                const thumbnail = item.snippet.thumbnails.default.url;
+            console.log(items);
 
-                const titleEncode = encodeURI(title);
-                const descriptionEncode = encodeURI(description);
+            if (items.map) {
+                items.map((item) => {
+                    const videoId = item.id.videoId;
+                    const title = item.snippet.title;
+                    const channelId = item.snippet.channelId;
+                    const description = item.snippet.description;
+                    const thumbnail = item.snippet.thumbnails.default.url;
 
-                const endPoint = `https://${host}/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
-                fetch(endPoint);
-            });
+                    const titleEncode = encodeURI(title);
+                    const descriptionEncode = encodeURI(description);
+
+                    const endPoint = `https://${host}/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+                    fetch(endPoint);
+                });
+            }
         }
     }
 
@@ -52,7 +56,9 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
 
         if (notes) {
             return (
-                <NoteHome notes={notes}/>
+                <>
+                    <NoteHome notes={notes}/>
+                </>
             );
         }
     }
