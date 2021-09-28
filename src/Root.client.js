@@ -29,6 +29,7 @@ function Content() {
     searchText: '',
     selectedTitle: '',
     selectedBody: '',
+    userId: '',
   });
   const response = useServerResponse(location);
   return (

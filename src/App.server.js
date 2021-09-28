@@ -7,8 +7,8 @@ import NoteSkeleton from './NoteSkeleton';
 import NoteListSkeleton from './NoteListSkeleton';
 import Auth from './Auth.client';
 
-export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody}) {
-    console.log(`App`);
+export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody, userId}) {
+    console.log(`App userId=${userId}`);
 
     return (
         <div className="main">
@@ -32,13 +32,13 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                 </section>
                 <nav>
                     <Suspense fallback={<NoteListSkeleton/>}>
-                        <NoteList searchText={searchText}/>
+                        <NoteList searchText={searchText} userId={userId}/>
                     </Suspense>
                 </nav>
             </section>
             <section key={selectedId} className="col note-viewer">
                 <Suspense fallback={<NoteSkeleton isEditing={isEditing}/>}>
-                    <Note selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody}/>
+                    <Note selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId}/>
                 </Suspense>
             </section>
             <Auth />

@@ -4,7 +4,7 @@ import NoteHome from "./NoteHome.client";
 import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
-export default function Note({selectedId, isEditing, selectedTitle, selectedBody}) {
+export default function Note({selectedId, isEditing, selectedTitle, selectedBody, userId}) {
     console.log(`Note s`);
 
     const host = process.env.HOST;

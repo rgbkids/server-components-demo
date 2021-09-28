@@ -122,6 +122,7 @@ function sendResponse(req, res, redirectToId) {
         searchText: location.searchText,
         selectedTitle: location.selectedTitle,
         selectedBody: location.selectedBody,
+        userId: location.userId,
     });
 }
 

@@ -1,7 +1,11 @@
 import {useFirebase, useSignIn} from './fire';
-import {useEffect, useState} from "react";
+import {useEffect, useState, useTransition} from "react";
+import {useLocation} from "./LocationContext.client";
 
 export default function Auth() {
+    const [location, setLocation] = useLocation();
+    const [isPending, startTransition] = useTransition();
+
     const [authSetting, setAuthSetting] = useState(false);
     const [signed, setSigned] = useState(false);
     const [user, setUser] = useState(null);
@@ -14,6 +18,7 @@ export default function Auth() {
             searchText: "",
             selectedTitle: "",
             selectedBody: "",
+            userId: "",
         };
         const endpoint = `https://localhost/users/`;
         const method = `POST`;
@@ -39,6 +44,7 @@ export default function Auth() {
             searchText: "",
             selectedTitle: "",
             selectedBody: "",
+            userId: "",
         };
         const endpoint = `https://localhost/users/${id}`;
         const method = `PUT`;
@@ -63,6 +69,7 @@ export default function Auth() {
             searchText: "",
             selectedTitle: "",
             selectedBody: "",
+            userId: "",
         };
         const endpoint = `https://localhost/bookmarks/`;
         const method = `POST`;
@@ -88,6 +95,7 @@ export default function Auth() {
             searchText: "",
             selectedTitle: "",
             selectedBody: "",
+            userId: "",
         };
         const endpoint = `https://localhost/bookmarks/${id}`;
         const method = `DELETE`;
@@ -118,8 +126,20 @@ export default function Auth() {
                     handleCreate(_user.uid, _user.refreshToken);
                     handleUpdate(_user.uid, _user.refreshToken, _user.uid);
 
-                    // handleAddBookmark(_user.uid, `video_id`);
-                    handleDeleteBookmark(2);
+                    // handleAddBookmark(_user.uid, `videoId1`);
+                    // handleDeleteBookmark(2);
+
+                    console.log(`Auth ------------------------------ userId=${_user.uid} `);
+                    startTransition(() => {
+                        setLocation((loc) => ({
+                            selectedId: "",
+                            isEditing: false,
+                            searchText: "",
+                            selectedTitle: "",
+                            selectedBody: "",
+                            userId: _user.uid,
+                        }));
+                    });
                 }
             });
         }
