@@ -48,11 +48,20 @@ const seedData = [
 
 const dropTableStatementUser = 'DROP TABLE IF EXISTS users;';
 const createTableStatementUser = `CREATE TABLE users (
-  id TEXT PRIMARY KEY,
+  user_id TEXT PRIMARY KEY,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
   token TEXT,
   memo TEXT
+);`;
+
+const dropTableStatementBookmark = 'DROP TABLE IF EXISTS bookmarks;';
+const createTableStatementBookmark = `CREATE TABLE bookmarks (
+  bookmark_id TEXT PRIMARY KEY,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  user_id TEXT,
+  video_id TEXT
 );`;
 
 async function seed() {
@@ -60,6 +69,8 @@ async function seed() {
   await pool.query(createTableStatement);
   await pool.query(dropTableStatementUser);
   await pool.query(createTableStatementUser);
+  await pool.query(dropTableStatementBookmark);
+  await pool.query(createTableStatementBookmark);
   const res = await Promise.all(
     seedData.map((row) => pool.query(insertNoteStatement, row))
   );

@@ -137,11 +137,11 @@ app.post(
 
         const now = new Date();
         const result = await pool.query(
-            'insert into users (token, memo, created_at, updated_at, id) values ($2, $1, $3, $3, $4) returning id',
+            'insert into users (token, memo, created_at, updated_at, user_id) values ($2, $1, $3, $3, $4) returning user_id',
             [req.body.title, req.body.body, now, req.body.title]
         );
 
-        const insertedId = result.rows[0].id;
+        const insertedId = result.rows[0].user_id;
         // await writeFile(
         //     path.resolve(NOTES_PATH, `${insertedId}.md`),
         //     req.body.body,
@@ -157,7 +157,7 @@ app.put(
         const now = new Date();
         const updatedId = Number(req.params.id);
         await pool.query(
-            'update users set token = $2, memo = $1, updated_at = $3 where id = $4',
+            'update users set token = $2, memo = $1, updated_at = $3 where user_id = $4',
             [req.body.title, req.body.body, now, updatedId]
         );
         // await writeFile(
