@@ -46,9 +46,20 @@ const seedData = [
     ["title4", "body4", now, "videoId4", "logo.png"],
 ];
 
+const dropTableStatementUser = 'DROP TABLE IF EXISTS users;';
+const createTableStatementUser = `CREATE TABLE users (
+  id TEXT PRIMARY KEY,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  token TEXT,
+  memo TEXT
+);`;
+
 async function seed() {
   await pool.query(dropTableStatement);
   await pool.query(createTableStatement);
+  await pool.query(dropTableStatementUser);
+  await pool.query(createTableStatementUser);
   const res = await Promise.all(
     seedData.map((row) => pool.query(insertNoteStatement, row))
   );
