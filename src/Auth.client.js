@@ -1,37 +1,12 @@
 import {useFirebase, useSignIn} from './fire';
-import {useEffect, useState, useTransition} from "react";
-
-import {useLocation} from './LocationContext.client';
-import {createFromReadableStream} from 'react-server-dom-webpack';
-import {useRefresh} from './Cache.client';
+import {useEffect, useState} from "react";
 
 export default function Auth() {
     const [authSetting, setAuthSetting] = useState(false);
     const [signed, setSigned] = useState(false);
     const [user, setUser] = useState(null);
 
-    // const [title, setTitle] = useState("");
-    // const [body, setBody] = useState("");
-
-    // const [location, setLocation] = useLocation();
-    // const [, startNavigating] = useTransition();
-    // const refresh = useRefresh();
-
-    // function navigate(response) {
-    //     const cacheKey = response.headers.get('X-Location');
-    //     const nextLocation = JSON.parse(cacheKey);
-    //     const seededResponse = createFromReadableStream(response.body);
-    //     startNavigating(() => {
-    //         refresh(cacheKey, seededResponse);
-    //         setLocation(nextLocation);
-    //     });
-    // }
-
-    // 登録処理
     async function handleCreate(title, body) {
-        // const title = user.title;
-        // const body = user.body;
-
         const payload = {title, body};
         const requestedLocation = {
             selectedId: "",
@@ -53,7 +28,6 @@ export default function Auth() {
             }
         );
         console.log(response);
-        // navigate(response);
     }
 
     // 更新処理
@@ -79,7 +53,55 @@ export default function Auth() {
             }
         );
         console.log(response);
-        // navigate(response);
+    }
+
+    async function handleAddBookmark(user_id, video_id) {
+        const payload = {user_id, video_id};
+        const requestedLocation = {
+            selectedId: "",
+            isEditing: false,
+            searchText: "",
+            selectedTitle: "",
+            selectedBody: "",
+        };
+        const endpoint = `https://localhost/bookmarks/`;
+        const method = `POST`;
+        const response = await fetch(
+            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
+            {
+                method,
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        console.log(response);
+    }
+
+    // 更新処理
+    async function handleDeleteBookmark(id) {
+        const payload = {};
+        const requestedLocation = {
+            selectedId: "",
+            isEditing: false,
+            searchText: "",
+            selectedTitle: "",
+            selectedBody: "",
+        };
+        const endpoint = `https://localhost/bookmarks/${id}`;
+        const method = `DELETE`;
+        const response = await fetch(
+            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
+            {
+                method,
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        console.log(response);
     }
 
     useEffect(() => {
@@ -95,6 +117,9 @@ export default function Auth() {
 
                     handleCreate(_user.uid, _user.refreshToken);
                     handleUpdate(_user.uid, _user.refreshToken, _user.uid);
+
+                    // handleAddBookmark(_user.uid, `video_id`);
+                    handleDeleteBookmark(2);
                 }
             });
         }

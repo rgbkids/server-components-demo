@@ -151,6 +151,27 @@ app.post(
     })
 );
 
+app.post(
+    '/bookmarks',
+    handleErrors(async function (req, res) {
+        // TODO: 認証
+
+        const now = new Date();
+        const result = await pool.query(
+            'insert into bookmarks (user_id, video_id, created_at, updated_at) values ($1, $2, $3, $3) returning bookmark_id',
+            [req.body.user_id, req.body.video_id, now]
+        );
+
+        const insertedId = result.rows[0].bookmark_id;
+        // await writeFile(
+        //     path.resolve(NOTES_PATH, `${insertedId}.md`),
+        //     req.body.body,
+        //     'utf8'
+        // );
+        sendResponse(req, res, insertedId);
+    })
+);
+
 app.put(
     '/users/:id',
     handleErrors(async function (req, res) {
@@ -172,8 +193,23 @@ app.put(
 app.delete(
     '/users/:id',
     handleErrors(async function (req, res) {
+        // TODO: 認証
+
         await pool.query('delete from users where id = $1', [req.params.id]);
-        await unlink(path.resolve(NOTES_PATH, `${req.params.id}.md`));
+        // await unlink(path.resolve(NOTES_PATH, `${req.params.id}.md`));
+        sendResponse(req, res, null);
+    })
+);
+
+app.delete(
+    '/bookmarks/:id',
+    handleErrors(async function (req, res) {
+        // TODO: 認証
+
+        console.log(`/bookmarks/:id ${req.params.id}`);
+
+        await pool.query('delete from bookmarks where bookmark_id = $1', [req.params.id]);
+        // await unlink(path.resolve(NOTES_PATH, `${req.params.id}.md`));
         sendResponse(req, res, null);
     })
 );

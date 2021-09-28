@@ -57,7 +57,7 @@ const createTableStatementUser = `CREATE TABLE users (
 
 const dropTableStatementBookmark = 'DROP TABLE IF EXISTS bookmarks;';
 const createTableStatementBookmark = `CREATE TABLE bookmarks (
-  bookmark_id TEXT PRIMARY KEY,
+  bookmark_id SERIAL PRIMARY KEY,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
   user_id TEXT,
