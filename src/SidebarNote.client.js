@@ -30,11 +30,11 @@ export default function SidebarNote({id, title, body, children, expandedChildren
     async function handleAddBookmark(user_id, video_id) {
         const payload = {user_id, video_id};
         const requestedLocation = {
-            selectedId: video_id,
+            selectedId: id,
             isEditing: false,
             searchText: "",
-            selectedTitle: "",
-            selectedBody: "",
+            selectedTitle: title,
+            selectedBody: body,
             userId: user_id,
         };
         const endpoint = `https://localhost/bookmarks/`;
@@ -57,11 +57,11 @@ export default function SidebarNote({id, title, body, children, expandedChildren
     async function handleDeleteBookmark(user_id, video_id, bookmarkId) {
         const payload = {};
         const requestedLocation = {
-            selectedId: video_id,
+            selectedId: id,
             isEditing: false,
             searchText: "",
-            selectedTitle: "",
-            selectedBody: "",
+            selectedTitle: title,
+            selectedBody: body,
             userId: user_id,
         };
         const endpoint = `https://localhost/bookmarks/${bookmarkId}`;
