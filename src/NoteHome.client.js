@@ -3,7 +3,7 @@ import {useState} from 'react';
 import SidebarNoteHome from "./SidebarNoteHome";
 import SidebarNote from "./SidebarNote";
 
-export default function NoteHome({ searchText, notes, bookmarks, userId}) {
+export default function NoteHome({ selectedId, searchText, notes, bookmarks, userId}) {
     console.log(`NoteHome`);
 
     // TODO: シンプルにできないか？
@@ -22,6 +22,24 @@ export default function NoteHome({ searchText, notes, bookmarks, userId}) {
     // const [leftNotes, setLeftNotes] = useState();
     // const [rightNotes, setRightNotes] = useState();
 
+    // const getNextIdForDelete = (i) => {
+    //     let nextId = "";
+    //     if (notes) {
+    //         if (notes.length == 1) {
+    //             nextId = "";
+    //         } else if (i == 0) {
+    //             const note = notes[1];
+    //             console.log(note);
+    //             nextId = note.id;
+    //         } else {
+    //             const note = notes[notes.length - 2];
+    //             console.log(note);
+    //             nextId = note.id;
+    //         }
+    //     }
+    //     return nextId;
+    // };
+
     return (
         <>
             <div className="">
@@ -29,9 +47,9 @@ export default function NoteHome({ searchText, notes, bookmarks, userId}) {
                     {notes
                         ?
                         <>
-                            {notes.map((note) => (
+                            {notes.map((note, i) => (
                                 <li key={note.id}>
-                                    <SidebarNoteHome searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
+                                    <SidebarNoteHome selectedId={selectedId} searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
                                 </li>
                             ))}
                         </>

@@ -10,13 +10,25 @@ import {useLocation} from './LocationContext.client';
 const host = location.host;
 const protocol = location.protocol;
 
-export default function SidebarNoteHome({searchText, note, isBookmark, bookmarkId, userId}) {
-    console.log(`SidebarNoteHome client isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}`);
+export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId}) {
+    console.log(`SidebarNoteHome client selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}`);
 
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
     const [, startNavigating] = useTransition();
     const refresh = useRefresh();
+
+    // let nextId = "";
+    // if (notes) {
+    //     if (notes.length == 1) {
+    //         nextId = "";
+    //     } else if (index == (notes.length - 1)) {
+    //         note = notes[notes.length - 2];
+    //         console.log(note);
+    //         nextId = note.id;
+    //     }
+    // }
+    console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ selectedId = ${selectedId}`);
 
     function navigate(response) {
         const cacheKey = response.headers.get('X-Location');
@@ -29,10 +41,10 @@ export default function SidebarNoteHome({searchText, note, isBookmark, bookmarkI
     }
 
     // 更新処理
-    async function handleDeleteBookmark(user_id, video_id, bookmarkId) {
+    async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId) {
         const payload = {};
         const requestedLocation = {
-            selectedId: video_id,
+            selectedId: selectedId,
             isEditing: "",
             searchText: searchText,
             selectedTitle: "",
@@ -60,6 +72,8 @@ export default function SidebarNoteHome({searchText, note, isBookmark, bookmarkI
 
     return (
         <>
+            videoId={videoId}:
+            selectedId={selectedId}:
             {isBookmark
                 ?
                 <>
@@ -71,9 +85,7 @@ export default function SidebarNoteHome({searchText, note, isBookmark, bookmarkI
                             allowFullScreen>
                     </iframe>
                     <button onClick={() => {
-                        startTransition(() => {
-                            handleDeleteBookmark(userId, videoId, bookmarkId);
-                        });
+                            handleDeleteBookmark(userId, videoId, bookmarkId, selectedId);
                     }}>
                         -
                     </button>

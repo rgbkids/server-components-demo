@@ -97,7 +97,7 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
         if (notes) {
             return (
                 <>
-                    <NoteHome searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} />
+                    <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} />
                 </>
             );
         }
