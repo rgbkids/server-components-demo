@@ -1,66 +1,66 @@
 import {db} from "./db.server";
 import NoteClient from "./Note.client";
 import NoteHome from "./NoteHome.client";
-import {getKey} from "./keys";
+// import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
-const host = process.env.API_HOST;
-const protocol = process.env.PROTOCOL;
-const search = process.env.SEARCH;
+// const host = process.env.API_HOST;
+// const protocol = process.env.PROTOCOL;
+// const search = process.env.SEARCH;
 
 export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId}) {
     console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}`);
 
 
-    const notes = db.query(
-        `select updated_at
-         from notes
-         where to_char(updated_at, 'yyyy/mm/dd HH24:MI') <
-               to_char(CURRENT_DATE - interval '1 minutes', 'yyyy/mm/dd HH24:MI')
-         order by updated_at desc limit 1`
-    ).rows;
-
-    if (notes && notes.length > 0) {
-        const key = getKey();
-        const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=${search}`;
-
-        console.log(`YouTube: ${endPointYouTube}`);
-
-
-        const videos = fetch(endPointYouTube).json();
-        const items = videos.items;
-
-        if (items && items.length > 0) {
-            console.log(items.map);
-
-            if (items.map) {
-                console.log(`------------- 1`);
-
-                items.map((item) => {
-                    console.log(`------------- 2`);
-                    console.log(item);
-
-                    const videoId = item.id.videoId;
-                    const title = item.snippet.title;
-                    const channelId = item.snippet.channelId;
-                    const description = item.snippet.description;
-                    const thumbnail = item.snippet.thumbnails.default.url;
-
-                    const titleEncode = encodeURI(title);
-                    const descriptionEncode = encodeURI(description);
-
-                    const endPoint = `${protocol}//${host}/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
-
-                    console.log(`------------- endPoint=${endPoint}`);
-
-                    fetch(endPoint);
-                });
-
-                console.log(`------------- 3`);
-
-            }
-        }
-    }
+    // const notes = db.query(
+    //     `select updated_at
+    //      from notes
+    //      where to_char(updated_at, 'yyyy/mm/dd HH24:MI') <
+    //            to_char(CURRENT_DATE - interval '1 minutes', 'yyyy/mm/dd HH24:MI')
+    //      order by updated_at desc limit 1`
+    // ).rows;
+    //
+    // if (notes && notes.length > 0) {
+    //     const key = getKey();
+    //     const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=${search}`;
+    //
+    //     console.log(`YouTube: ${endPointYouTube}`);
+    //
+    //
+    //     const videos = fetch(endPointYouTube).json();
+    //     const items = videos.items;
+    //
+    //     if (items && items.length > 0) {
+    //         console.log(items.map);
+    //
+    //         if (items.map) {
+    //             console.log(`------------- 1`);
+    //
+    //             items.map((item) => {
+    //                 console.log(`------------- 2`);
+    //                 console.log(item);
+    //
+    //                 const videoId = item.id.videoId;
+    //                 const title = item.snippet.title;
+    //                 const channelId = item.snippet.channelId;
+    //                 const description = item.snippet.description;
+    //                 const thumbnail = item.snippet.thumbnails.default.url;
+    //
+    //                 const titleEncode = encodeURI(title);
+    //                 const descriptionEncode = encodeURI(description);
+    //
+    //                 const endPoint = `${protocol}//${host}/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+    //
+    //                 console.log(`------------- endPoint=${endPoint}`);
+    //
+    //                 fetch(endPoint);
+    //             });
+    //
+    //             console.log(`------------- 3`);
+    //
+    //         }
+    //     }
+    // }
 
     // if (!selectedId)
     // if (isEditing != selectedId)

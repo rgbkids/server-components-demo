@@ -8,6 +8,11 @@
 
 'use strict';
 
+// import fetch from 'node-fetch';
+const {fetch} = require('react-fetch');
+// const {fetch} = require('node-fetch');
+
+
 const register = require('react-server-dom-webpack/node-register');
 register();
 const babelRegister = require('@babel/register');
@@ -305,3 +310,91 @@ app.get(
         });
     })
 );
+
+
+
+
+const getKey = () => {
+    const keys = [
+        // https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=
+        // https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
+
+        // "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
+        // "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
+
+        "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
+    ];
+
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+app.get(
+    '/cron',
+    handleErrors(async function (req, res) {
+
+        getYouTubeData();
+
+        res.json({
+            result: "true",
+        });
+    })
+);
+function getYouTubeData() {
+    const search = process.env.SEARCH;
+    const key = getKey();
+    const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=${search}`;
+
+    console.log(`YouTube: ${endPointYouTube}`);
+
+    const request = require('request');
+    const options = {
+        method: 'GET',
+        json: true,
+        url: `${endPointYouTube}`,
+    }
+    request(options, function(error, response, body) {
+        console.log(body);
+
+        if (body.items) {
+            const items = body.items;
+
+            if (items && items.length > 0) {
+                console.log(items.map);
+
+                if (items.map) {
+                    console.log(`------------- 1`);
+
+                    items.map((item) => {
+                        console.log(`------------- 2`);
+                        console.log(item);
+
+                        const videoId = item.id.videoId;
+                        const title = item.snippet.title;
+                        const channelId = item.snippet.channelId;
+                        const description = item.snippet.description;
+                        const thumbnail = item.snippet.thumbnails.default.url;
+
+                        const titleEncode = encodeURI(title);
+                        const descriptionEncode = encodeURI(description);
+
+                        const endPoint = `/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+
+                        console.log(`------------- endPoint=${endPoint}`);
+
+                        const now = new Date();
+                        const result = pool.query(
+                            'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
+                            [title, description, now, videoId, thumbnail]
+                        );
+                        // const returning_id = result.rows[0].id;
+
+                        console.log(result);
+                        // fetch(result);
+                    });
+
+                    console.log(`------------- 3`);
+
+                }
+            }
+        }
+    });
+}
