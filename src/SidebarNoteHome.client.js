@@ -72,23 +72,23 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
 
     return (
         <>
-            videoId={videoId}:
-            selectedId={selectedId}:
             {isBookmark
                 ?
                 <>
-                    <iframe width="840"
-                            height="472"
-                            src={src}
-                            title="YouTube video player" frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen>
-                    </iframe>
-                    <button onClick={() => {
-                            handleDeleteBookmark(userId, videoId, bookmarkId, selectedId);
+                    <button className="bookmark" onClick={() => {
+                        handleDeleteBookmark(userId, videoId, bookmarkId, selectedId);
                     }}>
-                        -
+                        ❌
                     </button>
+                    <div className="youtube">
+                        <iframe width="840"
+                                height="472"
+                                src={src}
+                                title="YouTube video player" frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen>
+                        </iframe>
+                    </div>
                 </>
                 :
                 <></>

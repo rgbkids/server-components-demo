@@ -71,6 +71,20 @@ export default function SidebarNote({searchText, id, title, body, children, expa
 
     return (
         <>
+            {isBookmark
+                ?
+                <p className="">
+                    📌
+                </p>
+                :
+                <button className="bookmark" onClick={() => {
+                    startTransition(() => {
+                        handleAddBookmark(userId, id)
+                    });
+                }}>
+                    👉
+                </button>
+            }
             <div
                 ref={itemRef}
                 onAnimationEnd={() => {
@@ -128,18 +142,6 @@ export default function SidebarNote({searchText, id, title, body, children, expa
                 </button>
                 {isExpanded && expandedChildren}
             </div>
-            {isBookmark
-                ?
-                <></>
-                :
-                <button onClick={() => {
-                    startTransition(() => {
-                        handleAddBookmark(userId, id)
-                    });
-                }}>
-                    +
-                </button>
-            }
         </>
     );
 }

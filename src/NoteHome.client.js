@@ -42,7 +42,7 @@ export default function NoteHome({ selectedId, searchText, notes, bookmarks, use
 
     return (
         <>
-            <div className="">
+            <div className="dashboard">
                 <ul className="notes-list">
                     {notes
                         ?

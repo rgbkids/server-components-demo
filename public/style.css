@@ -725,3 +725,27 @@ ul.notes-list {
   font-size: x-small;
   text-align: left;
 }
+
+.youtube {
+  width: 100%;
+}
+
+.bookmark {
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  font-size: medium;
+  text-align: center;
+  position: relative; top:0.0em; left:0.0em;
+  z-index: 999;
+  border-radius: 2vh;
+  color: #fff;
+  background-color: #fff;
+  border: 0.1em solid lightgray;
+  outline: none;
+  cursor: pointer;
+}
+
+.dashboard {
+  width: 100%;
+}
