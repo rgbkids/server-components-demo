@@ -3,6 +3,7 @@ import {useEffect, useState, useTransition} from "react";
 import {useLocation} from "./LocationContext.client";
 
 const host = location.host;
+const protocol = location.protocol;
 
 export default function Auth() {
     const [location, setLocation] = useLocation();
@@ -22,7 +23,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://${host}/users/`;
+        const endpoint = `${protocol}//${host}/users/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -48,7 +49,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://${host}/users/${id}`;
+        const endpoint = `${protocol}//${host}/users/${id}`;
         const method = `PUT`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -73,7 +74,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://${host}/bookmarks/`;
+        const endpoint = `${protocol}//${host}/bookmarks/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -99,7 +100,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://${host}/bookmarks/${id}`;
+        const endpoint = `${protocol}//${host}/bookmarks/${id}`;
         const method = `DELETE`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,

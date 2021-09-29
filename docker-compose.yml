@@ -21,9 +21,8 @@ services:
       - '443:443'
     environment:
       DB_HOST: postgres
-      PORT: 443
-      HTTPS: 'true'
-      HOST: 'studywithme.cmsvr.live'
+      PROTOCOL: 'https:'
+      API_HOST: 'studywithme.cmsvr.live'
     volumes:
       - ./notes:/opt/notes-app/notes
       - ./public:/opt/notes-app/public

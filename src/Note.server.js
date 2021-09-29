@@ -4,10 +4,12 @@ import NoteHome from "./NoteHome.client";
 import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
+const host = process.env.API_HOST;
+const protocol = process.env.PROTOCOL;
+
 export default function Note({selectedId, isEditing, selectedTitle, selectedBody, userId}) {
     console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}`);
 
-    const host = process.env.HOST;
 
     const notes = db.query(
         `select updated_at
@@ -20,14 +22,23 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
     if (notes && notes.length > 0) {
         const key = getKey();
         const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
+
+        console.log(`YouTube: ${endPointYouTube}`);
+
+
         const videos = fetch(endPointYouTube).json();
         const items = videos.items;
 
         if (items && items.length > 0) {
-            // console.log(items);
+            console.log(items.map);
 
             if (items.map) {
+                console.log(`------------- 1`);
+
                 items.map((item) => {
+                    console.log(`------------- 2`);
+                    console.log(item);
+
                     const videoId = item.id.videoId;
                     const title = item.snippet.title;
                     const channelId = item.snippet.channelId;
@@ -37,9 +48,15 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
                     const titleEncode = encodeURI(title);
                     const descriptionEncode = encodeURI(description);
 
-                    const endPoint = `https://${host}/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+                    const endPoint = `${protocol}//${host}/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
+
+                    console.log(`------------- endPoint=${endPoint}`);
+
                     fetch(endPoint);
                 });
+
+                console.log(`------------- 3`);
+
             }
         }
     }

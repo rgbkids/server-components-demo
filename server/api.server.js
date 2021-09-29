@@ -31,15 +31,40 @@ const ReactApp = require('../src/App.server').default;
 // Don't keep credentials in the source tree in a real app!
 const pool = new Pool(require('../credentials'));
 
-let PORT = process.env.PORT || 80;
+let PORT = 80;//process.env.PORT || 80;
 const app = express();
 
 app.use(compress());
 app.use(express.json());
 
+// http
+app
+    .listen(PORT, () => {
+        console.log(`React Notes listening at ${PORT}...`);
+    })
+    .on('error', function (error) {
+        if (error.syscall !== 'listen') {
+            throw error;
+        }
+        const isPipe = (portOrPipe) => Number.isNaN(portOrPipe);
+        const bind = isPipe(PORT) ? 'Pipe ' + PORT : 'Port ' + PORT;
+        switch (error.code) {
+            case 'EACCES':
+                console.error(bind + ' requires elevated privileges');
+                process.exit(1);
+                break;
+            case 'EADDRINUSE':
+                console.error(bind + ' is already in use');
+                process.exit(1);
+                break;
+            default:
+                throw error;
+        }
+    });
+
 // https
 let server = app;
-let https = (process.env.HTTPS === "true");
+let https = (process.env.PROTOCOL === "https:");
 if (https) {
     PORT = 443;
     let https = require('https');
@@ -264,6 +289,8 @@ app.get(
         let body = req.query.body;
         let id = req.query.id;
         let thumbnail = req.query.thumbnail;
+
+        console.log(`-------------------------------------------------- sync`);
 
         const now = new Date();
         const result = await pool.query(
