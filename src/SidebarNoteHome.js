@@ -1,18 +1,15 @@
-export default function SidebarNoteHome({note}) {
-    console.log(`SidebarNoteHome`);
+import SidebarNote from "./SidebarNote";
+import ClientSidebarNote from "./SidebarNoteHome.client";
 
-    const videoId = note.id;
-    const src = `https://www.youtube.com/embed/${videoId}`;
+export default function SidebarNoteHome({note, isBookmark, bookmarkId, userId}) {
+    console.log(`SidebarNoteHome isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}`);
+
+    // const videoId = note.id;
+    // const src = `https://www.youtube.com/embed/${videoId}`;
 
     return (
         <>
-            <iframe width="504"
-                    height="283"
-                    src={src}
-                    title="YouTube video player" frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen>
-            </iframe>
+            <ClientSidebarNote note={note} bookmarkId={bookmarkId} isBookmark={isBookmark} userId={userId} />
         </>
     );
 }

@@ -169,7 +169,8 @@ app.post(
         //     req.body.body,
         //     'utf8'
         // );
-        sendResponse(req, res, insertedId);
+        // sendResponse(req, res, insertedId);
+        sendResponse(req, res, null);
     })
 );
 

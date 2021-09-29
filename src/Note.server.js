@@ -5,7 +5,7 @@ import {getKey} from "./keys";
 import {fetch} from "react-fetch";
 
 export default function Note({selectedId, isEditing, selectedTitle, selectedBody, userId}) {
-    console.log(`Note s`);
+    console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}`);
 
     const host = process.env.HOST;
 
@@ -44,20 +44,41 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
         }
     }
 
-    if (!selectedId) {
+    // if (!selectedId)
+    // if (isEditing != selectedId)
+    {
+        // const notes = db.query(
+        //     `select *
+        //      from notes
+        //      where title like $1
+        //         OR body like $1
+        //      order by updated_at desc limit 20`,
+        //     ['%' + "" + '%']
+        // ).rows;
+
         const notes = db.query(
             `select *
-             from notes
-             where title like $1
-                OR body like $1
-             order by updated_at desc limit 20`,
-            ['%' + "" + '%']
+             from bookmarks as b, notes as n 
+             where b.video_id = n.id and b.user_id = $1
+             order by b.updated_at desc`,
+            [userId]
         ).rows;
+
+        console.log(notes);
+
+        // TODO: もっと上のレベルで引き継げるかも
+        const bookmarks = db.query(
+            `select bookmark_id, video_id
+         from bookmarks
+         where user_id = $1`,
+            [userId]
+        ).rows;
+        console.log(bookmarks);
 
         if (notes) {
             return (
                 <>
-                    <NoteHome notes={notes}/>
+                    <NoteHome notes={notes} bookmarks={bookmarks} userId={userId} />
                 </>
             );
         }
@@ -70,11 +91,11 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
     const src = `https://www.youtube.com/embed/${videoId}`;
     const uri = `https://www.youtube.com/watch?v=${videoId}`;
 
-    if (false && isEditing) {
-    } else {
-        return (
-            <NoteClient title={titleDecode} body={bodyDecode} src={src} uri={uri} videoId={videoId}/>
-            // <NoteHome notes={null}/>
-        );
-    }
+    // if (false && isEditing) {
+    // } else {
+    return (
+        <NoteClient title={titleDecode} body={bodyDecode} src={src} uri={uri} videoId={videoId}/>
+        // <NoteHome notes={null}/>
+    );
+    // }
 }

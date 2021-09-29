@@ -31,41 +31,14 @@ export default function SidebarNote({id, title, body, children, expandedChildren
         const payload = {user_id, video_id};
         const requestedLocation = {
             selectedId: id,
-            isEditing: false,
+            isEditing: "",
             searchText: "",
-            selectedTitle: title,
-            selectedBody: body,
+            selectedTitle: "",
+            selectedBody: "",
             userId: user_id,
         };
         const endpoint = `https://localhost/bookmarks/`;
         const method = `POST`;
-        const response = await fetch(
-            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-            {
-                method,
-                body: JSON.stringify(payload),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-        console.log(response);
-        navigate(response);
-    }
-
-    // 更新処理
-    async function handleDeleteBookmark(user_id, video_id, bookmarkId) {
-        const payload = {};
-        const requestedLocation = {
-            selectedId: id,
-            isEditing: false,
-            searchText: "",
-            selectedTitle: title,
-            selectedBody: body,
-            userId: user_id,
-        };
-        const endpoint = `https://localhost/bookmarks/${bookmarkId}`;
-        const method = `DELETE`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
             {
@@ -154,13 +127,7 @@ export default function SidebarNote({id, title, body, children, expandedChildren
             </div>
             {isBookmark
                 ?
-                <button onClick={() => {
-                    startTransition(() => {
-                        handleDeleteBookmark(userId, id, bookmarkId);
-                    });
-                }}>
-                    -
-                </button>
+                <></>
                 :
                 <button onClick={() => {
                     startTransition(() => {
