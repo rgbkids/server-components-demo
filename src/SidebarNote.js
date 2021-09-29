@@ -11,7 +11,7 @@ export default function SidebarNote({searchText, note, bookmarkId, isBookmark, u
     const body = note.body;
     const thumbnail = note.thumbnail;
 
-    const titleSummary = excerpts(marked(note.title), {words: 5});
+    const titleSummary = excerpts(marked(note.title), {words: 6});
     const bodySummary = excerpts(marked(note.body), {words: 10});
 
     return (
