@@ -42,22 +42,12 @@ export default function NoteHome({ selectedId, searchText, notes, bookmarks, use
 
     return (
         <>
-            <div className="dashboard">
-                <ul className="notes-list">
-                    {notes
-                        ?
-                        <>
-                            {notes.map((note, i) => (
-                                <li key={note.id}>
-                                    <SidebarNoteHome selectedId={selectedId} searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
-                                </li>
-                            ))}
-                        </>
-                        :
-                        <>
-                        </>
-                    }
-                </ul>
+            <div className="container">
+                {notes.map((note, i) => (
+                    <div key={note.id} className="item">
+                        <SidebarNoteHome selectedId={selectedId} searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
+                    </div>
+                ))}
             </div>
         </>
     );

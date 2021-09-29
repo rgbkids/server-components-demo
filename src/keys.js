@@ -3,7 +3,7 @@ export const getKey = () => {
         // https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=
         // https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
 
-        // "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
+        "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
         // "AIzaSyDynnfe5PbvejqTdMZgvpKQv2iv0sc_DvU",
         // "AIzaSyA05_WDaaFa615Nequ8IA3fcXPPb7L_TH8",
         // "AIzaSyAohHwpRfDK-CuqjZIWZot4av7is0vMT14",

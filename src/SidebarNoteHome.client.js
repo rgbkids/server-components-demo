@@ -81,8 +81,8 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
                         ❌
                     </button>
                     <div className="youtube">
-                        <iframe width="840"
-                                height="472"
+                        <iframe width="294"
+                                height="165"
                                 src={src}
                                 title="YouTube video player" frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

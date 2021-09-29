@@ -23,7 +23,7 @@ services:
       DB_HOST: postgres
       PROTOCOL: 'https:'
       API_HOST: 'studywithme.cmsvr.live'
-      SEARCH: 'studywithme,study-with-me,study%20with%20me'
+      SEARCH: 'vtuber'
     volumes:
       - ./notes:/opt/notes-app/notes
       - ./public:/opt/notes-app/public

@@ -276,7 +276,7 @@ ul.notes-list {
   z-index: 1000;
   flex-shrink: 0;
   max-width: 350px;
-  min-width: 250px;
+  min-width: 230px;
   width: 30%;
 }
 .sidebar-header {
@@ -717,7 +717,7 @@ ul.notes-list {
 
 .right {
   float: right;
-  width: 50%;
+  width: 40%;
   text-align: left;
 }
 
@@ -748,4 +748,23 @@ ul.notes-list {
 
 .dashboard {
   width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.item {
+  width: 300px;
+  height: 200px;
+  /*margin-bottom: 1em;*/
+  /*border: 1px solid #999;*/
+}
+.item:nth-child(2n+1) {
+  /*background-color: royalblue;*/
+}
+.item:nth-child(2n+2) {
+  /*background-color: blueviolet;*/
+  height: 0px;
 }
