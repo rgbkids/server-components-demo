@@ -2,6 +2,8 @@ import {useFirebase, useSignIn} from './fire';
 import {useEffect, useState, useTransition} from "react";
 import {useLocation} from "./LocationContext.client";
 
+const host = location.host;
+
 export default function Auth() {
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
@@ -20,7 +22,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://localhost/users/`;
+        const endpoint = `https://${host}/users/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -46,7 +48,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://localhost/users/${id}`;
+        const endpoint = `https://${host}/users/${id}`;
         const method = `PUT`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -71,7 +73,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://localhost/bookmarks/`;
+        const endpoint = `https://${host}/bookmarks/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
@@ -97,7 +99,7 @@ export default function Auth() {
             selectedBody: "",
             userId: "",
         };
-        const endpoint = `https://localhost/bookmarks/${id}`;
+        const endpoint = `https://${host}/bookmarks/${id}`;
         const method = `DELETE`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,

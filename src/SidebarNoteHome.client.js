@@ -7,6 +7,8 @@ import {useState, useRef, useEffect, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 // import {useSignIn} from "./fire";
 
+const host = location.host;
+
 export default function SidebarNoteHome({note, isBookmark, bookmarkId, userId}) {
     console.log(`SidebarNoteHome client isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}`);
 
@@ -36,7 +38,7 @@ export default function SidebarNoteHome({note, isBookmark, bookmarkId, userId}) 
             selectedBody: "",
             userId: user_id,
         };
-        const endpoint = `https://localhost/bookmarks/${bookmarkId}`;
+        const endpoint = `https://${host}/bookmarks/${bookmarkId}`;
         const method = `DELETE`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,

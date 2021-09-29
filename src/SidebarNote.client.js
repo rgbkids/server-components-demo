@@ -6,6 +6,8 @@ import {useSignIn} from "./fire";
 import {createFromReadableStream} from 'react-server-dom-webpack';
 import {useRefresh} from './Cache.client';
 
+const host = location.host;
+
 export default function SidebarNote({id, title, body, children, expandedChildren, bookmarkId, isBookmark, userId}) {
     console.log(`SidebarNote client bookmark=${isBookmark} bookmarkId=${bookmarkId}`);
 
@@ -37,7 +39,7 @@ export default function SidebarNote({id, title, body, children, expandedChildren
             selectedBody: "",
             userId: user_id,
         };
-        const endpoint = `https://localhost/bookmarks/`;
+        const endpoint = `https://${host}/bookmarks/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
