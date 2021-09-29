@@ -1,8 +1,28 @@
-export default function Note({title, body, src, uri, videoId}) {
+import {useTransition} from 'react';
+import {useLocation} from "./LocationContext.client";
+
+export default function Note({searchText, title, body, src, uri, videoId}) {
     console.log(`Note c`);
+
+    const [, startTransition] = useTransition();
+    const [, setLocation] = useLocation();
 
     return (
         <div className="note">
+            <button onClick={() => {
+                startTransition(() => {
+                    setLocation((loc) => ({
+                        selectedId: "",
+                        isEditing: false,
+                        searchText: loc.searchText,
+                        selectedTitle: "",
+                        selectedBody: "",
+                        userId: loc.userId,
+                    }));
+                });
+            }}>
+                DASHBOARD
+            </button>
             <div className="note-header">
                 <h1 className="note-title">{title}</h1>
             </div>

@@ -24,6 +24,6 @@ export default function NoteList({searchText, userId}) {
     ).rows;
 
     return (
-        <NoteListClient notes={notes} bookmarks={bookmarks} userId={userId} />
+        <NoteListClient searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} />
     );
 }

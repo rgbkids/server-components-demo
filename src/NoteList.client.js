@@ -1,6 +1,6 @@
 import SidebarNote from './SidebarNote';
 
-export default function NoteList({notes, bookmarks, userId}) {
+export default function NoteList({searchText, notes, bookmarks, userId}) {
     console.log(`NoteList c`);
 
     // console.log(`bookmarks------------`);
@@ -27,15 +27,13 @@ export default function NoteList({notes, bookmarks, userId}) {
         <ul className="notes-list">
             {notes.map((note) => (
                 <li key={note.id}>
-                    <SidebarNote note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
+                    <SidebarNote searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
                 </li>
             ))}
         </ul>
     ) : (
         <div className="notes-empty">
-            {searchText
-                ? `Couldn't find any descriptions "${searchText}".`
-                : 'No notes created yet!'}{' '}
+            No videos created yet!
         </div>
     );
 }

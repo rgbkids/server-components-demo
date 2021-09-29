@@ -9,7 +9,7 @@ import {useRefresh} from './Cache.client';
 const host = location.host;
 const protocol = location.protocol;
 
-export default function SidebarNote({id, title, body, children, expandedChildren, bookmarkId, isBookmark, userId}) {
+export default function SidebarNote({searchText, id, title, body, children, expandedChildren, bookmarkId, isBookmark, userId}) {
     console.log(`SidebarNote client bookmark=${isBookmark} bookmarkId=${bookmarkId}`);
 
     const [location, setLocation] = useLocation();
@@ -35,7 +35,7 @@ export default function SidebarNote({id, title, body, children, expandedChildren
         const requestedLocation = {
             selectedId: id,
             isEditing: "",
-            searchText: "",
+            searchText: searchText,
             selectedTitle: "",
             selectedBody: "",
             userId: user_id,

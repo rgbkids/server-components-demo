@@ -38,7 +38,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
             </section>
             <section key={selectedId} className="col note-viewer">
                 <Suspense fallback={<NoteSkeleton isEditing={isEditing}/>}>
-                    <Note selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId}/>
+                    <Note searchText={searchText} selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId}/>
                 </Suspense>
             </section>
             <Auth />

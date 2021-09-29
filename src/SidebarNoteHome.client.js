@@ -10,7 +10,7 @@ import {useLocation} from './LocationContext.client';
 const host = location.host;
 const protocol = location.protocol;
 
-export default function SidebarNoteHome({note, isBookmark, bookmarkId, userId}) {
+export default function SidebarNoteHome({searchText, note, isBookmark, bookmarkId, userId}) {
     console.log(`SidebarNoteHome client isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}`);
 
     const [location, setLocation] = useLocation();
@@ -34,7 +34,7 @@ export default function SidebarNoteHome({note, isBookmark, bookmarkId, userId}) 
         const requestedLocation = {
             selectedId: video_id,
             isEditing: "",
-            searchText: "",
+            searchText: searchText,
             selectedTitle: "",
             selectedBody: "",
             userId: user_id,

@@ -6,8 +6,9 @@ import {fetch} from "react-fetch";
 
 const host = process.env.API_HOST;
 const protocol = process.env.PROTOCOL;
+const search = process.env.SEARCH;
 
-export default function Note({selectedId, isEditing, selectedTitle, selectedBody, userId}) {
+export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId}) {
     console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}`);
 
 
@@ -21,7 +22,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
 
     if (notes && notes.length > 0) {
         const key = getKey();
-        const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=studywithme,study-with-me,study%20with%20me`;
+        const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=5&order=date&q=${search}`;
 
         console.log(`YouTube: ${endPointYouTube}`);
 
@@ -96,7 +97,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
         if (notes) {
             return (
                 <>
-                    <NoteHome notes={notes} bookmarks={bookmarks} userId={userId} />
+                    <NoteHome searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} />
                 </>
             );
         }
@@ -112,7 +113,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
     // if (false && isEditing) {
     // } else {
     return (
-        <NoteClient title={titleDecode} body={bodyDecode} src={src} uri={uri} videoId={videoId}/>
+        <NoteClient searchText={searchText} title={titleDecode} body={bodyDecode} src={src} uri={uri} videoId={videoId}/>
         // <NoteHome notes={null}/>
     );
     // }

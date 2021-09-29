@@ -1,8 +1,9 @@
 import {useState} from 'react';
+// import SidebarNoteHome from "./SidebarNoteHome.client";
 import SidebarNoteHome from "./SidebarNoteHome";
 import SidebarNote from "./SidebarNote";
 
-export default function NoteHome({notes, bookmarks, userId}) {
+export default function NoteHome({ searchText, notes, bookmarks, userId}) {
     console.log(`NoteHome`);
 
     // TODO: シンプルにできないか？
@@ -30,7 +31,7 @@ export default function NoteHome({notes, bookmarks, userId}) {
                         <>
                             {notes.map((note) => (
                                 <li key={note.id}>
-                                    <SidebarNoteHome note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
+                                    <SidebarNoteHome searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId}/>
                                 </li>
                             ))}
                         </>
