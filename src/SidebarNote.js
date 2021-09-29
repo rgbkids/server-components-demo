@@ -3,7 +3,7 @@ import marked from 'marked';
 
 import ClientSidebarNote from './SidebarNote.client';
 
-export default function SidebarNote({searchText, note, bookmarkId, isBookmark, userId}) {
+export default function SidebarNote({selectedId, searchText, note, bookmarkId, isBookmark, userId}) {
     console.log(`SidebarNote bookmark=${isBookmark} bookmarkId=${bookmarkId}`);
 
     const id = note.id;
@@ -20,6 +20,7 @@ export default function SidebarNote({searchText, note, bookmarkId, isBookmark, u
     return (
         <ClientSidebarNote
             id={id}
+            selectedId={selectedId}
             title={title}
             body={body}
             isBookmark={isBookmark}

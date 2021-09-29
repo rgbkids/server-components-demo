@@ -32,7 +32,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                 </section>
                 <nav>
                     <Suspense fallback={<NoteListSkeleton/>}>
-                        <NoteList searchText={searchText} userId={userId}/>
+                        <NoteList selectedId={selectedId} searchText={searchText} userId={userId}/>
                     </Suspense>
                 </nav>
             </section>
