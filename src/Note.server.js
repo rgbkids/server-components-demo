@@ -46,6 +46,7 @@ export default function Note({selectedId, isEditing, selectedTitle, selectedBody
 
     // if (!selectedId)
     // if (isEditing != selectedId)
+    if (!isEditing)
     {
         // const notes = db.query(
         //     `select *

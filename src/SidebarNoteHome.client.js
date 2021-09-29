@@ -60,8 +60,8 @@ export default function SidebarNoteHome({note, isBookmark, bookmarkId, userId}) 
             {isBookmark
                 ?
                 <>
-                    <iframe width="504"
-                            height="283"
+                    <iframe width="840"
+                            height="472"
                             src={src}
                             title="YouTube video player" frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -96,7 +96,7 @@ export default function SidebarNote({id, title, body, children, expandedChildren
                         startTransition(() => {
                             setLocation((loc) => ({
                                 selectedId: id,
-                                isEditing: false,
+                                isEditing: true,
                                 searchText: loc.searchText,
                                 selectedTitle: titleEncode,
                                 selectedBody: bodyEncode,
