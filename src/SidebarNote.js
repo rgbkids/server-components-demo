@@ -7,12 +7,15 @@ export default function SidebarNote({searchText, note, bookmarkId, isBookmark, u
     console.log(`SidebarNote bookmark=${isBookmark} bookmarkId=${bookmarkId}`);
 
     const id = note.id;
-    const title = note.title;
+    const title = note.title
     const body = note.body;
     const thumbnail = note.thumbnail;
 
-    const titleSummary = excerpts(marked(note.title), {words: 6});
-    const bodySummary = excerpts(marked(note.body), {words: 10});
+    const titleSub = title.substring(0, (title.length > 40)?40:title.length) + "...";
+    const bodySub = body.substring(0, (body.length > 60)?60:body.length) + "...";
+
+    const titleSummary = excerpts(marked(titleSub), {words: 6});
+    const bodySummary = excerpts(marked(bodySub), {words: 10});
 
     return (
         <ClientSidebarNote
