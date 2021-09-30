@@ -9,6 +9,8 @@
 'use strict';
 
 // import fetch from 'node-fetch';
+// import {db} from "../src/db.server";
+
 const {fetch} = require('react-fetch');
 // const {fetch} = require('node-fetch');
 
@@ -153,6 +155,7 @@ function sendResponse(req, res, redirectToId) {
         selectedTitle: location.selectedTitle,
         selectedBody: location.selectedBody,
         userId: location.userId,
+        token: location.token,
     });
 }
 
@@ -162,30 +165,70 @@ app.get('/react', function (req, res) {
 
 const NOTES_PATH = path.resolve(__dirname, '../notes');
 
-app.post(
-    '/users',
-    handleErrors(async function (req, res) {
+const auth = async (userId, token) => {
+    // const users = await pool.query(
+    //     `select *
+    //      from users
+    //      where user_id = $1
+    //        and token = $2`,
+    //     [
+    //         "GjXKv5iQvDOdW7n2tlL6Q1Zp3fm2",
+    //         "ACzBnChwuz-x1OV9fB3XFnOejkinGVghELQVFEFjmnKuSNn_IuTkeBB_bHNR3VDemJPHeiftGCN0lvuyi1H7yf-OH5VYPq1grp53QuGpg7Ggvjx6Ajdf2xq25hQzeeHlzkNKSHgqwlE_I5k-RGlF6ZwxJR4GPdobLEI6XrZkO2olynVCoc89GuTp3O2jkp4Ot5sld8N5tztWWKz5GEDY2SHlcYoptwzpCi6KqmSQ79Un7k69Hsu2khYnqwp9xxUhc188ngJKQnUHU9mY2XK_omlp9-G3uVConFR4jA5hRVf6mrU0wnpEKjcTC2MStZyQmBZLRmAnnqToJJwkiZIyER2-yzbHcdAdo16xir6NhL4-ip99hNNC0QmIpFh864O2rF0m9SVXhJY8WkTTf5N8bfDOMIW5_TxGNs8cBuUhOdCzU51d9ABDgsq1-AwwYVPgjSURbzjGADaiUu02P0yiinP64DBhR6oVtQ"
+    //     ]
+    //
+    // ).rows;
 
-        const now = new Date();
-        const result = await pool.query(
-            'insert into users (token, memo, created_at, updated_at, user_id) values ($2, $1, $3, $3, $4) returning user_id',
-            [req.body.title, req.body.body, now, req.body.title]
-        );
+    // const users = await pool.query(
+    //     `select * from users`
+    // ).rows;
+    //
+    // console.log(`------------ auth 1 ------------`);
+    // console.log(users);
+    // console.log(`------------ auth 2 ------------`);
 
-        const insertedId = result.rows[0].user_id;
-        // await writeFile(
-        //     path.resolve(NOTES_PATH, `${insertedId}.md`),
-        //     req.body.body,
-        //     'utf8'
-        // );
-        sendResponse(req, res, insertedId);
-    })
-);
+    const {rows} = await pool.query(
+        `select count(*) as result
+         from users
+         where user_id = $1
+           and token = $2`,
+        [
+            userId, token
+            // "GjXKv5iQvDOdW7n2tlL6Q1Zp3fm2",
+            // "ACzBnChwuz-x1OV9fB3XFnOejkinGVghELQVFEFjmnKuSNn_IuTkeBB_bHNR3VDemJPHeiftGCN0lvuyi1H7yf-OH5VYPq1grp53QuGpg7Ggvjx6Ajdf2xq25hQzeeHlzkNKSHgqwlE_I5k-RGlF6ZwxJR4GPdobLEI6XrZkO2olynVCoc89GuTp3O2jkp4Ot5sld8N5tztWWKz5GEDY2SHlcYoptwzpCi6KqmSQ79Un7k69Hsu2khYnqwp9xxUhc188ngJKQnUHU9mY2XK_omlp9-G3uVConFR4jA5hRVf6mrU0wnpEKjcTC2MStZyQmBZLRmAnnqToJJwkiZIyER2-yzbHcdAdo16xir6NhL4-ip99hNNC0QmIpFh864O2rF0m9SVXhJY8WkTTf5N8bfDOMIW5_TxGNs8cBuUhOdCzU51d9ABDgsq1-AwwYVPgjSURbzjGADaiUu02P0yiinP64DBhR6oVtQ"
+        ]
+    );
+    console.log(`------------ auth 1 ------------ userId=${userId} token=${token}`);
+    console.log(rows);
+    console.log(rows[0].result);
+    console.log(`------------ auth 2 ------------`);
 
+    return (rows[0].result == 1);
+}
+
+// TODO: userIdなのかuser_idなのか、渡す時に統一
 app.post(
     '/bookmarks',
     handleErrors(async function (req, res) {
+        console.log(`------------ bookmarks 1 ------------ req.body.user_id=${req.body.user_id}, req.body.token=${req.body.token}`);
+
         // TODO: 認証
+        if (await auth(req.body.user_id, req.body.token) === false) {
+            sendResponse(req, res, null);
+            console.log(`------------ bookmarks 2 ------------`);
+
+            return;
+        }
+        // {
+        //     const {rows} = await pool.query('select * from users');
+        //     // res.json(rows);
+        //
+        //     console.log(`------------ auth 1 ------------`);
+        //     console.log(rows);
+        //     console.log(`------------ auth 2 ------------`);
+        // }
+
+        console.log(`------------ bookmarks 3 ------------`);
+
 
         const now = new Date();
         const result = await pool.query(
@@ -204,14 +247,52 @@ app.post(
     })
 );
 
+
+app.post(
+    '/users',
+    handleErrors(async function (req, res) {
+        const user_id = req.body.user_id;
+        const token = req.body.token;
+
+        // const updatedId = Number(req.params.id);
+        const now = new Date();
+
+        await pool.query(
+            'update users set token = $2, memo = $1, updated_at = $3 where user_id = $1',
+            [user_id, token, now]
+        );
+
+        const result = await pool.query(
+            'insert into users (token, memo, created_at, updated_at, user_id) values ($2, $1, $3, $3, $4) returning user_id',
+            [user_id, token, now, user_id]
+        );
+
+        const insertedId = result.rows[0].user_id;
+        // await writeFile(
+        //     path.resolve(NOTES_PATH, `${insertedId}.md`),
+        //     req.body.body,
+        //     'utf8'
+        // );
+        sendResponse(req, res, insertedId);
+    })
+);
+
 app.put(
     '/users/:id',
     handleErrors(async function (req, res) {
+        const user_id = req.body.user_id;
+        const token = req.body.token;
+
         const now = new Date();
         const updatedId = Number(req.params.id);
+
+        await pool.query(
+            'insert into bookmarks (user_id, video_id, created_at, updated_at) values ($1, $2, $3, $3) returning bookmark_id',
+            [user_id, token, now]
+        );
         await pool.query(
             'update users set token = $2, memo = $1, updated_at = $3 where user_id = $4',
-            [req.body.title, req.body.body, now, updatedId]
+            [user_id, token, now, updatedId]
         );
         // await writeFile(
         //     path.resolve(NOTES_PATH, `${updatedId}.md`),
@@ -287,33 +368,31 @@ async function waitForWebpack() {
     }
 }
 
-app.get(
-    '/sync',
-    handleErrors(async function (req, res) {
-        let title = req.query.title;
-        let body = req.query.body;
-        let id = req.query.id;
-        let thumbnail = req.query.thumbnail;
+// app.get(
+//     '/sync',
+//     handleErrors(async function (req, res) {
+//         let title = req.query.title;
+//         let body = req.query.body;
+//         let id = req.query.id;
+//         let thumbnail = req.query.thumbnail;
+//
+//         console.log(`-------------------------------------------------- sync`);
+//
+//         const now = new Date();
+//         const result = await pool.query(
+//             'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
+//             [title, body, now, id, thumbnail]
+//         );
+//         const returning_id = result.rows[0].id;
+//
+//         res.json({
+//             result: "true",
+//             id: `${returning_id}`,
+//         });
+//     })
+// );
 
-        console.log(`-------------------------------------------------- sync`);
-
-        const now = new Date();
-        const result = await pool.query(
-            'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
-            [title, body, now, id, thumbnail]
-        );
-        const returning_id = result.rows[0].id;
-
-        res.json({
-            result: "true",
-            id: `${returning_id}`,
-        });
-    })
-);
-
-
-
-
+// TODO: 外部ファイル？
 const getKey = () => {
     const keys = [
         // https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=

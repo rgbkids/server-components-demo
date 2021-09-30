@@ -30,6 +30,7 @@ function Content() {
     selectedTitle: '',
     selectedBody: '',
     userId: '',
+    token: '',
   });
   const response = useServerResponse(location);
   return (

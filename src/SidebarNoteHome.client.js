@@ -10,8 +10,8 @@ import {useLocation} from './LocationContext.client';
 const host = location.host;
 const protocol = location.protocol;
 
-export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId}) {
-    console.log(`SidebarNoteHome client selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}`);
+export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token}) {
+    console.log(`SidebarNoteHome client selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}  token=${token} `);
 
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
@@ -41,8 +41,16 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
     }
 
     // 更新処理
-    async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId) {
-        const payload = {};
+    async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId, token) {
+        console.log(`SidebarNoteHome.client.js handleDeleteBookmark user_id=${user_id}, token=${token}`);
+
+        // const payload = {
+        //     user_id: user_id,
+        //     token: token,
+        // }; // TODO: token
+
+        const payload = {user_id, token};
+
         const requestedLocation = {
             selectedId: selectedId,
             isEditing: "",
@@ -50,6 +58,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
             selectedTitle: "",
             selectedBody: "",
             userId: user_id,
+            token: token,
         };
         const endpoint = `${protocol}//${host}/bookmarks/${bookmarkId}`;
         const method = `DELETE`;
@@ -76,7 +85,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
                 ?
                 <>
                     <button className="bookmark" onClick={() => {
-                        handleDeleteBookmark(userId, videoId, bookmarkId, selectedId);
+                        handleDeleteBookmark(userId, videoId, bookmarkId, selectedId, token);
                     }}>
                         ❌
                     </button>

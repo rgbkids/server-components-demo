@@ -22,7 +22,6 @@ services:
     environment:
       DB_HOST: postgres
       PROTOCOL: 'https:'
-      API_HOST: 'studywithme.cmsvr.live'
       SEARCH: 'vtuber'
     volumes:
       - ./notes:/opt/notes-app/notes

@@ -13,20 +13,22 @@ export default function Auth() {
     const [signed, setSigned] = useState(false);
     const [user, setUser] = useState(null);
 
-    async function handleCreate(title, body) {
-        const payload = {title, body};
-        const requestedLocation = {
-            selectedId: "",
-            isEditing: false,
-            searchText: "",
-            selectedTitle: "",
-            selectedBody: "",
-            userId: "",
-        };
+    async function handleCreateUser(user_id, token) {
+        const payload = {user_id, token};
+        // const requestedLocation = {
+        //     // selectedId: "",
+        //     // isEditing: false,
+        //     // searchText: "",
+        //     // selectedTitle: "",
+        //     // selectedBody: "",
+        //     // userId: user_id,
+        //     // token: token,
+        // };
         const endpoint = `${protocol}//${host}/users/`;
         const method = `POST`;
         const response = await fetch(
-            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
+            // `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
+            `${endpoint}`,
             {
                 method,
                 body: JSON.stringify(payload),
@@ -39,40 +41,42 @@ export default function Auth() {
     }
 
     // 更新処理
-    async function handleUpdate(title, body, id) {
-        const payload = {title, body};
-        const requestedLocation = {
-            selectedId: "",
-            isEditing: false,
-            searchText: "",
-            selectedTitle: "",
-            selectedBody: "",
-            userId: "",
-        };
-        const endpoint = `${protocol}//${host}/users/${id}`;
-        const method = `PUT`;
-        const response = await fetch(
-            `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-            {
-                method,
-                body: JSON.stringify(payload),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-        console.log(response);
-    }
+    // async function handleUpdateUser(user_id, token) {
+    //     const payload = {user_id, token};
+    //     const requestedLocation = {
+    //         selectedId: "",
+    //         isEditing: false,
+    //         searchText: "",
+    //         selectedTitle: "",
+    //         selectedBody: "",
+    //         userId: userId,
+    //         token: token,
+    //     };
+    //     const endpoint = `${protocol}//${host}/users/${id}`;
+    //     const method = `PUT`;
+    //     const response = await fetch(
+    //         `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
+    //         {
+    //             method,
+    //             body: JSON.stringify(payload),
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         }
+    //     );
+    //     console.log(response);
+    // }
 
     async function handleAddBookmark(user_id, video_id) {
         const payload = {user_id, video_id};
         const requestedLocation = {
-            selectedId: "",
-            isEditing: false,
-            searchText: "",
-            selectedTitle: "",
-            selectedBody: "",
-            userId: "",
+            // selectedId: "",
+            // isEditing: false,
+            // searchText: "",
+            // selectedTitle: "",
+            // selectedBody: "",
+            // userId: "",
+            // token: "",
         };
         const endpoint = `${protocol}//${host}/bookmarks/`;
         const method = `POST`;
@@ -93,12 +97,13 @@ export default function Auth() {
     async function handleDeleteBookmark(id) {
         const payload = {};
         const requestedLocation = {
-            selectedId: "",
-            isEditing: false,
-            searchText: "",
-            selectedTitle: "",
-            selectedBody: "",
-            userId: "",
+            // selectedId: "",
+            // isEditing: false,
+            // searchText: "",
+            // selectedTitle: "",
+            // selectedBody: "",
+            // userId: "",
+            // token: "",
         };
         const endpoint = `${protocol}//${host}/bookmarks/${id}`;
         const method = `DELETE`;
@@ -126,13 +131,15 @@ export default function Auth() {
                     setUser(_user);
                     setSigned(true);
 
-                    handleCreate(_user.uid, _user.refreshToken);
-                    handleUpdate(_user.uid, _user.refreshToken, _user.uid);
+                    const tokenEncode = encodeURI(_user.refreshToken);
+
+                    handleCreateUser(_user.uid, tokenEncode);
+                    // handleCreate(_user.uid, tokenEncode);
 
                     // handleAddBookmark(_user.uid, `videoId1`);
                     // handleDeleteBookmark(2);
 
-                    console.log(`Auth ------------------------------ userId=${_user.uid} `);
+                    console.log(`Auth ------------------------------ userId=${_user.uid} token=${tokenEncode} `);
                     startTransition(() => {
                         setLocation((loc) => ({
                             selectedId: "",
@@ -141,6 +148,7 @@ export default function Auth() {
                             selectedTitle: "",
                             selectedBody: "",
                             userId: _user.uid,
+                            token: tokenEncode
                         }));
                     });
                 }

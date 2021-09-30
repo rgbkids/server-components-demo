@@ -2,8 +2,8 @@ import {db} from './db.server';
 import SidebarNote from './SidebarNote';
 import NoteListClient from './NoteList.client';
 
-export default function NoteList({selectedId, searchText, userId}) {
-    console.log(`NoteList s userId=${userId}`);
+export default function NoteList({selectedId, searchText, userId, token}) {
+    console.log(`NoteList s userId=${userId}  token=${token} `);
 
     const searchTextDecode = decodeURI(searchText);
 
@@ -24,6 +24,6 @@ export default function NoteList({selectedId, searchText, userId}) {
     ).rows;
 
     return (
-        <NoteListClient selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} />
+        <NoteListClient selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} token={token} />
     );
 }

@@ -18,6 +18,7 @@ export default function Note({searchText, title, body, src, uri, videoId}) {
                         selectedTitle: "",
                         selectedBody: "",
                         userId: loc.userId,
+                        token: loc.token,
                     }));
                 });
             }}>
