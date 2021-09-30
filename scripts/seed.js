@@ -40,10 +40,10 @@ const insertNoteStatement = `INSERT INTO notes(title, body, created_at, updated_
   VALUES ($1, $2, $3, $3, $4, $5)
   RETURNING *`;
 const seedData = [
-    ["title1", "body1", now, "videoId1", "logo.png"],
-    ["title2", "body2", now, "videoId2", "logo.png"],
-    ["title3", "body3", now, "videoId3", "logo.png"],
-    ["title4", "body4", now, "videoId4", "logo.png"],
+    // ["title1", "body1", now, "videoId1", "logo.png"],
+    // ["title2", "body2", now, "videoId2", "logo.png"],
+    // ["title3", "body3", now, "videoId3", "logo.png"],
+    // ["title4", "body4", now, "videoId4", "logo.png"],
 ];
 
 const dropTableStatementUser = 'DROP TABLE IF EXISTS users;';

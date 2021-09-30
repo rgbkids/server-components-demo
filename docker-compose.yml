@@ -22,7 +22,7 @@ services:
     environment:
       DB_HOST: postgres
       PROTOCOL: 'https:'
-      SEARCH: 'vtuber'
+      SEARCH: ''
     volumes:
       - ./notes:/opt/notes-app/notes
       - ./public:/opt/notes-app/public
