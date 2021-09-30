@@ -42,7 +42,8 @@ The app won't work until you set up the database, as described below.
   <p>⚠️ This is <b>completely optional,</b> and is only for people who <i>prefer</i> Docker to global installs!</p>
   <p>If you prefer Docker, make sure you have docker and docker-compose installed then run:</p>
   <pre><code>docker-compose up</code></pre>
-  (Clean up: https://docs.docker.jp/config/pruning.html)
+  <p>(Clean: <code>docker system prune --volumes</code>)</p>
+  <p>(Build: <code>docker-compose up --build</code>)</p>
   <h4>Running seed script</h4>
   <p>1. Run containers in the detached mode</p>
   <pre><code>docker-compose up -d</code></pre>

@@ -5,6 +5,7 @@ import {createFromReadableStream} from "react-server-dom-webpack";
 import {useState, useRef, useEffect, useTransition} from 'react';
 
 import {useLocation} from './LocationContext.client';
+import Spinner from "./Spinner";
 // import {useSignIn} from "./fire";
 
 const host = location.host;
@@ -17,6 +18,8 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
     const [isPending, startTransition] = useTransition();
     const [, startNavigating] = useTransition();
     const refresh = useRefresh();
+
+    const [spinning, setSpinning] = useState(false);
 
     // let nextId = "";
     // if (notes) {
@@ -43,6 +46,8 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
     // 更新処理
     async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId, token) {
         console.log(`SidebarNoteHome.client.js handleDeleteBookmark user_id=${user_id}, token=${token}`);
+
+        setSpinning(true);
 
         // const payload = {
         //     user_id: user_id,
@@ -84,11 +89,16 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
             {isBookmark
                 ?
                 <>
-                    <button className="bookmark" onClick={() => {
-                        handleDeleteBookmark(userId, videoId, bookmarkId, selectedId, token);
-                    }}>
-                        ❌
-                    </button>
+                    {spinning
+                        ?
+                        <Spinner active={spinning}/>
+                        :
+                        <button className="bookmark" onClick={() => {
+                            handleDeleteBookmark(userId, videoId, bookmarkId, selectedId, token);
+                        }}>
+                            ❌
+                        </button>
+                    }
                     <div className="youtube">
                         <iframe width="294"
                                 height="165"

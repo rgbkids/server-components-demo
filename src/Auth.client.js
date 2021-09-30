@@ -1,6 +1,7 @@
 import {useFirebase, useSignIn} from './fire';
 import {useEffect, useState, useTransition} from "react";
 import {useLocation} from "./LocationContext.client";
+import Spinner from './Spinner';
 
 const host = location.host;
 const protocol = location.protocol;
@@ -12,6 +13,8 @@ export default function Auth() {
     const [authSetting, setAuthSetting] = useState(false);
     const [signed, setSigned] = useState(false);
     const [user, setUser] = useState(null);
+
+    const [spinning, setSpinning] = useState(true);
 
     async function handleCreateUser(user_id, token) {
         const payload = {user_id, token};
@@ -125,6 +128,8 @@ export default function Auth() {
             setAuthSetting(true);
 
             useFirebase().auth().onAuthStateChanged(_user => {
+                setSpinning(false);
+
                 if (_user) {
                     console.log(_user);
 
@@ -166,7 +171,13 @@ export default function Auth() {
                     <a onClick={() => {
                         useSignIn()
                     }}>
-                        Sign in
+                        <Spinner active={spinning}/>
+                        {spinning
+                        ?
+                            <p></p>
+                        :
+                            <p>Sign in</p>
+                        }
                     </a>
                 </>
             }
