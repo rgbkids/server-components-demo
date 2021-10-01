@@ -3,10 +3,11 @@ import NoteClient from "./Note.client";
 import NoteHome from "./NoteHome.client";
 import Auth from "./Auth.client";
 import Language from "./Language.client";
-import {t} from './lang';
+import {t} from './language';
 
 export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token, lang}) {
     // console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}  token=${token} `);
+    console.log(`Note server lang=${lang}`);
 
     if (!isEditing) {
         const notes = db.query(
@@ -36,7 +37,7 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
                     <div className="contents">
                         <header><strong>DASHBOARD</strong></header>
 
-                        <Auth className="auth" lang={lang} />
+                        <Auth lang={lang} />
 
                         <Language searchText={searchText} selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId} token={token} lang={lang}/>
 

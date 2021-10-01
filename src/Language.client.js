@@ -9,31 +9,18 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
 
-
-    async function handleSetLanguage(user_id, token) {
-        const payload = {user_id, token};
-        const endpoint = `${protocol}//${host}/users/`;
-        const method = `POST`;
-        const response = await fetch(
-            // `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-            `${endpoint}`,
-            {
-                method,
-                body: JSON.stringify(payload),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-        // console.log(response);
-    }
-
     return (
         <div className="language">
             <a onClick={() => {
                 startTransition(() => {
                     setLocation((loc) => ({
-                        ...loc,
+                        selectedId: loc.selectedId,
+                        isEditing: loc.isEditing,
+                        searchText: loc.searchText,
+                        selectedTitle: loc.selectedTitle,
+                        selectedBody: loc.selectedBody,
+                        userId: loc.userId,
+                        token: loc.token,
                         lang: "en",
                     }));
                 });
@@ -43,7 +30,13 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
             <a onClick={() => {
                 startTransition(() => {
                     setLocation((loc) => ({
-                        ...loc,
+                        selectedId: loc.selectedId,
+                        isEditing: loc.isEditing,
+                        searchText: loc.searchText,
+                        selectedTitle: loc.selectedTitle,
+                        selectedBody: loc.selectedBody,
+                        userId: loc.userId,
+                        token: loc.token,
                         lang: "ja",
                     }));
                 });
@@ -53,7 +46,13 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
             <a onClick={() => {
                 startTransition(() => {
                     setLocation((loc) => ({
-                        ...loc,
+                        selectedId: loc.selectedId,
+                        isEditing: loc.isEditing,
+                        searchText: loc.searchText,
+                        selectedTitle: loc.selectedTitle,
+                        selectedBody: loc.selectedBody,
+                        userId: loc.userId,
+                        token: loc.token,
                         lang: "zh_cmn_Hant",
                     }));
                 });
@@ -63,7 +62,13 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
             <a onClick={() => {
                 startTransition(() => {
                     setLocation((loc) => ({
-                        ...loc,
+                        selectedId: loc.selectedId,
+                        isEditing: loc.isEditing,
+                        searchText: loc.searchText,
+                        selectedTitle: loc.selectedTitle,
+                        selectedBody: loc.selectedBody,
+                        userId: loc.userId,
+                        token: loc.token,
                         lang: "ko",
                     }));
                 });

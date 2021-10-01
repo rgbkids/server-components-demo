@@ -1,7 +1,7 @@
 import SidebarNote from './SidebarNote';
 
 export default function NoteList({selectedId, searchText, notes, bookmarks, userId, token, lang}) {
-    // console.log(`NoteList c`);
+    console.log(`NoteList client lang=${lang}`);
 
     // console.log(`bookmarks------------`);
     // console.log(bookmarks);

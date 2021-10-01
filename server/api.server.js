@@ -282,8 +282,8 @@ app.post(
         //     req.body.body,
         //     'utf8'
         // );
-        // sendResponse(req, res, returnId);
-        sendResponse(req, res, null);
+        sendResponse(req, res, returnId);
+        // sendResponse(req, res, null);
     })
 );
 
@@ -472,7 +472,7 @@ function getYouTubeData() {
     request(options, function (error, response, body) {
         // console.log(body);
 
-        if (body.items) {
+        if (body.items != undefined) {
             const items = body.items;
 
             if (items && items.length > 0) {

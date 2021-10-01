@@ -5,6 +5,7 @@ import ClientSidebarNote from './SidebarNote.client';
 
 export default function SidebarNote({selectedId, searchText, note, bookmarkId, isBookmark, userId, token, lang}) {
     // console.log(`SidebarNote bookmark=${isBookmark} bookmarkId=${bookmarkId} userId=${userId}  token=${token} `);
+    console.log(`SidebarNote.js lang=${lang} `);
 
     const id = note.id;
     const title = note.title
