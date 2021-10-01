@@ -30,7 +30,17 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
         if (notes) {
             return (
                 <>
-                    <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} token={token}/>
+                    <div className="contents">
+                        <img src={`undraw_Co-working_re_w93t.png`}/>
+                        <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks}
+                                  userId={userId} token={token}/>
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <img src={`undraw_Co-working_re_w93t.png`}/>
                 </>
             );
         }
@@ -44,6 +54,7 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
     const uri = `https://www.youtube.com/watch?v=${videoId}`;
 
     return (
-        <NoteClient searchText={searchText} title={titleDecode} body={bodyDecode} src={src} uri={uri} videoId={videoId}/>
+        <NoteClient searchText={searchText} title={titleDecode} body={bodyDecode} src={src} uri={uri}
+                    videoId={videoId}/>
     );
 }

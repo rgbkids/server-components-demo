@@ -758,6 +758,10 @@ ul.notes-list {
 .item {
   width: 300px;
   height: 200px;
+
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
   /*margin-bottom: 1em;*/
   /*border: 1px solid #999;*/
 }
@@ -767,4 +771,8 @@ ul.notes-list {
 .item:nth-child(2n+2) {
   /*background-color: blueviolet;*/
   height: 0px;
+}
+
+.contents {
+  width: 100%;
 }
