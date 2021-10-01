@@ -31,6 +31,7 @@ function Content() {
     selectedBody: '',
     userId: '',
     token: '',
+    lang: '',
   });
   const response = useServerResponse(location);
   return (

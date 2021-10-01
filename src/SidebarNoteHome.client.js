@@ -11,7 +11,7 @@ import Spinner from "./Spinner";
 const host = location.host;
 const protocol = location.protocol;
 
-export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token}) {
+export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token, lang}) {
     // console.log(`SidebarNoteHome client selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}  token=${token} `);
 
     const [location, setLocation] = useLocation();
@@ -44,7 +44,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
     }
 
     // 更新処理
-    async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId, token) {
+    async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId, token, lang) {
         // console.log(`SidebarNoteHome.client.js handleDeleteBookmark user_id=${user_id}, token=${token}`);
 
         setSpinning(true);
@@ -64,6 +64,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
             selectedBody: "",
             userId: user_id,
             token: token,
+            lang: lang,
         };
         const endpoint = `${protocol}//${host}/bookmarks/${bookmarkId}`;
         const method = `DELETE`;
@@ -94,7 +95,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
                         <Spinner active={spinning}/>
                         :
                         <button className="bookmark" onClick={() => {
-                            handleDeleteBookmark(userId, videoId, bookmarkId, selectedId, token);
+                            handleDeleteBookmark(userId, videoId, bookmarkId, selectedId, token, lang);
                         }}>
                             ➖
                         </button>

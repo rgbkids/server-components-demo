@@ -3,7 +3,7 @@ import marked from 'marked';
 
 import ClientSidebarNote from './SidebarNote.client';
 
-export default function SidebarNote({selectedId, searchText, note, bookmarkId, isBookmark, userId, token}) {
+export default function SidebarNote({selectedId, searchText, note, bookmarkId, isBookmark, userId, token, lang}) {
     // console.log(`SidebarNote bookmark=${isBookmark} bookmarkId=${bookmarkId} userId=${userId}  token=${token} `);
 
     const id = note.id;
@@ -27,6 +27,7 @@ export default function SidebarNote({selectedId, searchText, note, bookmarkId, i
             bookmarkId={bookmarkId}
             userId={userId}
             token={token}
+            lang={lang}
             searchText={searchText}
             expandedChildren={
                 <p className="sidebar-note-excerpt">{bodySummary || <i>(No content)</i>}</p>

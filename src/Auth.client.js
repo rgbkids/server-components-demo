@@ -6,7 +6,7 @@ import Spinner from './Spinner';
 const host = location.host;
 const protocol = location.protocol;
 
-export default function Auth() {
+export default function Auth(lang) {
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
 
@@ -153,7 +153,8 @@ export default function Auth() {
                             selectedTitle: "",
                             selectedBody: "",
                             userId: _user.uid,
-                            token: tokenEncode
+                            token: tokenEncode,
+                            lang: lang,
                         }));
                     });
                 }
@@ -184,7 +185,8 @@ export default function Auth() {
                 selectedTitle: "",
                 selectedBody: "",
                 userId: "",
-                token: ""
+                token: "",
+                lang: lang,
             }));
         });
     }

@@ -2,9 +2,10 @@ import {db} from "./db.server";
 import NoteClient from "./Note.client";
 import NoteHome from "./NoteHome.client";
 import Auth from "./Auth.client";
+import Language from "./Language.client";
 import {t} from './lang';
 
-export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token}) {
+export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token, lang}) {
     // console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}  token=${token} `);
 
     if (!isEditing) {
@@ -35,23 +36,25 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
                     <div className="contents">
                         <header><strong>DASHBOARD</strong></header>
 
-                        <Auth className="auth" />
+                        <Auth className="auth" lang={lang} />
 
-                        <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} token={token}/>
+                        <Language searchText={searchText} selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId} token={token} lang={lang}/>
 
-                        <p>{t("HOW_TO_ADD", "ja")}</p>
+                        <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} token={token} lang={lang}/>
+
+                        <p>{t("HOW_TO_ADD", lang)}</p>
                         <img src="undraw_Collaborators_re_hont.png"/>
 
-                        <p>{t("HOW_TO_WATCH", "ja")}</p>
+                        <p>{t("HOW_TO_WATCH", lang)}</p>
                         <img src="undraw_Online_video_re_fou2.png"/>
 
-                        <p>{t("START_TOGETHER", "ja")}</p>
+                        <p>{t("START_TOGETHER", lang)}</p>
                         <img src="undraw_Co-working_re_w93t.png"/>
 
-                        <p>{t("HOW_TO_LIVE", "ja")}</p>
-                        <p className="annotation">{t("ABOUT_HASHTAG", "ja")}</p>
+                        <p>{t("HOW_TO_LIVE", lang)}</p>
+                        <p className="annotation">{t("ABOUT_HASHTAG", lang)}</p>
                         <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank">
-                            {t("DOWNLOAD_APP", "ja")}
+                            {t("DOWNLOAD_APP", lang)}
                         </a>
                         <img src="undraw_Social_bio_re_0t9u.png"/>
 
@@ -75,6 +78,6 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
 
     return (
         <NoteClient searchText={searchText} title={titleDecode} body={bodyDecode} src={src} uri={uri}
-                    videoId={videoId}/>
+                    videoId={videoId} lang={lang}/>
     );
 }

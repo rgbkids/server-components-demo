@@ -9,7 +9,7 @@ import {useRefresh} from './Cache.client';
 const host = location.host;
 const protocol = location.protocol;
 
-export default function SidebarNote({selectedId, searchText, id, title, body, children, expandedChildren, bookmarkId, isBookmark, userId, token}) {
+export default function SidebarNote({selectedId, searchText, id, title, body, children, expandedChildren, bookmarkId, isBookmark, userId, token, lang}) {
     // console.log(`SidebarNote client bookmark=${isBookmark} bookmarkId=${bookmarkId} userId=${userId} token=${token} `);
 
     const [location, setLocation] = useLocation();
@@ -42,6 +42,7 @@ export default function SidebarNote({selectedId, searchText, id, title, body, ch
             selectedBody: "",
             userId: user_id,
             token: token,
+            lang: lang,
         };
         const endpoint = `${protocol}//${host}/bookmarks/`;
         const method = `POST`;
@@ -122,6 +123,7 @@ export default function SidebarNote({selectedId, searchText, id, title, body, ch
                                 selectedBody: bodyEncode,
                                 userId: loc.userId,
                                 token: loc.token,
+                                lang: loc.lang,
                             }));
                         });
                     }}>

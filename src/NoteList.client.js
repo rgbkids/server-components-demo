@@ -1,6 +1,6 @@
 import SidebarNote from './SidebarNote';
 
-export default function NoteList({selectedId, searchText, notes, bookmarks, userId, token}) {
+export default function NoteList({selectedId, searchText, notes, bookmarks, userId, token, lang}) {
     // console.log(`NoteList c`);
 
     // console.log(`bookmarks------------`);
@@ -27,7 +27,7 @@ export default function NoteList({selectedId, searchText, notes, bookmarks, user
         <ul className="notes-list">
             {notes.map((note) => (
                 <li key={note.id}>
-                    <SidebarNote selectedId={selectedId} searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId} token={token}/>
+                    <SidebarNote selectedId={selectedId} searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId} token={token} lang={lang}/>
                 </li>
             ))}
         </ul>

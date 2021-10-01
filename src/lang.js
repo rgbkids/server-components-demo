@@ -1,6 +1,45 @@
 export const t = (id, lang) => {
-    let _lang = (lang) ? lang : "ja";
-    return resources[_lang]["translation"][id];
+    console.log(`lang.js = ${id} @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`);
+    console.log(lang);
+
+    let result = "";
+
+    try {
+        result = resources[lang]["translation"][id];
+    } catch (e) {
+        result = resources["ja"]["translation"][id];
+    }
+
+    // let lang = (langObject) ? langObject.lang : "ja";
+    // lang = (lang) ? lang : "ja";
+
+    console.log(`lang = ${lang}`);
+    console.log(`result = ${result}`);
+
+    // console.log(resources);
+    // console.log(resources[lang]);
+    // console.log(resources[lang]["translation"]);
+    // console.log(resources[lang]["translation"][id]);
+
+    return result;
+
+    // let lang = (langObject) ? langObject.lang : "ja";
+    //
+    // console.log(`lang.js = ${lang} @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`);
+    // console.log(lang);
+    //
+    // lang = (lang) ? lang : "ja";
+    //
+    // console.log(resources);
+    // console.log(resources[lang]);
+    // console.log(resources[lang]["translation"]);
+    // console.log(resources[lang]["translation"][id]);
+    //
+    // try {
+    //     return resources[lang]["translation"][id];
+    // } catch (e) {
+    //     return resources["ja"]["translation"][id];
+    // }
 };
 
 const resources = {
@@ -25,3 +64,4 @@ const resources = {
         },
     },
 };
+

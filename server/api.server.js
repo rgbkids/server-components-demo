@@ -157,6 +157,7 @@ function sendResponse(req, res, redirectToId) {
         selectedBody: location.selectedBody,
         userId: location.userId,
         token: location.token,
+        lang: location.lang,
     });
 }
 
@@ -255,26 +256,34 @@ app.post(
         const user_id = req.body.user_id;
         const token = req.body.token;
 
+        let returnId = "";
+
         // const updatedId = Number(req.params.id);
         const now = new Date();
 
-        await pool.query(
-            'update users set token = $2, memo = $1, updated_at = $3 where user_id = $1',
+        const resultUpdate = await pool.query(
+            'update users set token = $2, memo = $1, updated_at = $3 where user_id = $1 returning user_id',
             [user_id, token, now]
         );
+        console.log(`resultUpdate.rows[0].user_id=============` + resultUpdate.rows[0].user_id);
 
-        const result = await pool.query(
-            'insert into users (token, memo, created_at, updated_at, user_id) values ($2, $1, $3, $3, $4) returning user_id',
-            [user_id, token, now, user_id]
-        );
+        if (resultUpdate.rows[0].user_id) {
+            returnId = resultUpdate.rows[0].user_id;
+        } else {
+            const result = await pool.query(
+                'insert into users (token, memo, created_at, updated_at, user_id) values ($2, $1, $3, $3, $4) returning user_id',
+                [user_id, token, now, user_id]
+            );
 
-        const insertedId = result.rows[0].user_id;
+            returnId = result.rows[0].user_id;
+        }
         // await writeFile(
         //     path.resolve(NOTES_PATH, `${insertedId}.md`),
         //     req.body.body,
         //     'utf8'
         // );
-        sendResponse(req, res, insertedId);
+        // sendResponse(req, res, returnId);
+        sendResponse(req, res, null);
     })
 );
 
@@ -287,14 +296,19 @@ app.put(
         const now = new Date();
         const updatedId = Number(req.params.id);
 
-        await pool.query(
-            'insert into bookmarks (user_id, video_id, created_at, updated_at) values ($1, $2, $3, $3) returning bookmark_id',
-            [user_id, token, now]
-        );
-        await pool.query(
-            'update users set token = $2, memo = $1, updated_at = $3 where user_id = $4',
+        const resultUpdate = await pool.query(
+            'update users set token = $2, memo = $1, updated_at = $3 where user_id = $4 returning user_id',
             [user_id, token, now, updatedId]
         );
+
+        if (!resultUpdate.rows[0].bookmark_id) {
+            await pool.query(
+                'insert into users (user_id, token, created_at, updated_at) values ($1, $2, $3, $3) returning user_id',
+                [user_id, token, now]
+            );
+        }
+
+
         // await writeFile(
         //     path.resolve(NOTES_PATH, `${updatedId}.md`),
         //     req.body.body,
@@ -484,15 +498,37 @@ function getYouTubeData() {
 
                         // console.log(`------------- endPoint=${endPoint}`);
 
+                        // const {rows} = pool.query(
+                        //     `select count(*) as result from notes where id = $1`,
+                        //     [
+                        //         videoId
+                        //     ]
+                        // );
+                        //
+                        // console.log(rows);
+
+                        // if (rows[0].result == 0) {
                         const now = new Date();
-                        const result = pool.query(
-                            'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
+
+
+                        const resultUpdate = pool.query(
+                            'update notes set title = $1, body = $2, updated_at = $3, thumbnail = $5 where id = $4 returning id',
                             [title, description, now, videoId, thumbnail]
                         );
+
+                        if (!resultUpdate.rows) {
+                            pool.query(
+                                'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
+                                [title, description, now, videoId, thumbnail]
+                            );
+                        }
+
+
                         // const returning_id = result.rows[0].id;
 
                         // console.log(result);
                         // fetch(result);
+                        // }
                     });
 
                     // console.log(`------------- 3`);

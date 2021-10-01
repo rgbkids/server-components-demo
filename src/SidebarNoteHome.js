@@ -1,7 +1,7 @@
 import SidebarNote from "./SidebarNote";
 import ClientSidebarNote from "./SidebarNoteHome.client";
 
-export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token}) {
+export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token, lang}) {
     // console.log(`SidebarNoteHome selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}  token=${token} `);
 
     // const videoId = note.id;
@@ -9,7 +9,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
 
     return (
         <>
-            <ClientSidebarNote selectedId={selectedId} searchText={searchText} note={note} bookmarkId={bookmarkId} isBookmark={isBookmark} userId={userId} token={token} />
+            <ClientSidebarNote selectedId={selectedId} searchText={searchText} note={note} bookmarkId={bookmarkId} isBookmark={isBookmark} userId={userId} token={token} lang={lang} />
         </>
     );
 }

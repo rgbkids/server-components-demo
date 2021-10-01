@@ -1,7 +1,7 @@
 import {useTransition} from 'react';
 import {useLocation} from "./LocationContext.client";
 
-export default function Note({searchText, title, body, src, uri, videoId}) {
+export default function Note({searchText, title, body, src, uri, videoId, lang}) {
     // console.log(`Note c`);
 
     const [, startTransition] = useTransition();
@@ -19,6 +19,7 @@ export default function Note({searchText, title, body, src, uri, videoId}) {
                         selectedBody: "",
                         userId: loc.userId,
                         token: loc.token,
+                        lang: loc.lang,
                     }));
                 });
             }}>
