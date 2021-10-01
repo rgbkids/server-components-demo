@@ -389,7 +389,7 @@ ul.notes-list {
 
 .sidebar-note-header {
     z-index: 1;
-    width: 85%;
+    max-width: 85%;
     pointer-events: none;
 }
 
@@ -907,4 +907,15 @@ ul.notes-list {
   width: 100%;
   float: right;
     padding: 2%;
+}
+
+.sidebar-note-toggle-expand {
+    width: 20px;
+    height: 20px;
+
+    max-width: 20px;
+    max-height: 20px;
+
+    min-width: 20px;
+    min-height: 20px;
 }
