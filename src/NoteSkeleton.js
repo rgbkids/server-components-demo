@@ -7,7 +7,7 @@
  */
 
 function NoteEditorSkeleton() {
-  console.log(`NoteEditorSkeleton`);
+  // console.log(`NoteEditorSkeleton`);
 
   return (
     <div

@@ -40,7 +40,7 @@ export default function Auth() {
                 },
             }
         );
-        console.log(response);
+        // console.log(response);
     }
 
     // 更新処理
@@ -93,7 +93,7 @@ export default function Auth() {
                 },
             }
         );
-        console.log(response);
+        // console.log(response);
     }
 
     // 更新処理
@@ -120,7 +120,7 @@ export default function Auth() {
                 },
             }
         );
-        console.log(response);
+        // console.log(response);
     }
 
     useEffect(() => {
@@ -131,7 +131,7 @@ export default function Auth() {
                 setSpinning(false);
 
                 if (_user) {
-                    console.log(_user);
+                    // console.log(_user);
 
                     setUser(_user);
                     setSigned(true);
@@ -144,7 +144,7 @@ export default function Auth() {
                     // handleAddBookmark(_user.uid, `videoId1`);
                     // handleDeleteBookmark(2);
 
-                    console.log(`Auth ------------------------------ userId=${_user.uid} token=${tokenEncode} `);
+                    // console.log(`Auth ------------------------------ userId=${_user.uid} token=${tokenEncode} `);
                     startTransition(() => {
                         setLocation((loc) => ({
                             selectedId: "",
@@ -175,7 +175,7 @@ export default function Auth() {
         setSigned(false);
         setUser(null);
 
-        console.log(`Auth ------------------------------ handleSignOut`);
+        // console.log(`Auth ------------------------------ handleSignOut`);
         startTransition(() => {
             setLocation((loc) => ({
                 selectedId: "",

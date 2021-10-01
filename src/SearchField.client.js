@@ -11,7 +11,7 @@ import {useLocation} from './LocationContext.client';
 import Spinner from './Spinner';
 
 export default function SearchField() {
-    console.log(`SearchField c`);
+    // console.log(`SearchField c`);
 
     const [isSearching, startSearching] = useTransition();
     const [, setLocation] = useLocation();

@@ -10,7 +10,7 @@ const host = location.host;
 const protocol = location.protocol;
 
 export default function SidebarNote({selectedId, searchText, id, title, body, children, expandedChildren, bookmarkId, isBookmark, userId, token}) {
-    console.log(`SidebarNote client bookmark=${isBookmark} bookmarkId=${bookmarkId} userId=${userId} token=${token} `);
+    // console.log(`SidebarNote client bookmark=${isBookmark} bookmarkId=${bookmarkId} userId=${userId} token=${token} `);
 
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
@@ -31,7 +31,7 @@ export default function SidebarNote({selectedId, searchText, id, title, body, ch
     }
 
     async function handleAddBookmark(user_id, video_id, token) {
-        console.log(`SidebarNote.client.js handleAddBookmark user_id=${user_id}, token=${token}`);
+        // console.log(`SidebarNote.client.js handleAddBookmark user_id=${user_id}, token=${token}`);
 
         const payload = {user_id, video_id, token};
         const requestedLocation = {

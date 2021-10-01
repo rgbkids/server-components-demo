@@ -4,7 +4,7 @@ import SidebarNoteHome from "./SidebarNoteHome";
 import SidebarNote from "./SidebarNote";
 
 export default function NoteHome({ selectedId, searchText, notes, bookmarks, userId, token}) {
-    console.log(`NoteHome`);
+    // console.log(`NoteHome`);
 
     // TODO: シンプルにできないか？
     let bookmarkValues = [];
@@ -14,8 +14,8 @@ export default function NoteHome({ selectedId, searchText, notes, bookmarks, use
         bookmarkKeys[bookmark.video_id] = bookmark.bookmark_id;
     });
 
-    console.log(bookmarkValues);
-    console.log(bookmarkKeys);
+    // console.log(bookmarkValues);
+    // console.log(bookmarkKeys);
 
     // const [leftNotes, setLeftNotes] = useState(notes.filter((e, i) => i % 2 === 0));
     // const [rightNotes, setRightNotes] = useState(notes.filter((e, i) => i % 2 === 1));

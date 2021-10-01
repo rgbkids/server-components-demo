@@ -2,7 +2,7 @@ import {useTransition} from 'react';
 import {useLocation} from "./LocationContext.client";
 
 export default function Note({searchText, title, body, src, uri, videoId}) {
-    console.log(`Note c`);
+    // console.log(`Note c`);
 
     const [, startTransition] = useTransition();
     const [, setLocation] = useLocation();

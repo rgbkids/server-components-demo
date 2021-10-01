@@ -12,7 +12,7 @@ const host = location.host;
 const protocol = location.protocol;
 
 export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token}) {
-    console.log(`SidebarNoteHome client selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}  token=${token} `);
+    // console.log(`SidebarNoteHome client selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}  token=${token} `);
 
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
@@ -31,7 +31,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
     //         nextId = note.id;
     //     }
     // }
-    console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ selectedId = ${selectedId}`);
+    // console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ selectedId = ${selectedId}`);
 
     function navigate(response) {
         const cacheKey = response.headers.get('X-Location');
@@ -45,7 +45,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
 
     // 更新処理
     async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId, token) {
-        console.log(`SidebarNoteHome.client.js handleDeleteBookmark user_id=${user_id}, token=${token}`);
+        // console.log(`SidebarNoteHome.client.js handleDeleteBookmark user_id=${user_id}, token=${token}`);
 
         setSpinning(true);
 
@@ -77,7 +77,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
                 },
             }
         );
-        console.log(response);
+        // console.log(response);
         navigate(response);
     }
 

@@ -3,7 +3,7 @@ import SidebarNote from './SidebarNote';
 import NoteListClient from './NoteList.client';
 
 export default function NoteList({selectedId, searchText, userId, token}) {
-    console.log(`NoteList s userId=${userId}  token=${token} `);
+    // console.log(`NoteList s userId=${userId}  token=${token} `);
 
     const searchTextDecode = decodeURI(searchText);
 

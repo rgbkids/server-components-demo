@@ -198,10 +198,10 @@ const auth = async (userId, token) => {
             // "ACzBnChwuz-x1OV9fB3XFnOejkinGVghELQVFEFjmnKuSNn_IuTkeBB_bHNR3VDemJPHeiftGCN0lvuyi1H7yf-OH5VYPq1grp53QuGpg7Ggvjx6Ajdf2xq25hQzeeHlzkNKSHgqwlE_I5k-RGlF6ZwxJR4GPdobLEI6XrZkO2olynVCoc89GuTp3O2jkp4Ot5sld8N5tztWWKz5GEDY2SHlcYoptwzpCi6KqmSQ79Un7k69Hsu2khYnqwp9xxUhc188ngJKQnUHU9mY2XK_omlp9-G3uVConFR4jA5hRVf6mrU0wnpEKjcTC2MStZyQmBZLRmAnnqToJJwkiZIyER2-yzbHcdAdo16xir6NhL4-ip99hNNC0QmIpFh864O2rF0m9SVXhJY8WkTTf5N8bfDOMIW5_TxGNs8cBuUhOdCzU51d9ABDgsq1-AwwYVPgjSURbzjGADaiUu02P0yiinP64DBhR6oVtQ"
         ]
     );
-    console.log(`------------ auth 1 ------------ userId=${userId} token=${token}`);
-    console.log(rows);
-    console.log(rows[0].result);
-    console.log(`------------ auth 2 ------------`);
+    // console.log(`------------ auth 1 ------------ userId=${userId} token=${token}`);
+    // console.log(rows);
+    // console.log(rows[0].result);
+    // console.log(`------------ auth 2 ------------`);
 
     return (rows[0].result == 1);
 }
@@ -210,12 +210,12 @@ const auth = async (userId, token) => {
 app.post(
     '/bookmarks',
     handleErrors(async function (req, res) {
-        console.log(`------------ bookmarks 1 ------------ req.body.user_id=${req.body.user_id}, req.body.token=${req.body.token}`);
+        // console.log(`------------ bookmarks 1 ------------ req.body.user_id=${req.body.user_id}, req.body.token=${req.body.token}`);
 
         // TODO: 認証
         if (await auth(req.body.user_id, req.body.token) === false) {
             sendResponse(req, res, null);
-            console.log(`------------ bookmarks 2 ------------`);
+            // console.log(`------------ bookmarks 2 ------------`);
 
             return;
         }
@@ -228,7 +228,7 @@ app.post(
         //     console.log(`------------ auth 2 ------------`);
         // }
 
-        console.log(`------------ bookmarks 3 ------------`);
+        // console.log(`------------ bookmarks 3 ------------`);
 
 
         const now = new Date();
@@ -310,7 +310,7 @@ app.delete(
         // TODO: 認証
         if (await auth(req.body.user_id, req.body.token) === false) {
             sendResponse(req, res, null);
-            console.log(`------------ bookmarks 2 ------------`);
+            // console.log(`------------ bookmarks 2 ------------`);
 
             return;
         }
@@ -327,12 +327,12 @@ app.delete(
         // TODO: 認証
         if (await auth(req.body.user_id, req.body.token) === false) {
             sendResponse(req, res, null);
-            console.log(`------------ bookmarks 2 ------------`);
+            // console.log(`------------ bookmarks 2 ------------`);
 
             return;
         }
 
-        console.log(`/bookmarks/:id ${req.params.id}`);
+        // console.log(`/bookmarks/:id ${req.params.id}`);
 
         await pool.query('delete from bookmarks where bookmark_id = $1', [req.params.id]);
         // await unlink(path.resolve(NOTES_PATH, `${req.params.id}.md`));
@@ -447,7 +447,7 @@ function getYouTubeData() {
     const key = getKey();
     const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=100&order=date&q=${search}`;
 
-    console.log(`YouTube: ${endPointYouTube}`);
+    // console.log(`YouTube: ${endPointYouTube}`);
 
     const request = require('request');
     const options = {
@@ -456,20 +456,20 @@ function getYouTubeData() {
         url: `${endPointYouTube}`,
     }
     request(options, function (error, response, body) {
-        console.log(body);
+        // console.log(body);
 
         if (body.items) {
             const items = body.items;
 
             if (items && items.length > 0) {
-                console.log(items.map);
+                // console.log(items.map);
 
                 if (items.map) {
-                    console.log(`------------- 1`);
+                    // console.log(`------------- 1`);
 
                     items.map((item) => {
-                        console.log(`------------- 2`);
-                        console.log(item);
+                        // console.log(`------------- 2`);
+                        // console.log(item);
 
                         const videoId = item.id.videoId;
                         const title = item.snippet.title;
@@ -482,7 +482,7 @@ function getYouTubeData() {
 
                         const endPoint = `/sync/?title=${titleEncode}&body=${descriptionEncode}&id=${videoId}&thumbnail=${thumbnail}`;
 
-                        console.log(`------------- endPoint=${endPoint}`);
+                        // console.log(`------------- endPoint=${endPoint}`);
 
                         const now = new Date();
                         const result = pool.query(
@@ -491,11 +491,11 @@ function getYouTubeData() {
                         );
                         // const returning_id = result.rows[0].id;
 
-                        console.log(result);
+                        // console.log(result);
                         // fetch(result);
                     });
 
-                    console.log(`------------- 3`);
+                    // console.log(`------------- 3`);
 
                 }
             }

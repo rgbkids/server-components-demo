@@ -8,7 +8,7 @@ import NoteListSkeleton from './NoteListSkeleton';
 import Auth from './Auth.client';
 
 export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody, userId, token}) {
-    console.log(`App userId=${userId} token=${token}`);
+    // console.log(`App userId=${userId} token=${token}`);
 
     return (
         <div className="main">
@@ -26,7 +26,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                 </section>
                 <section className="sidebar-promotion">
                     <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank">
-                        &#9758; STUDY WITH MEの配信をする
+                        &#9758; Start STUDY WITH ME!
                     </a>
                 </section>
                 <section className="sidebar-menu" role="menubar">

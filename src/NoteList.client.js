@@ -1,7 +1,7 @@
 import SidebarNote from './SidebarNote';
 
 export default function NoteList({selectedId, searchText, notes, bookmarks, userId, token}) {
-    console.log(`NoteList c`);
+    // console.log(`NoteList c`);
 
     // console.log(`bookmarks------------`);
     // console.log(bookmarks);
@@ -14,8 +14,8 @@ export default function NoteList({selectedId, searchText, notes, bookmarks, user
         bookmarkKeys[bookmark.video_id] = bookmark.bookmark_id;
     });
 
-    console.log(bookmarkValues);
-    console.log(bookmarkKeys);
+    // console.log(bookmarkValues);
+    // console.log(bookmarkKeys);
 
     // notes.map((note) => {
     //     console.log(`notes.map((note) ------------`);
