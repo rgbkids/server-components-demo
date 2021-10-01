@@ -25,7 +25,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                     <a href="/"><strong>Study with me</strong></a>
                 </section>
                 <section className="sidebar-promotion">
-                    <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank"><p>&#9758;Start study with me!</p></a>
+                    <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank"><p>&#9758;STUDY WITH MEの配信をする</p></a>
                 </section>
                 <section className="sidebar-menu" role="menubar">
                     <SearchField/>
@@ -41,7 +41,6 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                     <Note searchText={searchText} selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId} token={token}/>
                 </Suspense>
             </section>
-            <Auth />
         </div>
     );
 }

@@ -171,12 +171,11 @@ export default function Auth() {
                     <a onClick={() => {
                         useSignIn()
                     }}>
-                        <Spinner active={spinning}/>
                         {spinning
                         ?
-                            <p></p>
+                            <span><Spinner active={spinning}/></span>
                         :
-                            <p>Sign in</p>
+                            <span className="auth-button">Sign in</span>
                         }
                     </a>
                 </>

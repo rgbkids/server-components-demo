@@ -96,7 +96,7 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
                         <button className="bookmark" onClick={() => {
                             handleDeleteBookmark(userId, videoId, bookmarkId, selectedId, token);
                         }}>
-                            ❌
+                            ➖
                         </button>
                     }
                     <div className="youtube">

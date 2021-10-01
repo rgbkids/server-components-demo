@@ -85,7 +85,7 @@ export default function SidebarNote({selectedId, searchText, id, title, body, ch
                         handleAddBookmark(userId, id, token)
                     });
                 }}>
-                    📌
+                    ➕
                 </button>
             }
             <div

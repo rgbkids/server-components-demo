@@ -294,7 +294,7 @@ ul.notes-list {
   align-items: center;
   text-align: right;
   width: 100%;
-  font-size: small;
+  font-size: x-small;
 }
 .sidebar-promotion > a {
   text-decoration: none;
@@ -764,6 +764,8 @@ ul.notes-list {
   display: block;
   /*margin-bottom: 1em;*/
   /*border: 1px solid #999;*/
+
+  text-align: left;
 }
 .item:nth-child(2n+1) {
   /*background-color: royalblue;*/
@@ -775,4 +777,26 @@ ul.notes-list {
 
 .contents {
   width: 100%;
+  text-align: center;
+}
+
+.contents > header {
+  padding: 2% 1% 1% 1%;
+  font-size: small;
+}
+
+.contents > img {
+  padding: 1% 15% 5% 15%;
+}
+
+.contents > p {
+  padding: 1%;
+}
+
+.auth {
+  padding: 1%;
+  width: 100%;
+}
+.auth-button {
+  cursor: pointer;
 }
