@@ -411,9 +411,11 @@ const getKey = () => {
         // https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=
         // https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
 
-        "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
-        "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
-        "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
+        "AIzaSyAkhRemmID_N_CSd2zW9GqDrPJQssTOEiY",
+
+        // "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
+        // "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
+        // "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
     ];
 
     return keys[Math.floor(Math.random() * keys.length)];
