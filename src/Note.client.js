@@ -9,7 +9,7 @@ export default function Note({searchText, title, body, src, uri, videoId}) {
 
     return (
         <div className="note">
-            <button onClick={() => {
+            <a className="dashboard-button" onClick={() => {
                 startTransition(() => {
                     setLocation((loc) => ({
                         selectedId: "",
@@ -22,8 +22,8 @@ export default function Note({searchText, title, body, src, uri, videoId}) {
                     }));
                 });
             }}>
-                DASHBOARD
-            </button>
+                &#9758; DASHBOARD
+            </a>
             <div className="note-header">
                 <h1 className="note-title">{title}</h1>
             </div>

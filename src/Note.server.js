@@ -32,7 +32,7 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
             return (
                 <>
                     <div className="contents">
-                        <header>DASHBOARD</header>
+                        <header><strong>DASHBOARD</strong></header>
 
                         <Auth className="auth" />
 
@@ -47,9 +47,10 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
                         <p>STUDY WITH ME! いっしょに勉強しよう！</p>
                         <img src="undraw_Co-working_re_w93t.png"/>
 
-                        <p>VTeacherでSTUDY WITH MEの配信ができます<br/>( #STUDYWITHME のハッシュタグをつけて配信 )</p>
+                        <p>VTeacherでSTUDY WITH MEの配信ができます</p>
+                        <p className="annotation">( #STUDYWITHME のハッシュタグをつけて配信 )</p>
                         <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank">
-                            AppStoreでダウンロード
+                            App Storeでダウンロード
                         </a>
                         <img src="undraw_Social_bio_re_0t9u.png"/>
 

@@ -1,4 +1,4 @@
-import {useFirebase, useSignIn} from './fire';
+import {useFirebase, useSignIn, useSignOut} from './fire';
 import {useEffect, useState, useTransition} from "react";
 import {useLocation} from "./LocationContext.client";
 import Spinner from './Spinner';
@@ -161,21 +161,64 @@ export default function Auth() {
         }
     });
 
+    async function handleSignIn() {
+        setSpinning(true);
+        useSignIn();
+    }
+
+    async function handleSignOut() {
+        setSpinning(true);
+
+        useSignOut();
+
+        setAuthSetting(false);
+        setSigned(false);
+        setUser(null);
+
+        console.log(`Auth ------------------------------ handleSignOut`);
+        startTransition(() => {
+            setLocation((loc) => ({
+                selectedId: "",
+                isEditing: false,
+                searchText: "",
+                selectedTitle: "",
+                selectedBody: "",
+                userId: "",
+                token: ""
+            }));
+        });
+    }
+
     return (
         <>
             {signed
                 ?
-                <></>
+                <>
+                    <a onClick={() => {
+                        handleSignOut()
+                    }}>
+                        {spinning
+                            ?
+                            <span><Spinner active={spinning}/></span>
+                            :
+                            <>
+                                <span className="auth-button-sign-out">Sign out</span>
+                            </>
+                        }
+                    </a>
+                </>
                 :
                 <>
                     <a onClick={() => {
-                        useSignIn()
+                        handleSignIn()
                     }}>
                         {spinning
                         ?
                             <span><Spinner active={spinning}/></span>
                         :
-                            <span className="auth-button">Sign in</span>
+                            <>
+                                <span className="auth-button">まずは Google で Sign in</span>
+                            </>
                         }
                     </a>
                 </>
