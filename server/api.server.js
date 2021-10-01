@@ -412,10 +412,11 @@ const getKey = () => {
         // https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
 
         "AIzaSyAkhRemmID_N_CSd2zW9GqDrPJQssTOEiY",
-
-        // "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
-        // "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
-        // "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
+        "AIzaSyAIRDMnwqNf6zTSVhR5wQul1XBnDyH-PqI",
+        "AIzaSyCV2LPN6RFtGFfWLtrx8OiIkhj8qD7v9Zo",
+        "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
+        "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
+        "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
     ];
 
     return keys[Math.floor(Math.random() * keys.length)];
@@ -424,10 +425,20 @@ const getKey = () => {
 app.get(
     '/cron',
     handleErrors(async function (req, res) {
-        getYouTubeData();
-        res.json({
-            result: "true",
-        });
+        try {
+            getYouTubeData();
+
+            res.json({
+                result: "true",
+            });
+        } catch (e) {
+            console.log(e.message);
+
+            res.json({
+                result: "false",
+                message: e.message,
+            });
+        }
     })
 );
 
@@ -444,7 +455,7 @@ function getYouTubeData() {
         json: true,
         url: `${endPointYouTube}`,
     }
-    request(options, function(error, response, body) {
+    request(options, function (error, response, body) {
         console.log(body);
 
         if (body.items) {
@@ -492,11 +503,22 @@ function getYouTubeData() {
     });
 }
 
+function clearYouTubeData() {
+    pool.query(
+        "DELETE FROM notes WHERE created_at < current_date + interval '-1 day'",
+    );
+
+    pool.query(
+        "DELETE FROM bookmarks WHERE created_at < current_date + interval '-1 day'",
+    );
+}
+
 cron.schedule('* * * * *', () => {
-    try{
+    try {
         getYouTubeData();
-    }
-    catch(e){
+
+        clearYouTubeData();
+    } catch (e) {
         console.log(e.message);
     }
 });
