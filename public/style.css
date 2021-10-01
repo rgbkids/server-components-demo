@@ -893,8 +893,11 @@ ul.notes-list {
 }
 
 .auth-button-sign-out {
-    text-decoration: none;
+    text-decoration: underline;
     cursor: pointer;
+    font-size: small;
+    padding: 0;
+    margin: 0;
 }
 
 .dashboard-button {
