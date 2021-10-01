@@ -29,7 +29,7 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
     }
 
     return (
-        <>
+        <div className="language">
             <a onClick={() => {
                 startTransition(() => {
                     setLocation((loc) => ({
@@ -38,9 +38,8 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
                     }));
                 });
             }}>
-                en
+                🇺🇸
             </a>
-            |
             <a onClick={() => {
                 startTransition(() => {
                     setLocation((loc) => ({
@@ -49,8 +48,28 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
                     }));
                 });
             }}>
-                ja
+                🇯🇵
             </a>
-        </>
+            <a onClick={() => {
+                startTransition(() => {
+                    setLocation((loc) => ({
+                        ...loc,
+                        lang: "zh_cmn_Hant",
+                    }));
+                });
+            }}>
+                🇹🇼
+            </a>
+            <a onClick={() => {
+                startTransition(() => {
+                    setLocation((loc) => ({
+                        ...loc,
+                        lang: "ko",
+                    }));
+                });
+            }}>
+                🇰🇷
+            </a>
+        </div>
     );
 }

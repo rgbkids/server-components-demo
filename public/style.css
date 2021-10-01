@@ -909,3 +909,14 @@ ul.notes-list {
   float: right;
     padding: 2%;
 }
+
+.language {
+    padding: 10px;
+    display: inline;
+}
+
+.language a {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: small;
+}

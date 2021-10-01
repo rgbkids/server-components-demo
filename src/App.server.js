@@ -22,7 +22,7 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                         alt=""
                         role="presentation"
                     />
-                    <a href="/"><strong>Study with me</strong></a>
+                    <strong>Study with me</strong>
                 </section>
                 <section className="sidebar-promotion">
                     <a href="https://apps.apple.com/app/vteacher/id1435002381" target="_blank">

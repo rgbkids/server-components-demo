@@ -219,7 +219,7 @@ export default function Auth(lang) {
                             <span><Spinner active={spinning}/></span>
                         :
                             <>
-                                <span className="auth-button">まずは Google で Sign in</span>
+                                <span className="auth-button">Sign in - Google Accounts</span>
                             </>
                         }
                     </a>
