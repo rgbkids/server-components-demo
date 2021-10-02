@@ -334,7 +334,7 @@ function getYouTubeData() {
         url: `${endPointYouTube}`,
     }
     request(options, function (error, response, body) {
-        if (body.items != undefined) {
+        if (body && body.items && body.items != undefined) {
             const items = body.items;
 
             if (items && items.length > 0) {
