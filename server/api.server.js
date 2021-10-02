@@ -405,9 +405,6 @@ function clearYouTubeData() {
 }
 
 cron.schedule('* * * * *', () => {
-    handleErrors(async function () {
-        getYouTubeData();
-
-        clearYouTubeData();
-    });
+    getYouTubeData();
+    clearYouTubeData();
 });
