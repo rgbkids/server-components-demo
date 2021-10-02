@@ -37,7 +37,7 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
                     <div className="contents">
                         <header><strong>DASHBOARD</strong></header>
 
-                        <Auth lang={lang} />
+                        <Auth lang={lang} signInText={t("SIGN_IN_TEXT", lang)} signOutText={t("SIGN_OUT_TEXT", lang)}/>
 
                         <Language searchText={searchText} selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId} token={token} lang={lang}/>
 

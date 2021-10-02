@@ -8,8 +8,8 @@ import {createFromReadableStream} from "react-server-dom-webpack";
 const host = location.host;
 const protocol = location.protocol;
 
-export default function Auth({lang}) {
-    console.log(`Auth client lang=${lang}`);
+export default function Auth({lang, signInText, signOutText}) {
+    console.log(`Auth client lang=${lang} signInText=${signInText} signOutText=${signOutText}`);
     console.log(lang);
 
     const [location, setLocation] = useLocation();
@@ -227,7 +227,7 @@ export default function Auth({lang}) {
                             <span><Spinner active={spinning}/></span>
                             :
                             <>
-                                <span className="auth-button-sign-out">Sign out</span>
+                                <span className="auth-button-sign-out">{signOutText}</span>
                             </>
                         }
                     </a>
@@ -242,7 +242,7 @@ export default function Auth({lang}) {
                             <span><Spinner active={spinning}/></span>
                         :
                             <>
-                                <span className="auth-button">Sign in - Google Accounts</span>
+                                <span className="auth-button">{signInText}</span>
                             </>
                         }
                     </a>
