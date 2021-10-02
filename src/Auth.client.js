@@ -76,19 +76,6 @@ export default function Auth({lang, signInText, signOutText}) {
                     let _lang = (lang) ? lang : localStorage.getItem("lang");
 
                     handleCreateUser(_user.uid, tokenEncode, _lang);
-
-                    // startTransition(() => {
-                    //     setLocation((loc) => ({
-                    //         selectedId: "",
-                    //         isEditing: false,
-                    //         searchText: "",
-                    //         selectedTitle: "",
-                    //         selectedBody: "",
-                    //         userId: _user.uid,
-                    //         token: tokenEncode,
-                    //         lang: _lang,
-                    //     }));
-                    // });
                 }
             });
         }
