@@ -30,6 +30,8 @@ services:
       - ./server:/opt/notes-app/server
       - ./src:/opt/notes-app/src
       - ./credentials.js:/opt/notes-app/credentials.js
+      - ./privkey.pem:/opt/notes-app/server/privkey.pem
+      - ./fullchain.pem:/opt/notes-app/server/fullchain.pem
 
 volumes:
   db:
