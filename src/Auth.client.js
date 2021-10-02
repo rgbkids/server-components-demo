@@ -1,4 +1,4 @@
-import {useFirebase, useSignIn, useSignOut} from './fire';
+import {useFirebase, useSignIn, useSignOut} from './firebase';
 import {useEffect, useState, useTransition} from "react";
 import {useLocation} from "./LocationContext.client";
 import Spinner from './Spinner';

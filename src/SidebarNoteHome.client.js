@@ -3,10 +3,8 @@ import {useRefresh} from "./Cache.client";
 import {createFromReadableStream} from "react-server-dom-webpack";
 
 import {useState, useRef, useEffect, useTransition} from 'react';
-
 import {useLocation} from './LocationContext.client';
 import Spinner from "./Spinner";
-// import {useSignIn} from "./fire";
 
 const host = location.host;
 const protocol = location.protocol;

@@ -30,6 +30,7 @@ const path = require('path');
 const {Pool} = require('pg');
 const React = require('react');
 const ReactApp = require('../src/App.server').default;
+const getYouTubeAPIKey = require('../src/youtube').default;
 
 // Don't keep credentials in the source tree in a real app!
 const pool = new Pool(require('../credentials'));
@@ -318,27 +319,10 @@ async function waitForWebpack() {
     }
 }
 
-// TODO: 外部ファイル？
-const getKey = () => {
-    const keys = [
-        // https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=
-        // https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
-
-        "AIzaSyDUEylkdRNCQxAPgi-Qkqdqsa7X3sR-nkk",
-        // "AIzaSyAkhRemmID_N_CSd2zW9GqDrPJQssTOEiY",
-        // "AIzaSyAIRDMnwqNf6zTSVhR5wQul1XBnDyH-PqI",
-        // "AIzaSyCV2LPN6RFtGFfWLtrx8OiIkhj8qD7v9Zo",
-        // "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
-        // "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
-        // "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
-    ];
-
-    return keys[Math.floor(Math.random() * keys.length)];
-}
-
 function getYouTubeData() {
     const search = process.env.SEARCH;
-    const key = getKey();
+    const key = getYouTubeAPIKey();
+
     const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=100&order=date&q=${search}`;
 
     const request = require('request');
@@ -382,6 +366,16 @@ function getYouTubeData() {
     });
 }
 
+function clearYouTubeData() {
+    pool.query(
+        "DELETE FROM notes WHERE created_at < current_date + interval '-1 day'",
+    );
+
+    pool.query(
+        "DELETE FROM bookmarks WHERE created_at < current_date + interval '-1 day'",
+    );
+}
+
 app.get(
     '/cron',
     handleErrors(async function (req, res) {
@@ -393,16 +387,6 @@ app.get(
         });
     })
 );
-
-function clearYouTubeData() {
-    pool.query(
-        "DELETE FROM notes WHERE created_at < current_date + interval '-1 day'",
-    );
-
-    pool.query(
-        "DELETE FROM bookmarks WHERE created_at < current_date + interval '-1 day'",
-    );
-}
 
 cron.schedule('* * * * *', () => {
     getYouTubeData();

@@ -10,6 +10,7 @@ export const t = (id, lang) => {
     return result;
 };
 
+// TODO: 外部に出す
 const resources = {
     en: {
         translation: {

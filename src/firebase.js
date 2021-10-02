@@ -22,6 +22,7 @@ export const useFirebase = () => {
     return firebase;
 }
 
+// TODO: 外部に出す
 const firebaseConfig = {
     apiKey: "AIzaSyCdxET3c7jcdHd8YrUy1iN0VZumrvhWEws",
     projectId: "vteacher-studywithme",
