@@ -814,7 +814,7 @@ ul.notes-list {
     width: 32px;
     height: 32px;
     font-size: medium;
-    text-align: center;
+    /*text-align: center;*/
     position: relative;
     top: 0;
     left: 0;
