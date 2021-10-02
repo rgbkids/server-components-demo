@@ -4,7 +4,7 @@ import {useLocation} from "./LocationContext.client";
 
 export default function Language({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token, lang}) {
 
-    console.log(`Language`);
+    // console.log(`Language`);
 
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();

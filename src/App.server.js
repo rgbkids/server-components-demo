@@ -9,8 +9,8 @@ import Auth from './Auth.client';
 
 export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody, userId, token, lang}) {
     // console.log(`App userId=${userId} token=${token}`);
-    console.log(`App lang=${lang}`);
-    console.log(lang);
+    // console.log(`App lang=${lang}`);
+    // console.log(lang);
 
     return (
         <div className="main">

@@ -7,7 +7,7 @@ import {t} from './language';
 
 export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token, lang}) {
     // console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}  token=${token} `);
-    console.log(`Note server lang=${lang}`);
+    // console.log(`Note server lang=${lang}`);
 
     if (!isEditing) {
         const notes = db.query(

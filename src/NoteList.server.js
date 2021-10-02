@@ -4,7 +4,7 @@ import NoteListClient from './NoteList.client';
 
 export default function NoteList({selectedId, searchText, userId, token, lang}) {
     // console.log(`NoteList s userId=${userId}  token=${token} `);
-    console.log(`NoteList server lang=${lang}`);
+    // console.log(`NoteList server lang=${lang}`);
 
     const searchTextDecode = decodeURI(searchText);
 
