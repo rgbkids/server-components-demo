@@ -819,7 +819,7 @@ ul.notes-list {
     top: 0;
     left: 0;
     z-index: 999;
-    border-radius: 2vh;
+    border-radius: 10vh;
     color: #fff;
     background-color: #fff;
     border: 0.1em solid lightgray;
@@ -902,11 +902,11 @@ ul.notes-list {
 }
 
 .dashboard-button {
-  cursor: pointer;
-  /*text-decoration: underline;*/
-  text-align: right;
-  width: 100%;
-  float: right;
+    cursor: pointer;
+    /*text-decoration: underline;*/
+    text-align: right;
+    width: 100%;
+    float: right;
     padding: 2%;
 }
 
