@@ -206,21 +206,37 @@ app.post(
         const now = new Date();
         let returnId = "";
 
+        console.log(`app.post user_id=${user_id} token=${token} now=${now}`);
+
         const resultUpdate = await pool.query(
             'update users set token = $2, memo = $1, updated_at = $3 where user_id = $1 returning user_id',
             [user_id, token, now]
         );
 
-        if (resultUpdate.rows[0].user_id) {
-            returnId = resultUpdate.rows[0].user_id;
-        } else {
-            const result = await pool.query(
+        console.log(`app.post 2`);
+        console.log(resultUpdate);
+
+        if (!resultUpdate || resultUpdate.rowCount == 0) {
+            console.log(`app.post 4`);
+
+            const resultInsert = await pool.query(
                 'insert into users (token, memo, created_at, updated_at, user_id) values ($2, $1, $3, $3, $4) returning user_id',
                 [user_id, token, now, user_id]
             );
 
-            returnId = result.rows[0].user_id;
+            returnId = resultInsert.rows[0].user_id;
+
+            console.log(`4 returnId=${returnId}`);
+        } else {
+            console.log(`app.post 3`);
+
+            returnId = resultUpdate.rows[0].user_id;
+
+            console.log(`3 returnId=${returnId}`);
+
         }
+
+        console.log(`app.post 5`);
 
         sendResponse(req, res, returnId);
     })
