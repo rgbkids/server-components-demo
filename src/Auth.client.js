@@ -9,8 +9,6 @@ const host = location.host;
 const protocol = location.protocol;
 
 export default function Auth({lang, signInText, signOutText}) {
-    // console.log(`Auth client lang=${lang} signInText=${signInText} signOutText=${signOutText}`);
-
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
 

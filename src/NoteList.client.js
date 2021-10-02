@@ -1,11 +1,6 @@
 import SidebarNote from './SidebarNote';
 
 export default function NoteList({selectedId, searchText, notes, bookmarks, userId, token, lang}) {
-    // console.log(`NoteList client lang=${lang}`);
-
-    // console.log(`bookmarks------------`);
-    // console.log(bookmarks);
-
     // TODO: シンプルにできないか？
     let bookmarkValues = [];
     let bookmarkKeys = [];
@@ -14,20 +9,13 @@ export default function NoteList({selectedId, searchText, notes, bookmarks, user
         bookmarkKeys[bookmark.video_id] = bookmark.bookmark_id;
     });
 
-    // console.log(bookmarkValues);
-    // console.log(bookmarkKeys);
-
-    // notes.map((note) => {
-    //     console.log(`notes.map((note) ------------`);
-    //     console.log(note.id);
-    //     console.log(bookmarkValues.includes(note.id));
-    // });
-
     return notes.length > 0 ? (
         <ul className="notes-list">
             {notes.map((note) => (
                 <li key={note.id}>
-                    <SidebarNote selectedId={selectedId} searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId} token={token} lang={lang}/>
+                    <SidebarNote selectedId={selectedId} searchText={searchText} note={note}
+                                 isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]}
+                                 userId={userId} token={token} lang={lang}/>
                 </li>
             ))}
         </ul>

@@ -6,9 +6,6 @@ import Language from "./Language.client";
 import {t} from './language';
 
 export default function Note({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token, lang}) {
-    // console.log(`Note s selectedId=${selectedId} isEditing=${isEditing} selectedTitle=${selectedTitle} selectedBody=${selectedBody} userId=${userId}  token=${token} `);
-    // console.log(`Note server lang=${lang}`);
-
     if (!isEditing) {
         const notes = db.query(
             `select *
@@ -20,8 +17,6 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
             [userId]
         ).rows;
 
-        // console.log(notes);
-
         // TODO: もっと上のレベルで引き継げるかも（NoteList.serverにもある）
         const bookmarks = db.query(
             `select bookmark_id, video_id
@@ -29,7 +24,6 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
              where user_id = $1`,
             [userId]
         ).rows;
-        // console.log(bookmarks);
 
         if (notes) {
             return (
@@ -39,9 +33,12 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
 
                         <Auth lang={lang} signInText={t("SIGN_IN_TEXT", lang)} signOutText={t("SIGN_OUT_TEXT", lang)}/>
 
-                        <Language searchText={searchText} selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId} token={token} lang={lang}/>
+                        <Language searchText={searchText} selectedId={selectedId} isEditing={isEditing}
+                                  selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId}
+                                  token={token} lang={lang}/>
 
-                        <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks} userId={userId} token={token} lang={lang}/>
+                        <NoteHome selectedId={selectedId} searchText={searchText} notes={notes} bookmarks={bookmarks}
+                                  userId={userId} token={token} lang={lang}/>
 
                         <p>{t("HOW_TO_ADD", lang)}</p>
                         <img src="undraw_Collaborators_re_hont.png"/>

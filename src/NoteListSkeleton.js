@@ -7,7 +7,6 @@
  */
 
 export default function NoteListSkeleton() {
-  // console.log(`NoteListSkeleton`);
   return (
     <div>
       <ul className="notes-list skeleton-container">

@@ -1,11 +1,6 @@
-import {useState} from 'react';
-// import SidebarNoteHome from "./SidebarNoteHome.client";
 import SidebarNoteHome from "./SidebarNoteHome";
-import SidebarNote from "./SidebarNote";
 
-export default function NoteHome({ selectedId, searchText, notes, bookmarks, userId, token, lang}) {
-    // console.log(`NoteHome`);
-
+export default function NoteHome({selectedId, searchText, notes, bookmarks, userId, token, lang}) {
     // TODO: シンプルにできないか？
     let bookmarkValues = [];
     let bookmarkKeys = [];
@@ -14,38 +9,14 @@ export default function NoteHome({ selectedId, searchText, notes, bookmarks, use
         bookmarkKeys[bookmark.video_id] = bookmark.bookmark_id;
     });
 
-    // console.log(bookmarkValues);
-    // console.log(bookmarkKeys);
-
-    // const [leftNotes, setLeftNotes] = useState(notes.filter((e, i) => i % 2 === 0));
-    // const [rightNotes, setRightNotes] = useState(notes.filter((e, i) => i % 2 === 1));
-    // const [leftNotes, setLeftNotes] = useState();
-    // const [rightNotes, setRightNotes] = useState();
-
-    // const getNextIdForDelete = (i) => {
-    //     let nextId = "";
-    //     if (notes) {
-    //         if (notes.length == 1) {
-    //             nextId = "";
-    //         } else if (i == 0) {
-    //             const note = notes[1];
-    //             console.log(note);
-    //             nextId = note.id;
-    //         } else {
-    //             const note = notes[notes.length - 2];
-    //             console.log(note);
-    //             nextId = note.id;
-    //         }
-    //     }
-    //     return nextId;
-    // };
-
     return (
         <>
             <div className="container">
                 {notes.map((note, i) => (
                     <div key={note.id} className="item">
-                        <SidebarNoteHome selectedId={selectedId} searchText={searchText} note={note} isBookmark={bookmarkValues.includes(note.id)} bookmarkId={bookmarkKeys[note.id]} userId={userId} token={token} lang={lang}/>
+                        <SidebarNoteHome selectedId={selectedId} searchText={searchText} note={note}
+                                         isBookmark={bookmarkValues.includes(note.id)}
+                                         bookmarkId={bookmarkKeys[note.id]} userId={userId} token={token} lang={lang}/>
                     </div>
                 ))}
             </div>

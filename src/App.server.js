@@ -5,13 +5,8 @@ import NoteList from './NoteList.server';
 import SearchField from './SearchField.client';
 import NoteSkeleton from './NoteSkeleton';
 import NoteListSkeleton from './NoteListSkeleton';
-import Auth from './Auth.client';
 
 export default function App({selectedId, isEditing, searchText, selectedTitle, selectedBody, userId, token, lang}) {
-    // console.log(`App userId=${userId} token=${token}`);
-    // console.log(`App lang=${lang}`);
-    // console.log(lang);
-
     return (
         <div className="main">
             <section className="col sidebar">
@@ -36,13 +31,16 @@ export default function App({selectedId, isEditing, searchText, selectedTitle, s
                 </section>
                 <nav>
                     <Suspense fallback={<NoteListSkeleton/>}>
-                        <NoteList selectedId={selectedId} searchText={searchText} userId={userId} token={token} lang={lang}/>
+                        <NoteList selectedId={selectedId} searchText={searchText} userId={userId} token={token}
+                                  lang={lang}/>
                     </Suspense>
                 </nav>
             </section>
             <section key={selectedId} className="col note-viewer">
                 <Suspense fallback={<NoteSkeleton isEditing={isEditing}/>}>
-                    <Note searchText={searchText} selectedId={selectedId} isEditing={isEditing} selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId} token={token} lang={lang}/>
+                    <Note searchText={searchText} selectedId={selectedId} isEditing={isEditing}
+                          selectedTitle={selectedTitle} selectedBody={selectedBody} userId={userId} token={token}
+                          lang={lang}/>
                 </Suspense>
             </section>
         </div>

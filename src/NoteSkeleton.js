@@ -7,8 +7,6 @@
  */
 
 function NoteEditorSkeleton() {
-  // console.log(`NoteEditorSkeleton`);
-
   return (
     <div
       className="note-editor skeleton-container"

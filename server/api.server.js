@@ -1,14 +1,5 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 'use strict';
 
-const {fetch} = require('react-fetch');
 const cron = require('node-cron');
 
 const register = require('react-server-dom-webpack/node-register');
@@ -324,7 +315,7 @@ function getYouTubeData() {
 
     const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=100&order=date&q=${search}`;
 
-    console.log(`endPointYouTube=${endPointYouTube}`);
+    console.log(`${endPointYouTube}`);
 
     const request = require('request');
     const options = {

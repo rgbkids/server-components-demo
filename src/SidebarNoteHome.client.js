@@ -1,7 +1,5 @@
-// import {useTransition} from "react";
 import {useRefresh} from "./Cache.client";
 import {createFromReadableStream} from "react-server-dom-webpack";
-
 import {useState, useRef, useEffect, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 import Spinner from "./Spinner";
@@ -10,26 +8,11 @@ const host = location.host;
 const protocol = location.protocol;
 
 export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token, lang}) {
-    // console.log(`SidebarNoteHome client selectedId=${selectedId} isBookmark=${isBookmark}, bookmarkId=${bookmarkId}, userId=${userId}  token=${token} `);
-
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
     const [, startNavigating] = useTransition();
     const refresh = useRefresh();
-
     const [spinning, setSpinning] = useState(false);
-
-    // let nextId = "";
-    // if (notes) {
-    //     if (notes.length == 1) {
-    //         nextId = "";
-    //     } else if (index == (notes.length - 1)) {
-    //         note = notes[notes.length - 2];
-    //         console.log(note);
-    //         nextId = note.id;
-    //     }
-    // }
-    // console.log(`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ selectedId = ${selectedId}`);
 
     function navigate(response) {
         const cacheKey = response.headers.get('X-Location');
@@ -41,16 +24,8 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
         });
     }
 
-    // 更新処理
     async function handleDeleteBookmark(user_id, video_id, bookmarkId, selectedId, token, lang) {
-        // console.log(`SidebarNoteHome.client.js handleDeleteBookmark user_id=${user_id}, token=${token}`);
-
         setSpinning(true);
-
-        // const payload = {
-        //     user_id: user_id,
-        //     token: token,
-        // }; // TODO: token
 
         const payload = {user_id, token};
 
@@ -76,7 +51,6 @@ export default function SidebarNoteHome({selectedId, searchText, note, isBookmar
                 },
             }
         );
-        // console.log(response);
         navigate(response);
     }
 
