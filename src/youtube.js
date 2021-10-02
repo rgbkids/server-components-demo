@@ -1,9 +1,13 @@
-// https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=
-// https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
+/*
+https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=
+https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
+*/
 
 // TODO: 外部に出す
 const keys = [
-    "AIzaSyDUEylkdRNCQxAPgi-Qkqdqsa7X3sR-nkk",
+    "AIzaSyAEIhRMTe_KrD2jHYcZDOKoDHPKPN_nZVs",
+
+    // "AIzaSyDUEylkdRNCQxAPgi-Qkqdqsa7X3sR-nkk",
     // "AIzaSyAkhRemmID_N_CSd2zW9GqDrPJQssTOEiY",
     // "AIzaSyAIRDMnwqNf6zTSVhR5wQul1XBnDyH-PqI",
     // "AIzaSyCV2LPN6RFtGFfWLtrx8OiIkhj8qD7v9Zo",

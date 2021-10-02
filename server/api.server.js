@@ -325,6 +325,8 @@ function getYouTubeData() {
 
     const endPointYouTube = `https://www.googleapis.com/youtube/v3/search?key=${key}&part=snippet&type=video&eventType=live&&maxResults=100&order=date&q=${search}`;
 
+    console.log(`endPointYouTube=${endPointYouTube}`);
+
     const request = require('request');
     const options = {
         method: 'GET',

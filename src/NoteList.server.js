@@ -13,7 +13,7 @@ export default function NoteList({selectedId, searchText, userId, token, lang}) 
          from notes
          where title like $1
             OR body like $1
-         order by updated_at desc limit 100`,
+         order by created_at desc limit 100`,
         ['%' + searchTextDecode + '%']
     ).rows;
 

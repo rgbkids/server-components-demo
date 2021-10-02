@@ -22,7 +22,7 @@ export default function Note({searchText, selectedId, isEditing, selectedTitle, 
 
         // console.log(notes);
 
-        // TODO: もっと上のレベルで引き継げるかも
+        // TODO: もっと上のレベルで引き継げるかも（NoteList.serverにもある）
         const bookmarks = db.query(
             `select bookmark_id, video_id
              from bookmarks
