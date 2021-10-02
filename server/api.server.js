@@ -425,36 +425,19 @@ const getKey = () => {
         // https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials?project=
         // https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=
 
-        "AIzaSyAkhRemmID_N_CSd2zW9GqDrPJQssTOEiY",
-        "AIzaSyAIRDMnwqNf6zTSVhR5wQul1XBnDyH-PqI",
-        "AIzaSyCV2LPN6RFtGFfWLtrx8OiIkhj8qD7v9Zo",
-        "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
-        "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
-        "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
+        "AIzaSyDUEylkdRNCQxAPgi-Qkqdqsa7X3sR-nkk",
+
+        // "AIzaSyAkhRemmID_N_CSd2zW9GqDrPJQssTOEiY",
+        // "AIzaSyAIRDMnwqNf6zTSVhR5wQul1XBnDyH-PqI",
+        // "AIzaSyCV2LPN6RFtGFfWLtrx8OiIkhj8qD7v9Zo",
+        // "AIzaSyCC-FYd9K-VhVZVzGOiJ_ltLPwck_1bkMc",
+        // "AIzaSyAtK1DbsKVmQPl8DDpyVe_7J_CLdEdEzps",
+        // "AIzaSyCPTFcXn0V-0fEefMIAGrwUBg2o0urdU3E",
     ];
 
     return keys[Math.floor(Math.random() * keys.length)];
 }
 
-app.get(
-    '/cron',
-    handleErrors(async function (req, res) {
-        try {
-            getYouTubeData();
-
-            res.json({
-                result: "true",
-            });
-        } catch (e) {
-            console.log(e.message);
-
-            res.json({
-                result: "false",
-                message: e.message,
-            });
-        }
-    })
-);
 
 function getYouTubeData() {
     const search = process.env.SEARCH;
@@ -510,19 +493,43 @@ function getYouTubeData() {
                         // if (rows[0].result == 0) {
                         const now = new Date();
 
-
-                        const resultUpdate = pool.query(
+                        const res = pool.query(
                             'update notes set title = $1, body = $2, updated_at = $3, thumbnail = $5 where id = $4 returning id',
                             [title, description, now, videoId, thumbnail]
-                        );
+                        ).then((result) => {
+                            // console.log(`----------------------- then >`);
+                            // console.log(result);
+                            // console.log(result.rowCount);
+                            // console.log(`----------------------- then <`);
 
-                        if (!resultUpdate.rows) {
-                            pool.query(
-                                'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
-                                [title, description, now, videoId, thumbnail]
-                            );
-                        }
+                            if (result.rowCount == 0) {
+                                pool.query(
+                                    'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
+                                    [title, description, now, videoId, thumbnail]
+                                ).then((result)=>{
+                                }).catch((e)=>{
+                                });
+                            }
+                        });
 
+                        // console.log(`----------------------- >`);
+                        // console.log(res);
+                        // console.log(`----------------------- <`);
+
+                        // res.then((value) => {
+                        //     console.log(`----------------------- res then >`);
+                        //     console.log(value);
+                        //     console.log(`----------------------- res then <`);
+                        // });
+
+                        // if (false) {
+
+                            // pool.query(
+                            //     'insert into notes (id, title, body, created_at, updated_at, thumbnail) values ($4, $1, $2, $3, $3, $5) returning id',
+                            //     [title, description, now, videoId, thumbnail]
+                            // );
+
+                        // }
 
                         // const returning_id = result.rows[0].id;
 
@@ -539,6 +546,30 @@ function getYouTubeData() {
     });
 }
 
+app.get(
+    '/cron',
+    handleErrors(async function (req, res) {
+        console.log(1);
+
+        // try {
+            getYouTubeData();
+
+            clearYouTubeData();
+
+            res.json({
+                result: "true",
+            });
+        // } catch (e) {
+        //     console.log(e.message);
+        //
+        //     res.json({
+        //         result: "false",
+        //         message: e.message,
+        //     });
+        // }
+    })
+);
+
 function clearYouTubeData() {
     pool.query(
         "DELETE FROM notes WHERE created_at < current_date + interval '-1 day'",
@@ -550,11 +581,18 @@ function clearYouTubeData() {
 }
 
 cron.schedule('* * * * *', () => {
-    try {
+
+    handleErrors(async function () {
         getYouTubeData();
 
         clearYouTubeData();
-    } catch (e) {
-        console.log(e.message);
-    }
+    });
+
+        // try {
+        // getYouTubeData();
+        //
+        // clearYouTubeData();
+    // } catch (e) {
+    //     console.log(e.message);
+    // }
 });
