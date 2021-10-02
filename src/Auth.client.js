@@ -10,7 +10,6 @@ const protocol = location.protocol;
 
 export default function Auth({lang, signInText, signOutText}) {
     // console.log(`Auth client lang=${lang} signInText=${signInText} signOutText=${signOutText}`);
-    // console.log(lang);
 
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
@@ -18,11 +17,7 @@ export default function Auth({lang, signInText, signOutText}) {
     const [authSetting, setAuthSetting] = useState(false);
     const [signed, setSigned] = useState(false);
     const [user, setUser] = useState(null);
-
     const [spinning, setSpinning] = useState(true);
-
-    // const [location, setLocation] = useLocation();
-    // const [isPending, startTransition] = useTransition();
 
     const [, startNavigating] = useTransition();
     const refresh = useRefresh();
@@ -38,6 +33,8 @@ export default function Auth({lang, signInText, signOutText}) {
     }
 
     async function handleCreateUser(user_id, token, lang) {
+        let _lang = (lang) ? lang : localStorage.getItem("lang");
+
         const payload = {user_id, token};
         const requestedLocation = {
             selectedId: "",
@@ -47,13 +44,12 @@ export default function Auth({lang, signInText, signOutText}) {
             selectedBody: "",
             userId: user_id,
             token: token,
-            lang: lang,
+            lang: _lang,
         };
         const endpoint = `${protocol}//${host}/users/`;
         const method = `POST`;
         const response = await fetch(
             `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-            // `${endpoint}`,
             {
                 method,
                 body: JSON.stringify(payload),
@@ -62,89 +58,8 @@ export default function Auth({lang, signInText, signOutText}) {
                 },
             }
         );
-        // console.log(response);
         navigate(response);
     }
-
-    // 更新処理
-    // async function handleUpdateUser(user_id, token) {
-    //     const payload = {user_id, token};
-    //     const requestedLocation = {
-    //         selectedId: "",
-    //         isEditing: false,
-    //         searchText: "",
-    //         selectedTitle: "",
-    //         selectedBody: "",
-    //         userId: userId,
-    //         token: token,
-    //     };
-    //     const endpoint = `${protocol}//${host}/users/${id}`;
-    //     const method = `PUT`;
-    //     const response = await fetch(
-    //         `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-    //         {
-    //             method,
-    //             body: JSON.stringify(payload),
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         }
-    //     );
-    //     console.log(response);
-    // }
-
-    // async function handleAddBookmark(user_id, video_id) {
-    //     const payload = {user_id, video_id};
-    //     const requestedLocation = {
-    //         // selectedId: "",
-    //         // isEditing: false,
-    //         // searchText: "",
-    //         // selectedTitle: "",
-    //         // selectedBody: "",
-    //         // userId: "",
-    //         // token: "",
-    //     };
-    //     const endpoint = `${protocol}//${host}/bookmarks/`;
-    //     const method = `POST`;
-    //     const response = await fetch(
-    //         `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-    //         {
-    //             method,
-    //             body: JSON.stringify(payload),
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         }
-    //     );
-    //     // console.log(response);
-    // }
-
-    // // 更新処理
-    // async function handleDeleteBookmark(id) {
-    //     const payload = {};
-    //     const requestedLocation = {
-    //         // selectedId: "",
-    //         // isEditing: false,
-    //         // searchText: "",
-    //         // selectedTitle: "",
-    //         // selectedBody: "",
-    //         // userId: "",
-    //         // token: "",
-    //     };
-    //     const endpoint = `${protocol}//${host}/bookmarks/${id}`;
-    //     const method = `DELETE`;
-    //     const response = await fetch(
-    //         `${endpoint}?location=${encodeURIComponent(JSON.stringify(requestedLocation))}`,
-    //         {
-    //             method,
-    //             body: JSON.stringify(payload),
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         }
-    //     );
-    //     // console.log(response);
-    // }
 
     useEffect(() => {
         if (!authSetting) {
@@ -154,32 +69,26 @@ export default function Auth({lang, signInText, signOutText}) {
                 setSpinning(false);
 
                 if (_user) {
-                    // console.log(_user);
-
                     setUser(_user);
                     setSigned(true);
 
                     const tokenEncode = encodeURI(_user.refreshToken);
+                    let _lang = (lang) ? lang : localStorage.getItem("lang");
 
-                    handleCreateUser(_user.uid, tokenEncode, lang);
-                    // handleCreate(_user.uid, tokenEncode);
+                    handleCreateUser(_user.uid, tokenEncode, _lang);
 
-                    // handleAddBookmark(_user.uid, `videoId1`);
-                    // handleDeleteBookmark(2);
-
-                    // console.log(`Auth ------------------------------ userId=${_user.uid} token=${tokenEncode} `);
-                    startTransition(() => {
-                        setLocation((loc) => ({
-                            selectedId: "",
-                            isEditing: false,
-                            searchText: "",
-                            selectedTitle: "",
-                            selectedBody: "",
-                            userId: _user.uid,
-                            token: tokenEncode,
-                            lang: lang,
-                        }));
-                    });
+                    // startTransition(() => {
+                    //     setLocation((loc) => ({
+                    //         selectedId: "",
+                    //         isEditing: false,
+                    //         searchText: "",
+                    //         selectedTitle: "",
+                    //         selectedBody: "",
+                    //         userId: _user.uid,
+                    //         token: tokenEncode,
+                    //         lang: _lang,
+                    //     }));
+                    // });
                 }
             });
         }
@@ -199,7 +108,8 @@ export default function Auth({lang, signInText, signOutText}) {
         setSigned(false);
         setUser(null);
 
-        // console.log(`Auth ------------------------------ handleSignOut`);
+        let _lang = (lang) ? lang : localStorage.getItem("lang");
+
         startTransition(() => {
             setLocation((loc) => ({
                 selectedId: "",
@@ -209,7 +119,7 @@ export default function Auth({lang, signInText, signOutText}) {
                 selectedBody: "",
                 userId: "",
                 token: "",
-                lang: lang,
+                lang: _lang,
             }));
         });
     }
@@ -238,9 +148,9 @@ export default function Auth({lang, signInText, signOutText}) {
                         handleSignIn()
                     }}>
                         {spinning
-                        ?
+                            ?
                             <span><Spinner active={spinning}/></span>
-                        :
+                            :
                             <>
                                 <span className="auth-button">{signInText}</span>
                             </>

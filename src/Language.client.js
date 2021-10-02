@@ -4,14 +4,14 @@ import {useLocation} from "./LocationContext.client";
 
 export default function Language({searchText, selectedId, isEditing, selectedTitle, selectedBody, userId, token, lang}) {
 
-    // console.log(`Language`);
-
     const [location, setLocation] = useLocation();
     const [isPending, startTransition] = useTransition();
 
     return (
         <div className="language">
             <a onClick={() => {
+                localStorage.setItem("lang", "en");
+
                 startTransition(() => {
                     setLocation((loc) => ({
                         selectedId: loc.selectedId,
@@ -28,6 +28,8 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
                 🇺🇸
             </a>
             <a onClick={() => {
+                localStorage.setItem("lang", "ja");
+
                 startTransition(() => {
                     setLocation((loc) => ({
                         selectedId: loc.selectedId,
@@ -44,6 +46,8 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
                 🇯🇵
             </a>
             <a onClick={() => {
+                localStorage.setItem("lang", "zh_cmn_Hant");
+
                 startTransition(() => {
                     setLocation((loc) => ({
                         selectedId: loc.selectedId,
@@ -60,6 +64,8 @@ export default function Language({searchText, selectedId, isEditing, selectedTit
                 🇹🇼
             </a>
             <a onClick={() => {
+                localStorage.setItem("lang", "ko");
+
                 startTransition(() => {
                     setLocation((loc) => ({
                         selectedId: loc.selectedId,
