@@ -34,5 +34,11 @@ yarn-error.log*
 # https
 server/*.pem
 
-# study-with-me
+# intellij idea
 .idea/*
+
+# settings
+credentials.js
+fullchain.pem
+privkey.pem
+settings.js
