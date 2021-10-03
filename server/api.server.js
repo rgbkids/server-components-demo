@@ -65,8 +65,8 @@ if (https) {
     let https = require('https');
     let fs = require('fs');
     let options = {
-        key: fs.readFileSync(__dirname + '/privkey.pem'), // TODO: ファイルをコミットしない
-        cert: fs.readFileSync(__dirname + '/fullchain.pem'), // TODO: ファイルをコミットしない
+        key: fs.readFileSync(__dirname + '/privkey.pem'),
+        cert: fs.readFileSync(__dirname + '/fullchain.pem'),
     }
     server = https.createServer(options, app);
 }
@@ -154,20 +154,19 @@ app.get('/react', function (req, res) {
 
 const NOTES_PATH = path.resolve(__dirname, '../notes');
 
-const auth = async (userId, token) => {
+const auth = async (user_id, token) => {
     const {rows} = await pool.query(
         `select count(*) as result
          from users
          where user_id = $1
            and token = $2`,
         [
-            userId, token
+            user_id, token
         ]
     );
     return (rows[0].result == 1);
 }
 
-// TODO: userIdなのかuser_idなのか、渡す時に統一
 app.post(
     '/bookmarks',
     handleErrors(async function (req, res) {

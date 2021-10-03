@@ -1,7 +1,6 @@
 import SidebarNoteHome from "./SidebarNoteHome";
 
 export default function NoteHome({selectedId, searchText, notes, bookmarks, userId, token, lang}) {
-    // TODO: シンプルにできないか？
     let bookmarkValues = [];
     let bookmarkKeys = [];
     bookmarks.map((bookmark) => {
