@@ -21,6 +21,22 @@ This is a demo app built with Server Components, an experimental React feature. 
 
 Server Components are an experimental feature and **are not ready for adoption**. For now, we recommend experimenting with Server Components via this demo app. **Use this in your projects at your own risk.**
 
+## Settings
+
+  ```
+  credentials.js
+  fullchain.pem
+  privkey.pem
+  settings.js
+  ```
+
+Option:
+
+  ```
+  fullchain.pem
+  privkey.pem
+  ```
+
 ## Setup
 
 You will need to have nodejs >=14.9.0 in order to run this demo. [Node 14 LTS](https://nodejs.org/en/about/releases/) is a good choice!
