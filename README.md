@@ -21,20 +21,36 @@ This is a demo app built with Server Components, an experimental React feature. 
 
 Server Components are an experimental feature and **are not ready for adoption**. For now, we recommend experimenting with Server Components via this demo app. **Use this in your projects at your own risk.**
 
-## Settings
+## Preferences
 
   ```
-  credentials.js
-  fullchain.pem
-  privkey.pem
-  settings.js
+  sh preferences.sh
+  ```
+
+Required:
+
+- credentials.js
+- settings.js
+
+  ```
+  cp credentials.js.default ../credentials.js
+  vi ../credentials.js
+  
+  cp settings.js.default ../settings.js
+  vi ../settings.js
   ```
 
 Option:
 
+- fullchain.pem
+- privkey.pem
+
   ```
-  fullchain.pem
-  privkey.pem
+  cp fullchain.pem.default ../fullchain.pem
+  vi ../fullchain.pem
+  
+  cp privkey.pem.default ../privkey.pem
+  vi ../privkey.pem
   ```
 
 ## Setup
@@ -96,7 +112,7 @@ psql -d postgres -U notesadmin;
 \c notesapi
 ```
 
-(Read `scripts/seed.js` .)
+(Read: `scripts/seed.js` .)
 
 ### Step 3. Run the seed script
 
