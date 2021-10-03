@@ -29,41 +29,48 @@ function randomDateBetween(start, end) {
 
 const dropTableStatement = 'DROP TABLE IF EXISTS notes;';
 const createTableStatement = `CREATE TABLE notes (
-  id SERIAL PRIMARY KEY,
+  id TEXT PRIMARY KEY,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
   title TEXT,
-  body TEXT
+  body TEXT,
+  thumbnail TEXT
 );`;
-const insertNoteStatement = `INSERT INTO notes(title, body, created_at, updated_at)
-  VALUES ($1, $2, $3, $3)
+const insertNoteStatement = `INSERT INTO notes(title, body, created_at, updated_at, id, thumbnail)
+  VALUES ($1, $2, $3, $3, $4, $5)
   RETURNING *`;
 const seedData = [
-  [
-    'Meeting Notes',
-    'This is an example note. It contains **Markdown**!',
-    randomDateBetween(startOfThisYear, now),
-  ],
-  [
-    'Make a thing',
-    `It's very easy to make some words **bold** and other words *italic* with
-Markdown. You can even [link to React's website!](https://www.reactjs.org).`,
-    randomDateBetween(startOfThisYear, now),
-  ],
-  [
-    'A note with a very long title because sometimes you need more words',
-    `You can write all kinds of [amazing](https://en.wikipedia.org/wiki/The_Amazing)
-notes in this app! These note live on the server in the \`notes\` folder.
-
-![This app is powered by React](https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/React_Native_Logo.png/800px-React_Native_Logo.png)`,
-    randomDateBetween(startOfThisYear, now),
-  ],
-  ['I wrote this note today', 'It was an excellent note.', now],
+    // ["title1", "body1", now, "videoId1", "logo.png"],
+    // ["title2", "body2", now, "videoId2", "logo.png"],
+    // ["title3", "body3", now, "videoId3", "logo.png"],
+    // ["title4", "body4", now, "videoId4", "logo.png"],
 ];
+
+const dropTableStatementUser = 'DROP TABLE IF EXISTS users;';
+const createTableStatementUser = `CREATE TABLE users (
+  user_id TEXT PRIMARY KEY,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  token TEXT,
+  memo TEXT
+);`;
+
+const dropTableStatementBookmark = 'DROP TABLE IF EXISTS bookmarks;';
+const createTableStatementBookmark = `CREATE TABLE bookmarks (
+  bookmark_id SERIAL PRIMARY KEY,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
+  user_id TEXT,
+  video_id TEXT
+);`;
 
 async function seed() {
   await pool.query(dropTableStatement);
   await pool.query(createTableStatement);
+  await pool.query(dropTableStatementUser);
+  await pool.query(createTableStatementUser);
+  await pool.query(dropTableStatementBookmark);
+  await pool.query(createTableStatementBookmark);
   const res = await Promise.all(
     seedData.map((row) => pool.query(insertNoteStatement, row))
   );
