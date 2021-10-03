@@ -10,10 +10,10 @@ export const youtube_api_keys = [
 https://console.firebase.google.com/
 */
 export const firebase_config = {
-    apiKey: "AIzaSyCdxET3c7jcdHd8YrUy1iN0VZumrvhWEws",
-    projectId: "vteacher-studywithme",
-    authDomain: "vteacher-studywithme.firebaseapp.com",
-    databaseURL: "https://vteacher-studywithme.firebaseio.com",
+    apiKey: "",
+    projectId: "",
+    authDomain: "",
+    databaseURL: "",
 };
 
 export const language_resources = {
