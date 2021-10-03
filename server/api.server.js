@@ -379,7 +379,7 @@ app.get(
     })
 );
 
-cron.schedule('* * * * *', () => {
+cron.schedule('*/5 * * * *', () => {
     getYouTubeData();
     clearYouTubeData();
 });
