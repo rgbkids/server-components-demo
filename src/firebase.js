@@ -1,3 +1,5 @@
+//@ts-check
+
 import firebase from 'firebase';
 
 export const useSignIn = () => {

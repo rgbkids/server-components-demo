@@ -1,3 +1,5 @@
+//@ts-check
+
 import {useRefresh} from "./Cache.client";
 import {createFromReadableStream} from "react-server-dom-webpack";
 import {useState, useRef, useEffect, useTransition} from 'react';

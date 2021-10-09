@@ -1,3 +1,5 @@
+//@ts-check
+
 export const t = (id, lang) => {
     const language_resources = require(__dirname + '/../settings');
     const resources = language_resources["language_resources"];

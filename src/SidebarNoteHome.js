@@ -1,3 +1,5 @@
+//@ts-check
+
 import ClientSidebarNote from "./SidebarNoteHome.client";
 
 export default function SidebarNoteHome({selectedId, searchText, note, isBookmark, bookmarkId, userId, token, lang}) {

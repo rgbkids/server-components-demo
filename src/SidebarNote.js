@@ -1,3 +1,5 @@
+//@ts-check
+
 import excerpts from 'excerpts';
 import marked from 'marked';
 

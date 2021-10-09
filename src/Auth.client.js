@@ -1,3 +1,5 @@
+//@ts-check
+
 import {useFirebase, useSignIn, useSignOut} from './firebase';
 import {useEffect, useState, useTransition} from "react";
 import {useLocation} from "./LocationContext.client";

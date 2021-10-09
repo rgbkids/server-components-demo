@@ -1,3 +1,5 @@
+//@ts-check
+
 import {db} from "./db.server";
 import NoteClient from "./Note.client";
 import NoteHome from "./NoteHome.client";
