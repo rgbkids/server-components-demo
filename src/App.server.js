@@ -1,3 +1,5 @@
+//@ts-check
+
 import {Suspense} from 'react';
 
 import Note from './Note.server';

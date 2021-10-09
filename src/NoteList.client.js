@@ -1,3 +1,5 @@
+//@ts-check
+
 import SidebarNote from './SidebarNote';
 
 export default function NoteList({selectedId, searchText, notes, bookmarks, userId, token, lang}) {

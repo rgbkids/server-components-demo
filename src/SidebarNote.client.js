@@ -1,3 +1,5 @@
+//@ts-check
+
 import {useState, useRef, useEffect, useTransition} from 'react';
 import {useLocation} from './LocationContext.client';
 import {createFromReadableStream} from 'react-server-dom-webpack';

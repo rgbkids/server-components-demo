@@ -1,3 +1,5 @@
+//@ts-check
+
 import {useTransition} from 'react';
 import {useLocation} from "./LocationContext.client";
 

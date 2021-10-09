@@ -1,3 +1,5 @@
+//@ts-check
+
 import SidebarNoteHome from "./SidebarNoteHome";
 
 export default function NoteHome({selectedId, searchText, notes, bookmarks, userId, token, lang}) {
